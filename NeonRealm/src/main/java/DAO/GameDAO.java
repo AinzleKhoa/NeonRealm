@@ -19,28 +19,63 @@ import model.Game;
 public class GameDAO extends DBContext {
 
     // Retrieve all games
+    public static void main(String[] a) {
+        GameDAO gDAO = new GameDAO();
+        ArrayList<Game> gs = gDAO.getList();
+        for (Game g : gs) {
+            System.out.println(g.getTitle());
+        }
+    }
+
     public ArrayList<Game> getList() {
         ArrayList<Game> games = new ArrayList<>();
-        String query = "";
+        String query = "select game_id, title, description,image_url,price,release_date,created_at,category_id,platform_id from games";
 
         try ( ResultSet rs = execSelectQuery(query)) {
             while (rs.next()) {
                 games.add(new Game(
-                        rs.getInt("gameId"),
+                        rs.getInt("game_id"),
                         rs.getString("title"),
                         rs.getString("description"),
-                        rs.getString("imageUrl"),
+                        rs.getString("image_url"),
                         rs.getDouble("price"),
-                        rs.getDate("releaseDate").toLocalDate(),
-                        rs.getDate("createAt").toLocalDate(),
-                        rs.getInt("categoryId"),
-                        rs.getInt("platformId")
+                        rs.getDate("release_date").toLocalDate(),
+                        rs.getDate("created_at").toLocalDate(),
+                        rs.getInt("category_id"),
+                        rs.getInt("platform_id")
                 ));
             }
         } catch (SQLException ex) {
             Logger.getLogger(GameDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Err");
         }
 
         return games;
     }
+
+    public Game getOneById(int id) {
+        String query = "SELECT game_id, title, description, image_url, price, release_date, create_at, category_id, platform_id FROM games WHERE game_id = ?";
+        Object[] params = {id};
+
+        try ( ResultSet rs = execSelectQuery(query, params)) {
+            if (rs.next()) {
+                return new Game(
+                        rs.getInt("game_id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("image_url"),
+                        rs.getDouble("price"),
+                        rs.getDate("release_date").toLocalDate(),
+                        rs.getDate("create_at").toLocalDate(),
+                        rs.getInt("category_id"),
+                        rs.getInt("platform_id")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Err");
+        }
+
+        return null;
+    }
+
 }
