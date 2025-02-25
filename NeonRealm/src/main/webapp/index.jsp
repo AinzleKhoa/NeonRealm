@@ -21,7 +21,7 @@
         <meta name="description" content="Digital marketplace HTML Template by Dmitry Volkov">
         <meta name="keywords" content="">
         <meta name="author" content="Dmitry Volkov">
-        <title>NeonRealm</title>
+        <title>ThienNHNCE180035 Xin Chao Moi Nguoi Tren Trai Dat</title>
 
     </head>
     <%@include file="/WEB-INF/include/header2.jsp" %>
