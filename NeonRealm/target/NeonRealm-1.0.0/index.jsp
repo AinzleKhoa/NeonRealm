@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/jquery.mCustomScrollbar.min.css">
         <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/paymentfont.min.css">
         <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/main.css">
-
+        
         <!-- Favicons -->
         <link rel="icon" type="image/png" href="<%= getServletContext().getContextPath()%>/assets/icon/favicon-32x32.png" sizes="32x32">
         <link rel="apple-touch-icon" href="<%= getServletContext().getContextPath()%>/assets/icon/favicon-32x32.png">
@@ -21,7 +21,7 @@
         <meta name="description" content="Digital marketplace HTML Template by Dmitry Volkov">
         <meta name="keywords" content="">
         <meta name="author" content="Dmitry Volkov">
-        <title>NeonRealm</title>
+        <title>NeonRealm Khoa</title>
 
     </head>
     <%@include file="/WEB-INF/include/header2.jsp" %>
