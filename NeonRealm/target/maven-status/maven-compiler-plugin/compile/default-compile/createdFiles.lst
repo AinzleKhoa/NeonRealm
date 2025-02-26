@@ -1,0 +1,4 @@
+gameshop\controller\GameServlet.class
+gameshop\db\DBContext.class
+gameshop\DAO\GameDAO.class
+gameshop\model\Game.class
