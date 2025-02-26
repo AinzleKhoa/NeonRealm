@@ -1,4 +1,4 @@
-gameshop\controller\GameServlet.class
+gameshop\controller\HomeServlet.class
 gameshop\db\DBContext.class
-gameshop\DAO\GameDAO.class
+gameshop\DAO\HomeDAO.class
 gameshop\model\Game.class

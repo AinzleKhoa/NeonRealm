@@ -249,13 +249,14 @@
 
         <!-- catalog -->
         <div class="row catalog-page">
+
+            <!-- card -->
             <% // Retrieve Data 
                 ArrayList<Game> games = (ArrayList) request.getAttribute("games");
 
                 if (games != null && !games.isEmpty()) {
                     for (Game g : games) {
             %>
-            <!-- card -->
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card card--catalog">
                     <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp?id=<%= g.getGameId()%>" class="card__cover">
