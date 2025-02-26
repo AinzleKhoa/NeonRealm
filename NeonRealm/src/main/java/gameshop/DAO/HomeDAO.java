@@ -32,7 +32,7 @@ public class HomeDAO extends DBContext {
                         rs.getString("image_url"),
                         rs.getDouble("price"),
                         rs.getDate("release_date").toLocalDate(),
-                        rs.getDate("create_at").toLocalDate(),
+                        rs.getDate("created_at").toLocalDate(),
                         rs.getInt("category_id"),
                         rs.getInt("platform_id")
                 ));
