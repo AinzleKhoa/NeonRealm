@@ -33,16 +33,14 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            HomeDAO gDAO = new HomeDAO();
-            ArrayList<Game> list = gDAO.getList();
-            request.setAttribute("games", list);
-        } catch (Exception e) {
-            request.setAttribute("games", new ArrayList<Game>()); // Safe fallback
-            request.setAttribute("error", "Failed to load game data.");
-        }
 
-        request.getRequestDispatcher("/home.jsp").forward(request, response);
+        HomeDAO hDAO = new HomeDAO();
+        ArrayList<Game> gameList = hDAO.getList();
+
+        request.setAttribute("games", gameList);
+
+        request.getRequestDispatcher("/pages/home.jsp")
+                .forward(request, response);
     }
 
     /**

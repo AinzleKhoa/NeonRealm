@@ -4,9 +4,17 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>gameshop.controller.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GameDetailsServlet</servlet-name>
+        <servlet-class>gameshop.controller.GameDetailsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameDetailsServlet</servlet-name>
+        <url-pattern>/gamedetails</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,12 +5,14 @@
 package gameshop.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
  * @author Le Anh Khoa - CE190449
  */
 public class Game {
+
     private int gameId;
     private String title;
     private String description;
@@ -18,12 +20,13 @@ public class Game {
     private double price;
     private LocalDate releaseDate;
     private LocalDate createdAt;
-    private int categoryId;
-    private int platformId;
-    
-    public Game() {}
+    private List<Integer> categoryIds; // Store multiple category IDs
+    private List<Integer> platformIds; // Store multiple category IDs
 
-    public Game(int gameId, String title, String description, String imageUrl, double price, LocalDate releaseDate, LocalDate createdAt, int categoryId, int platformId) {
+    public Game() {
+    }
+
+    public Game(int gameId, String title, String description, String imageUrl, double price, LocalDate releaseDate, LocalDate createdAt, List<Integer> categoryIds, List<Integer> platformIds) {
         this.gameId = gameId;
         this.title = title;
         this.description = description;
@@ -31,8 +34,8 @@ public class Game {
         this.price = price;
         this.releaseDate = releaseDate;
         this.createdAt = createdAt;
-        this.categoryId = categoryId;
-        this.platformId = platformId;
+        this.categoryIds = categoryIds;
+        this.platformIds = platformIds;
     }
 
     public int getGameId() {
@@ -91,21 +94,20 @@ public class Game {
         this.createdAt = createdAt;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public List<Integer> getCategoryIds() {
+        return categoryIds;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryIds(List<Integer> categoryIds) {
+        this.categoryIds = categoryIds;
     }
 
-    public int getPlatformId() {
-        return platformId;
+    public List<Integer> getPlatformIds() {
+        return platformIds;
     }
 
-    public void setPlatformId(int platformId) {
-        this.platformId = platformId;
+    public void setPlatformIds(List<Integer> platformIds) {
+        this.platformIds = platformIds;
     }
-    
-    
+
 }
