@@ -4,6 +4,7 @@
  */
 package gameshop.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,16 +18,19 @@ public class Game {
     private String title;
     private String description;
     private String imageUrl;
-    private double price;
+    private BigDecimal price;
     private LocalDate releaseDate;
     private LocalDate createdAt;
-    private List<Integer> categoryIds; // Store multiple category IDs
-    private List<Integer> platformIds; // Store multiple category IDs
+    private List<String> developers;
+    private List<String> publishers;
+    private List<String> genres;
+    private List<String> platforms;
+    private List<String> categories;
 
     public Game() {
     }
 
-    public Game(int gameId, String title, String description, String imageUrl, double price, LocalDate releaseDate, LocalDate createdAt, List<Integer> categoryIds, List<Integer> platformIds) {
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDate releaseDate, LocalDate createdAt, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.description = description;
@@ -34,8 +38,22 @@ public class Game {
         this.price = price;
         this.releaseDate = releaseDate;
         this.createdAt = createdAt;
-        this.categoryIds = categoryIds;
-        this.platformIds = platformIds;
+        this.developers = developers;
+        this.publishers = publishers;
+        this.genres = genres;
+        this.platforms = platforms;
+        this.categories = categories;
+    }
+
+    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> genres, List<String> platforms, List<String> categories) {
+        this.gameId = gameId;
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.releaseDate = releaseDate;
+        this.genres = genres;
+        this.platforms = platforms;
+        this.categories = categories;
     }
 
     public int getGameId() {
@@ -70,11 +88,11 @@ public class Game {
         this.imageUrl = imageUrl;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -94,20 +112,44 @@ public class Game {
         this.createdAt = createdAt;
     }
 
-    public List<Integer> getCategoryIds() {
-        return categoryIds;
+    public List<String> getDevelopers() {
+        return developers;
     }
 
-    public void setCategoryIds(List<Integer> categoryIds) {
-        this.categoryIds = categoryIds;
+    public void setDevelopers(List<String> developers) {
+        this.developers = developers;
     }
 
-    public List<Integer> getPlatformIds() {
-        return platformIds;
+    public List<String> getPublishers() {
+        return publishers;
     }
 
-    public void setPlatformIds(List<Integer> platformIds) {
-        this.platformIds = platformIds;
+    public void setPublishers(List<String> publishers) {
+        this.publishers = publishers;
+    }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public List<String> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<String> platforms) {
+        this.platforms = platforms;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
 }

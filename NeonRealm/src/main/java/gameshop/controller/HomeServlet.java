@@ -35,9 +35,13 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HomeDAO hDAO = new HomeDAO();
+        
+        ArrayList<Game> gameListByCategory = hDAO.getListByCategory();
+        request.setAttribute("gamesByCategory", gameListByCategory);
+/* 
         ArrayList<Game> gameList = hDAO.getList();
-
         request.setAttribute("games", gameList);
+*/
 
         request.getRequestDispatcher("/pages/home.jsp")
                 .forward(request, response);
