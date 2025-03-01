@@ -812,7 +812,7 @@ body::-webkit-scrollbar-thumb {
   padding-bottom: 60px;
 }
 .section--first {
-  padding-top: 200px;
+  padding-top: 40px;
 }
 .section--bg {
   overflow: hidden;
@@ -1110,7 +1110,7 @@ body::-webkit-scrollbar-thumb {
     padding-bottom: 70px;
   }
   .section--first {
-    padding-top: 210px;
+    padding-top: 50px;
   }
   .section--catalog {
     padding-top: 50px;
@@ -1139,7 +1139,7 @@ body::-webkit-scrollbar-thumb {
     padding-bottom: 80px;
   }
   .section--first {
-    padding-top: 220px;
+    padding-top: 50px;
   }
   .section--catalog {
     padding-top: 50px;
@@ -1200,7 +1200,7 @@ body::-webkit-scrollbar-thumb {
     padding-bottom: 90px;
   }
   .section--first {
-    padding-top: 230px;
+    padding-top: 40px;
   }
   .section--catalog {
     padding-top: 50px;
