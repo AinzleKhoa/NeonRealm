@@ -8,6 +8,10 @@
         <servlet-name>GameDetailsServlet</servlet-name>
         <servlet-class>gameshop.controller.GameDetailsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CatalogServlet</servlet-name>
+        <servlet-class>gameshop.controller.CatalogServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>GameDetailsServlet</servlet-name>
         <url-pattern>/gamedetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatalogServlet</servlet-name>
+        <url-pattern>/catalog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

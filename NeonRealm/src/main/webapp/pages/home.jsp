@@ -77,7 +77,7 @@
     </div>
     <!-- carousel -->
     <div class="owl-carousel section__carousel section__carousel--big" id="carousel0">
-        <% ArrayList<Game> gamesByCategory = (ArrayList) request.getAttribute("gamesByCategory"); %>
+        <% ArrayList<Game> gamesByCategory = (ArrayList) request.getAttribute("gamesByCategory"); %> <%-- only once, used for all --%>
         
         <%    if (gamesByCategory != null && !gamesByCategory.isEmpty()) {
                 for (Game g : gamesByCategory) {
@@ -85,7 +85,7 @@
         %>
         <!-- big card -->
         <div class="card card--big">
-            <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp" class="card__cover">
+            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= g.getGameId() %>" class="card__cover">
                 <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
             </a>
 
@@ -96,7 +96,7 @@
 
                 <ul class="card__list">
                     <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                    <li><span>Genres:</span><%= g.getGenres()%></li>
+                    <li><span>Genres:</span><%= g.getFormattedGenres()%></li>
                 </ul>
 
                 <ul class="card__platforms">
@@ -148,7 +148,7 @@
                     <% }%>
                 </ul>
                 <div class="card__price">
-                    <span><%= g.getPrice()%></span>
+                    <span>$<%= g.getPrice()%></span>
                 </div>
                 <div class="card__actions">
                     <button class="card__buy" type="button">Buy now</button>
@@ -200,7 +200,7 @@
         %>
         <!-- big card -->
         <div class="card card--big">
-            <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp" class="card__cover">
+            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= g.getGameId() %>" class="card__cover">
                 <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
             </a>
 
@@ -211,7 +211,7 @@
 
                 <ul class="card__list">
                     <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                    <li><span>Genres:</span><%= g.getGenres()%></li>
+                    <li><span>Genres:</span><%= g.getFormattedGenres() %></li>
                 </ul>
 
                 <ul class="card__platforms">
@@ -263,7 +263,7 @@
                     <% }%>
                 </ul>
                 <div class="card__price">
-                    <span><%= g.getPrice()%></span>
+                    <span>$<%= g.getPrice()%></span>
                 </div>
                 <div class="card__actions">
                     <button class="card__buy" type="button">Buy now</button>
@@ -316,7 +316,7 @@
         %>
         <!-- big card -->
         <div class="card card--big">
-            <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp" class="card__cover">
+            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= g.getGameId() %>" class="card__cover">
                 <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
             </a>
 
@@ -327,7 +327,7 @@
 
                 <ul class="card__list">
                     <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                    <li><span>Genres:</span><%= g.getGenres()%></li>
+                    <li><span>Genres:</span><%= g.getFormattedGenres()%></li>
                 </ul>
 
                 <ul class="card__platforms">
@@ -379,7 +379,7 @@
                     <% }%>
                 </ul>
                 <div class="card__price">
-                    <span><%= g.getPrice()%></span>
+                    <span>$<%= g.getPrice()%></span>
                 </div>
                 <div class="card__actions">
                     <button class="card__buy" type="button">Buy now</button>
@@ -431,7 +431,7 @@
         %>
         <!-- big card -->
         <div class="card card--big">
-            <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp" class="card__cover">
+            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= g.getGameId() %>" class="card__cover">
                 <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
             </a>
 
@@ -442,7 +442,7 @@
 
                 <ul class="card__list">
                     <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                    <li><span>Genres:</span><%= g.getGenres()%></li>
+                    <li><span>Genres:</span><%= g.getFormattedGenres()%></li>
                 </ul>
 
                 <ul class="card__platforms">
@@ -494,7 +494,7 @@
                     <% }%>
                 </ul>
                 <div class="card__price">
-                    <span><%= g.getPrice()%></span>
+                    <span>$<%= g.getPrice()%></span>
                 </div>
                 <div class="card__actions">
                     <button class="card__buy" type="button">Buy now</button>
@@ -546,7 +546,7 @@
         %>
         <!-- big card -->
         <div class="card card--big">
-            <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp" class="card__cover">
+            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= g.getGameId() %>" class="card__cover">
                 <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
             </a>
 
@@ -557,7 +557,7 @@
 
                 <ul class="card__list">
                     <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                    <li><span>Genres:</span><%= g.getGenres()%></li>
+                    <li><span>Genres:</span><%= g.getFormattedGenres()%></li>
                 </ul>
 
                 <ul class="card__platforms">
@@ -609,7 +609,7 @@
                     <% }%>
                 </ul>
                 <div class="card__price">
-                    <span><%= g.getPrice()%></span>
+                    <span>$<%= g.getPrice()%></span>
                 </div>
                 <div class="card__actions">
                     <button class="card__buy" type="button">Buy now</button>
@@ -661,7 +661,7 @@
         %>
         <!-- big card -->
         <div class="card card--big">
-            <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp" class="card__cover">
+            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= g.getGameId() %>" class="card__cover">
                 <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
             </a>
 
@@ -672,7 +672,7 @@
 
                 <ul class="card__list">
                     <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                    <li><span>Genres:</span><%= g.getGenres()%></li>
+                    <li><span>Genres:</span><%= g.getFormattedGenres()%></li>
                 </ul>
 
                 <ul class="card__platforms">
@@ -724,7 +724,7 @@
                     <% }%>
                 </ul>
                 <div class="card__price">
-                    <span><%= g.getPrice()%></span>
+                    <span>$<%= g.getPrice()%></span>
                 </div>
                 <div class="card__actions">
                     <button class="card__buy" type="button">Buy now</button>
@@ -776,7 +776,7 @@
         %>
         <!-- big card -->
         <div class="card card--big">
-            <a href="<%= getServletContext().getContextPath()%>/pages/details.jsp" class="card__cover">
+            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= g.getGameId() %>" class="card__cover">
                 <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
             </a>
 
@@ -787,7 +787,7 @@
 
                 <ul class="card__list">
                     <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                    <li><span>Genres:</span><%= g.getGenres()%></li>
+                    <li><span>Genres:</span><%= g.getFormattedGenres()%></li>
                 </ul>
 
                 <ul class="card__platforms">
@@ -839,7 +839,7 @@
                     <% }%>
                 </ul>
                 <div class="card__price">
-                    <span><%= g.getPrice()%></span>
+                    <span>$<%= g.getPrice()%></span>
                 </div>
                 <div class="card__actions">
                     <button class="card__buy" type="button">Buy now</button>

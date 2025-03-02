@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,24 +32,30 @@ public class GameDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        try {
-//            int id = Integer.parseInt(request.getParameter("game_id"));
-//
-//            GameDetailsDAO gdDAO = new GameDetailsDAO();
-//            Game game = gdDAO.getGameById(id);
-//
-//            if (game == null) {
-//                response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
-//                return;
-//            }
-//
-//            request.setAttribute("gamedetails", game);
-//            request.getRequestDispatcher("/pages/game-details.jsp").
-//                    forward(request, response);
-//        } catch (NumberFormatException | IOException | ServletException e) {
-//            response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
-//        }
 
+        int id = Integer.parseInt(request.getParameter("id"));
+        GameDetailsDAO gdDAO = new GameDetailsDAO();
+        Game game = gdDAO.getGameById(id);
+
+        if (game == null) {
+            response.sendRedirect("/pages/404.jsp");
+            return;
+        }
+
+        request.setAttribute("singleGameDetails", game);
+
+        // For game List
+        ArrayList<Game> gameDetailsRecommendList = gdDAO.getListByCategory();
+
+        if (gameDetailsRecommendList.isEmpty() || gameDetailsRecommendList == null) {
+            response.sendRedirect("/pages/404.jsp");
+            return;
+        }
+
+        request.setAttribute("gameDetailsRecommendList", gameDetailsRecommendList);
+
+        request.getRequestDispatcher("/pages/game-details.jsp")
+                .forward(request, response);
     }
 
     /**

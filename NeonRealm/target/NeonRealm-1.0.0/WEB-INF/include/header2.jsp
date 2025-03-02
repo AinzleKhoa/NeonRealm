@@ -18,16 +18,16 @@
                                     <span></span>
                                 </button>
 
-                                <a href="<%= getServletContext().getContextPath()%>/index.jsp" class="header__logo">
+                                <a href="<%= getServletContext().getContextPath() %>/home" class="header__logo">
                                     <img src="<%= getServletContext().getContextPath()%>/assets/img/logo.png" alt="">
                                 </a>
 
                                 <ul class="header__nav">
                                     <li class="header__nav-item">
-                                        <a class="header__nav-link" href="<%= getServletContext().getContextPath()%>/index.jsp">Home</a>
+                                        <a class="header__nav-link" href="<%= getServletContext().getContextPath() %>/home">Home</a>
                                     </li>								
                                     <li class="header__nav-item">
-                                        <a class="header__nav-link" href="<%= getServletContext().getContextPath() %>/pages/catalog.jsp">Catalog</a>
+                                        <a class="header__nav-link" href="<%= getServletContext().getContextPath() %>/catalog">Catalog</a>
                                     </li>
                                     <li class="header__nav-item">
                                         <a class="header__nav-link" href="<%= getServletContext().getContextPath() %>/pages/faq.jsp">Help Center</a>

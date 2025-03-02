@@ -30,6 +30,7 @@ public class Game {
     public Game() {
     }
 
+    // Retrieve all
     public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDate releaseDate, LocalDate createdAt, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
@@ -45,12 +46,28 @@ public class Game {
         this.categories = categories;
     }
 
+    // Retrieve game for home
     public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.imageUrl = imageUrl;
         this.price = price;
         this.releaseDate = releaseDate;
+        this.genres = genres;
+        this.platforms = platforms;
+        this.categories = categories;
+    }
+
+    // Retrieve game for game details
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
+        this.gameId = gameId;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.releaseDate = releaseDate;
+        this.developers = developers;
+        this.publishers = publishers;
         this.genres = genres;
         this.platforms = platforms;
         this.categories = categories;
@@ -150,6 +167,26 @@ public class Game {
 
     public void setCategories(List<String> categories) {
         this.categories = categories;
+    }
+
+    public String getFormattedDevelopers() {
+        return String.join(", ", developers);
+    }
+
+    public String getFormattedPublishers() {
+        return String.join(", ", publishers);
+    }
+
+    public String getFormattedGenres() {
+        return String.join(", ", genres);
+    }
+
+    public String getFormattedPlatforms() {
+        return String.join(", ", platforms);
+    }
+
+    public String getFormattedCategories() {
+        return String.join(", ", categories);
     }
 
 }

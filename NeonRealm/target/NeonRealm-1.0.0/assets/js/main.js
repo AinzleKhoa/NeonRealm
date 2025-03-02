@@ -119,20 +119,29 @@ $(document).ready(function () {
     $(".owl-carousel").each(function (index, element) {
         var carouselId = "#" + $(this).attr("id"); // Get the unique ID
         $(carouselId).owlCarousel({
-            items: 2,
-            loop: true,
-            margin: 30,
-            nav: true,
+            mouseDrag: true,
+            touchDrag: true,
             dots: false,
-            autoplay: true, // ✅ Enable autoplay
-            autoplayTimeout: 4000, // ✅ Slide duration (4 seconds)
-            autoplayHoverPause: true, // ✅ Pause on hover
+            loop: true,
+            autoplay: false,
+            autoHeight: true,
+            autoWidth: true,
+            margin: 20,
+            autoplayTimeout: 4000, // Slide duration (4 seconds)
+            autoplayHoverPause: true, // Pause on hover
             smartSpeed: 700,
             responsive: {
-                0: {items: 1},
-                576: {items: 2},
-                768: {items: 2},
-                1200: {items: 2, mouseDrag: true, touchDrag: true}
+                0: {items: 2},
+                576: {items: 3},
+                768: {items: 1,
+                    margin: 30,
+                    autoWidth: false
+                },
+                1200: {items: 2,
+                    margin: 30,
+                    autoWidth: false,
+                    mouseDrag: true,
+                    touchDrag: true}
             }
         });
     });
