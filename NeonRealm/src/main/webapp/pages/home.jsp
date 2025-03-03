@@ -78,7 +78,9 @@
     <!-- carousel -->
     <div class="owl-carousel owl-carousel-home section__carousel section__carousel--big" id="carousel0">
         <% ArrayList<Game> gamesByCategory = (ArrayList) request.getAttribute("gamesByCategory"); %> <%-- only once, used for all --%>
-        
+        <% String[] categoryNames = {"Best Sellers", "New & Trending", "Pre-Orders"};
+            for (int i = 0; i < 7; i++) {
+        %>
         <%    if (gamesByCategory != null && !gamesByCategory.isEmpty()) {
                 for (Game g : gamesByCategory) {
                     if (g.getCategories().contains("Best Sellers")) {

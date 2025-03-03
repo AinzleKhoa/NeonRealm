@@ -8,14 +8,26 @@ GO
 
 -- Create Users Table
 CREATE TABLE Users (
-    user_id INT IDENTITY(1,1) PRIMARY KEY,
-    username NVARCHAR(255) UNIQUE NOT NULL,
-    email NVARCHAR(255) UNIQUE NOT NULL,
-    password_hash NVARCHAR(255) NOT NULL,
-    full_name NVARCHAR(255),
-    phone NVARCHAR(20),
-    google_auth_id NVARCHAR(255) NULL,
-    created_at DATETIME DEFAULT GETDATE()
+    user_id INT IDENTITY(1,1) PRIMARY KEY,                -- Auto-incrementing User ID
+    username NVARCHAR(255) UNIQUE NOT NULL,              -- Unique Username
+    email NVARCHAR(255) UNIQUE NOT NULL,                 -- Unique Email
+    password_hash NVARCHAR(255) NOT NULL,                -- Secure Password (hashed)
+    full_name NVARCHAR(255),                             -- Optional Full Name
+    phone NVARCHAR(20) UNIQUE NULL,                      -- Unique Phone Number (Optional)
+    google_auth_id NVARCHAR(255) NULL,                   -- Google Authentication ID (OAuth)
+    -- Role-based Access Control
+    role NVARCHAR(50) DEFAULT 'user' CHECK (role IN ('user', 'admin', 'moderator')), 
+    -- Account Status
+    status NVARCHAR(50) DEFAULT 'active' CHECK (status IN ('active', 'banned', 'suspended', 'pending_verification')), 
+    is_verified BIT DEFAULT 0,                           -- Email Verification (0 = Unverified, 1 = Verified)
+    -- Security Features
+    reset_token NVARCHAR(255) NULL,                      -- Password Reset Token
+    reset_token_expiry DATETIME NULL,                    -- Password Reset Expiry
+    -- Activity Tracking
+    last_login DATETIME NULL,                            -- Last Login Timestamp
+    last_activity DATETIME NULL,                         -- Last Activity Timestamp
+    -- Timestamp
+    created_at DATETIME DEFAULT GETDATE()                -- Account Creation Timestamp
 );
 GO
 
