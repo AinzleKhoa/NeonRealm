@@ -37,7 +37,7 @@
                         <h1>NeonRealm</h1>
                         <strong>Next-Gen Gaming & Digital Store</strong>
                         <span>Dive into the ultimate gaming experience with exclusive deals, cutting-edge tech, and neon-inspired aesthetics. Whether you're a casual gamer or a hardcore enthusiast, NeonRealm is your gateway to the future of gaming.</span>
-                        <a href="<%= getServletContext().getContextPath() %>/catalog"">Browse Now</a>
+                        <a href="#">Browse Now</a>
                     </div>
                 </div>
                 <div class="col-md-7 padding_right1">
@@ -78,9 +78,7 @@
     <!-- carousel -->
     <div class="owl-carousel owl-carousel-home section__carousel section__carousel--big" id="carousel0">
         <% ArrayList<Game> gamesByCategory = (ArrayList) request.getAttribute("gamesByCategory"); %> <%-- only once, used for all --%>
-        <% String[] categoryNames = {"Best Sellers", "New & Trending", "Pre-Orders"};
-            for (int i = 0; i < 7; i++) {
-        %>
+        
         <%    if (gamesByCategory != null && !gamesByCategory.isEmpty()) {
                 for (Game g : gamesByCategory) {
                     if (g.getCategories().contains("Best Sellers")) {
@@ -156,7 +154,7 @@
                     <button class="card__buy" type="button">Buy now</button>
 
                     <button class="card__favorite" type="button">
-                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                     </button>
                 </div>
             </div>
@@ -180,11 +178,11 @@
                     <h2 class="section__title section__title--title"><b>New & Trending</b></h2>
 
                     <div class="section__nav-wrap">
-                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel1">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='328 112 184 256 328 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
 
-                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel1">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='184 112 328 256 184 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
                     </div>
@@ -271,7 +269,7 @@
                     <button class="card__buy" type="button">Buy now</button>
 
                     <button class="card__favorite" type="button">
-                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                     </button>
                 </div>
             </div>
@@ -296,11 +294,11 @@
                     <h2 class="section__title section__title--title"><b>Pre-Orders</b></h2>
 
                     <div class="section__nav-wrap">
-                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel2">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='328 112 184 256 328 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
 
-                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel2">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='184 112 328 256 184 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
                     </div>
@@ -387,7 +385,7 @@
                     <button class="card__buy" type="button">Buy now</button>
 
                     <button class="card__favorite" type="button">
-                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                     </button>
                 </div>
             </div>
@@ -411,11 +409,11 @@
                     <h2 class="section__title section__title--title"><b>Top Rated</b></h2>
 
                     <div class="section__nav-wrap">
-                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel3">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='328 112 184 256 328 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
 
-                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel3">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='184 112 328 256 184 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
                     </div>
@@ -502,7 +500,7 @@
                     <button class="card__buy" type="button">Buy now</button>
 
                     <button class="card__favorite" type="button">
-                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                     </button>
                 </div>
             </div>
@@ -526,11 +524,11 @@
                     <h2 class="section__title section__title--title"><b>Cozy & Casual</b></h2>
 
                     <div class="section__nav-wrap">
-                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel4">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='328 112 184 256 328 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
 
-                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel4">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='184 112 328 256 184 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
                     </div>
@@ -617,7 +615,7 @@
                     <button class="card__buy" type="button">Buy now</button>
 
                     <button class="card__favorite" type="button">
-                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                     </button>
                 </div>
             </div>
@@ -641,11 +639,11 @@
                     <h2 class="section__title section__title--title"><b>Multiplayer & Online</b> of this month</h2>
 
                     <div class="section__nav-wrap">
-                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel5">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='328 112 184 256 328 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
 
-                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel5">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='184 112 328 256 184 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
                     </div>
@@ -732,7 +730,7 @@
                     <button class="card__buy" type="button">Buy now</button>
 
                     <button class="card__favorite" type="button">
-                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                     </button>
                 </div>
             </div>
@@ -756,11 +754,11 @@
                     <h2 class="section__title section__title--title"><b>Single-Player Favorites</b></h2>
 
                     <div class="section__nav-wrap">
-                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--prev" type="button" data-nav="#carousel6">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='328 112 184 256 328 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
 
-                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel0">
+                        <button class="section__nav section__nav--bg section__nav--next" type="button" data-nav="#carousel6">
                             <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='184 112 328 256 184 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/></svg>
                         </button>
                     </div>
@@ -847,7 +845,7 @@
                     <button class="card__buy" type="button">Buy now</button>
 
                     <button class="card__favorite" type="button">
-                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                     </button>
                 </div>
             </div>

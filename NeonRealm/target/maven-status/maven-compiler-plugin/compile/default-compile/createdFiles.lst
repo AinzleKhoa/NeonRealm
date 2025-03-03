@@ -1,6 +1,8 @@
-gameshop\controller\HomeServlet.class
 gameshop\controller\GameDetailsServlet.class
+gameshop\DAO\CatalogDAO.class
 gameshop\db\DBContext.class
 gameshop\DAO\GameDetailsDAO.class
 gameshop\DAO\HomeDAO.class
 gameshop\model\Game.class
+gameshop\controller\HomeServlet.class
+gameshop\controller\CatalogServlet.class
