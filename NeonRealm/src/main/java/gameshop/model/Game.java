@@ -4,26 +4,34 @@
  */
 package gameshop.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
  * @author Le Anh Khoa - CE190449
  */
 public class Game {
+
     private int gameId;
     private String title;
     private String description;
     private String imageUrl;
-    private double price;
+    private BigDecimal price;
     private LocalDate releaseDate;
     private LocalDate createdAt;
-    private int categoryId;
-    private int platformId;
-    
-    public Game() {}
+    private List<String> developers;
+    private List<String> publishers;
+    private List<String> genres;
+    private List<String> platforms;
+    private List<String> categories;
 
-    public Game(int gameId, String title, String description, String imageUrl, double price, LocalDate releaseDate, LocalDate createdAt, int categoryId, int platformId) {
+    public Game() {
+    }
+
+    // Retrieve all
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDate releaseDate, LocalDate createdAt, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.description = description;
@@ -31,8 +39,38 @@ public class Game {
         this.price = price;
         this.releaseDate = releaseDate;
         this.createdAt = createdAt;
-        this.categoryId = categoryId;
-        this.platformId = platformId;
+        this.developers = developers;
+        this.publishers = publishers;
+        this.genres = genres;
+        this.platforms = platforms;
+        this.categories = categories;
+    }
+
+    // Retrieve game for home
+    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> genres, List<String> platforms, List<String> categories) {
+        this.gameId = gameId;
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.releaseDate = releaseDate;
+        this.genres = genres;
+        this.platforms = platforms;
+        this.categories = categories;
+    }
+
+    // Retrieve game for game details
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
+        this.gameId = gameId;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.releaseDate = releaseDate;
+        this.developers = developers;
+        this.publishers = publishers;
+        this.genres = genres;
+        this.platforms = platforms;
+        this.categories = categories;
     }
 
     public int getGameId() {
@@ -67,11 +105,11 @@ public class Game {
         this.imageUrl = imageUrl;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -91,21 +129,64 @@ public class Game {
         this.createdAt = createdAt;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public List<String> getDevelopers() {
+        return developers;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setDevelopers(List<String> developers) {
+        this.developers = developers;
     }
 
-    public int getPlatformId() {
-        return platformId;
+    public List<String> getPublishers() {
+        return publishers;
     }
 
-    public void setPlatformId(int platformId) {
-        this.platformId = platformId;
+    public void setPublishers(List<String> publishers) {
+        this.publishers = publishers;
     }
-    
-    
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public List<String> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<String> platforms) {
+        this.platforms = platforms;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public String getFormattedDevelopers() {
+        return String.join(", ", developers);
+    }
+
+    public String getFormattedPublishers() {
+        return String.join(", ", publishers);
+    }
+
+    public String getFormattedGenres() {
+        return String.join(", ", genres);
+    }
+
+    public String getFormattedPlatforms() {
+        return String.join(", ", platforms);
+    }
+
+    public String getFormattedCategories() {
+        return String.join(", ", categories);
+    }
+
 }
