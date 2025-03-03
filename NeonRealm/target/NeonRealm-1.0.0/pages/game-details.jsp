@@ -140,7 +140,7 @@
                                                         <button class="details__buy" type="button">Buy now</button>
 
                                                         <button class="details__favorite" type="button">
-                                                            <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>Add to favorites
+                                                            <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>Add to Carts
                                                         </button>
                                                     </div>
                                                 </div>
@@ -209,7 +209,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- carousel -->
-                                                    <div class="owl-carousel section__carousel section__carousel--big" id="carousel0">
+                                                    <div class="owl-carousel owl-carousel-gamedetails section__carousel section__carousel--big" id="carousel0">
                                                         <% ArrayList<Game> gameDetailsRecommendList = (ArrayList) request.getAttribute("gameDetailsRecommendList"); %> <%-- only once, used for all --%>
                                                         <%    if (gameDetailsRecommendList != null && !gameDetailsRecommendList.isEmpty()) { // Check if not null
 
@@ -264,7 +264,7 @@
                                                                 </ul>
 
                                                                 <ul class="card__platforms">
-                                                                    <% for (String platform : g.getPlatforms()) {
+                                                                    <% for (String platform : gbc.getPlatforms()) {
 
                                                                             String iconPath = "";
                                                                             String iconName = "";
@@ -318,7 +318,7 @@
                                                                     <button class="card__buy" type="button">Buy now</button>
 
                                                                     <button class="card__favorite" type="button">
-                                                                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                                                                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -329,7 +329,6 @@
                                                     </div>
                                                     <!-- end carousel -->
                                                 </section>
-                                                <!-- end best sellers -->
-
+                                                <!-- end card -->
                                                 <%@include file="/WEB-INF/include/footer1.jsp" %>
                                                 <%@include file="/WEB-INF/include/footer2.jsp" %>

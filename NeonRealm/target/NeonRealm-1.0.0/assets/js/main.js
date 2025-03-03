@@ -116,14 +116,43 @@ $(document).ready(function () {
     /*==============================
      Section carousel
      ==============================*/
-    $(".owl-carousel").each(function (index, element) {
+    $(".owl-carousel-home").each(function (index, element) {
         var carouselId = "#" + $(this).attr("id"); // Get the unique ID
         $(carouselId).owlCarousel({
             mouseDrag: true,
             touchDrag: true,
             dots: false,
             loop: true,
-            autoplay: false,
+            autoplay: true,
+            autoHeight: true,
+            autoWidth: true,
+            margin: 20,
+            autoplayTimeout: 4000, // Slide duration (4 seconds)
+            autoplayHoverPause: true, // Pause on hover
+            smartSpeed: 700,
+            responsive: {
+                0: {items: 2},
+                576: {items: 3},
+                768: {items: 1,
+                    margin: 30,
+                    autoWidth: false
+                },
+                1200: {items: 2,
+                    margin: 30,
+                    autoWidth: false,
+                    mouseDrag: true,
+                    touchDrag: true}
+            }
+        });
+    });
+    $(".owl-carousel-gamedetails").each(function (index, element) {
+        var carouselId = "#" + $(this).attr("id"); // Get the unique ID
+        $(carouselId).owlCarousel({
+            mouseDrag: true,
+            touchDrag: true,
+            dots: false,
+            loop: true,
+            autoplay: true,
             autoHeight: true,
             autoWidth: true,
             margin: 20,
@@ -151,7 +180,7 @@ $(document).ready(function () {
         touchDrag: true,
         dots: false,
         loop: true,
-        autoplay: false,
+        autoplay: true,
         smartSpeed: 700,
         margin: 20,
         autoHeight: true,
