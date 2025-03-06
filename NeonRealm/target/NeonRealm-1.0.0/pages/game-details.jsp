@@ -6,18 +6,14 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page import="java.util.Set"%>
-<%@page import="java.util.HashSet"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="gameshop.model.Game"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="break" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="/WEB-INF/include/header1.jsp" %>
 <%@include file="/WEB-INF/include/header2.jsp" %>
 
 
-<c:set var="thisGame" value="${requestScope.gameDetails}"/> <%-- thisGame --%>
+<c:set var="thisGame" value="${requestScope.thisGame}"/> <%-- thisGame --%>
 
 <!-- section -->
 <section class="section section--first section--bg" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg.jpg">
@@ -90,9 +86,9 @@
                                                             <c:set var="iconPath" value=""/>
                                                             <c:set var="iconName" value=""/>
                                                             <c:choose>
-                                                                <c:when test="${platform == 'PC'}">
-                                                                    <c:set var="iconPath" value="pc.svg" />
-                                                                    <c:set var="iconName" value="PC" />
+                                                                <c:when test="${platform == 'Windows'}">
+                                                                    <c:set var="iconPath" value="windows.svg" />
+                                                                    <c:set var="iconName" value="Windows" />
                                                                 </c:when>
                                                                 <c:when test="${platform == 'PlayStation'}">
                                                                     <c:set var="iconPath" value="playstation.svg" />
@@ -208,102 +204,81 @@
                                                     </div>
                                                     <!-- carousel -->
                                                     <div class="owl-carousel owl-carousel-gamedetails section__carousel section__carousel--big" id="carousel0">
-                                                        <c:set var="gameList" value="${requestScope.gameList}"/>
 
-                                                        <%-- Extract game names and genres from the whole list --%>
-                                                        <c:set var="listGenreNames" value=""/> <%-- ArrayList --%>
-                                                        <c:forEach var="game" items="${gameList}">
-                                                            <c:forEach var="genre" items="${fn:split(game.formattedGenres, ', ')}">
-                                                                <c:set var="listGenreNames" value="${listGenreNames},${genre}"/> <%-- Add to arrayList --%>
-                                                            </c:forEach>
-                                                        </c:forEach>
-                                                        
-                                                        <c:set var="matchingGames" value=""/> <%-- ArrayList --%>
-                                                        <c:forEach var="game" items="${gameList}">
-                                                            <c:forEach var="genre" items="${fn:split(game.formattedGenres, ', ')}">
-                                                                
-                                                            </c:forEach>
-                                                        </c:forEach>
-                                                        
-                                                        <!-- big card -->
-                                                        <div class="card card--big">
-                                                            <a href="${pageContext.servletContext.contextPath}/gamedetails?id=<%= gbc.getGameId()%>" class="card__cover">
-                                                                <img src="${pageContext.servletContext.contextPath}/assets/img/cards/<%= gbc.getImageUrl()%>" alt="">
-                                                            </a>
+                                                        <c:forEach var="matchingGame" items="${requestScope.matchingGames}">
+                                                            <!-- big card -->
+                                                            <div class="card card--big">
+                                                                <a href="${pageContext.servletContext.contextPath}/gamedetails?id=${matchingGame.gameId}" class="card__cover">
+                                                                    <img src="${pageContext.servletContext.contextPath}/assets/img/cards/${matchingGame.imageUrl}" alt="">
+                                                                </a>
 
-                                                            <div class="card__wrap">
-                                                                <div class="card__title">
-                                                                    <h3><a href="${pageContext.servletContext.contextPath}/pages/details.jsp"><%= gbc.getTitle()%></a></h3>
-                                                                </div>
+                                                                <div class="card__wrap">
+                                                                    <div class="card__title">
+                                                                        <h3><a href="${pageContext.servletContext.contextPath}/pages/details.jsp">${matchingGame.description}</a></h3>
+                                                                    </div>
 
-                                                                <ul class="card__list">
-                                                                    <li><span>Release date:</span><%= gbc.getReleaseDate()%></li>
-                                                                    <li><span>Genres:</span><%= gbc.getFormattedGenres()%></li>
-                                                                </ul>
+                                                                    <ul class="card__list">
+                                                                        <li><span>Release date:</span>${matchingGame.releaseDate}</li>
+                                                                        <li><span>Genres:</span>${matchingGame.formattedGenres}</li>
+                                                                    </ul>
 
-                                                                <ul class="card__platforms">
-                                                                    <% for (String platform : gbc.getPlatforms()) {
+                                                                    <ul class="card__platforms">
+                                                                        <c:forEach var="platform" items="${matchingGame.platforms}">
+                                                                            <c:set var="iconPath" value=""/>
+                                                                            <c:set var="iconName" value=""/>
+                                                                            <c:choose>
+                                                                                <c:when test="${platform == 'Windows'}">
+                                                                                    <c:set var="iconPath" value="windows.svg" />
+                                                                                    <c:set var="iconName" value="Windows" />
+                                                                                </c:when>
+                                                                                <c:when test="${platform == 'PlayStation'}">
+                                                                                    <c:set var="iconPath" value="playstation.svg" />
+                                                                                    <c:set var="iconName" value="PlayStation" />
+                                                                                </c:when>
+                                                                                <c:when test="${platform == 'Xbox'}">
+                                                                                    <c:set var="iconPath" value="xbox.svg" />
+                                                                                    <c:set var="iconName" value="Xbox" />
+                                                                                </c:when>
+                                                                                <c:when test="${platform == 'Nintendo Switch'}">
+                                                                                    <c:set var="iconPath" value="nintendo.svg" />
+                                                                                    <c:set var="iconName" value="Nintendo Switch" />
+                                                                                </c:when>
+                                                                                <c:when test="${platform == 'Mobile'}">
+                                                                                    <c:set var="iconPath" value="mobile.svg" />
+                                                                                    <c:set var="iconName" value="Mobile" />
+                                                                                </c:when>
+                                                                                <c:when test="${platform == 'VR'}">
+                                                                                    <c:set var="iconPath" value="vr.svg" />
+                                                                                    <c:set var="iconName" value="VR" />
+                                                                                </c:when>
+                                                                                <c:when test="${platform == 'Mac'}">
+                                                                                    <c:set var="iconPath" value="mac.svg" />
+                                                                                    <c:set var="iconName" value="Mac" />
+                                                                                </c:when>
+                                                                                <c:when test="${platform == 'Linux'}">
+                                                                                    <c:set var="iconPath" value="linux.svg" />
+                                                                                    <c:set var="iconName" value="Linux" />
+                                                                                </c:when>
+                                                                            </c:choose>
+                                                                            <li class="ps">
+                                                                                <img src="${pageContext.servletContext.contextPath}/assets/img/platforms/${iconPath}" alt="${iconName}">
+                                                                            </li>
+                                                                        </c:forEach>
+                                                                    </ul>
+                                                                    <div class="card__price">
+                                                                        <span>$ ${matchingGame.price}</span>
+                                                                    </div>
+                                                                    <div class="card__actions">
+                                                                        <button class="card__buy" type="button">Buy now</button>
 
-                                                                            String iconPath = "";
-                                                                            String iconName = "";
-
-                                                                            switch (platform) {
-                                                                                case "PC":
-                                                                                    iconPath = "pc.svg";
-                                                                                    iconName = "PC";
-                                                                                    break;
-                                                                                case "PlayStation":
-                                                                                    iconPath = "playstation.svg";
-                                                                                    iconName = "PlayStation";
-                                                                                    break;
-                                                                                case "Xbox":
-                                                                                    iconPath = "xbox.svg";
-                                                                                    iconName = "Xbox";
-                                                                                    break;
-                                                                                case "Nintendo Switch":
-                                                                                    iconPath = "nintendo.svg";
-                                                                                    iconName = "Nintendo Switch";
-                                                                                    break;
-                                                                                case "Mobile":
-                                                                                    iconPath = "mobile.svg";
-                                                                                    iconName = "Mobile";
-                                                                                    break;
-                                                                                case "VR":
-                                                                                    iconPath = "vr.svg";
-                                                                                    iconName = "VR";
-                                                                                    break;
-                                                                                case "Mac":
-                                                                                    iconPath = "mac.svg";
-                                                                                    iconName = "Mac";
-                                                                                    break;
-                                                                                case "Linux":
-                                                                                    iconPath = "linux.svg";
-                                                                                    iconName = "Linux";
-                                                                                    break;
-                                                                                default:
-                                                                                    break;
-                                                                            }
-                                                                    %>
-                                                                    <li class="ps">
-                                                                        <img src="${pageContext.servletContext.contextPath}/assets/img/platforms/<%= iconPath%>" alt="<%= iconName%>">
-                                                                    </li>
-                                                                    <% }%>
-                                                                </ul>
-                                                                <div class="card__price">
-                                                                    <span>$<%= gbc.getPrice()%></span>
-                                                                </div>
-                                                                <div class="card__actions">
-                                                                    <button class="card__buy" type="button">Buy now</button>
-
-                                                                    <button class="card__favorite" type="button">
-                                                                        <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
-                                                                    </button>
+                                                                        <button class="card__favorite" type="button">
+                                                                            <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <!-- end big card -->
-                                                        <% }
-                                                        }%>
+                                                            <!-- end big card -->
+                                                        </c:forEach>
                                                     </div>
                                                     <!-- end carousel -->
                                                 </section>

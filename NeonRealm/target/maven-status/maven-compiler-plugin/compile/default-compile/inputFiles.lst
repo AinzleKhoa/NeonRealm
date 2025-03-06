@@ -1,8 +1,8 @@
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\GameDetailsDAO.java
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\CatalogDAO.java
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\db\DBContext.java
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\GameDetailsServlet.java
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CatalogServlet.java
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\model\Game.java
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\HomeDAO.java
-D:\Github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\HomeServlet.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\HomeDAO.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\model\Game.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\HomeServlet.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CatalogServlet.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\GameDetailsServlet.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\db\DBContext.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\GameDetailsDAO.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\CatalogDAO.java

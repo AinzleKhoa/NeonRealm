@@ -4,7 +4,7 @@
  */
 package gameshop.controller;
 
-import gameshop.DAO.GameDetailsDAO;
+import gameshop.DAO.GameDAO;
 import gameshop.model.Game;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,25 +35,34 @@ public class GameDetailsServlet extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        GameDetailsDAO gdDAO = new GameDetailsDAO();
-        Game game = gdDAO.getGameById(id);
+        GameDAO gDAO = new GameDAO();
 
-        if (game == null) {
+        // Find that specific game
+        Game thisGame = gDAO.getGameById(id);
+        if (thisGame == null) {
             response.sendRedirect("/pages/404.jsp");
             return;
         }
-
-        request.setAttribute("gameDetails", game);
+        request.setAttribute("thisGame", thisGame);
 
         // For game List
-        ArrayList<Game> gameList = gdDAO.getListByCategory();
-
+        List<Game> gameList = gDAO.getGameList();
         if (gameList == null || gameList.isEmpty()) {
             response.sendRedirect("/pages/404.jsp");
             return;
         }
-
-        request.setAttribute("gameList", gameList);
+        
+        // Matching game (Similar genre) for displaying in the recommend list
+        List<Game> matchingGames = new ArrayList<>();
+        for (Game g : gameList) {
+            for (String genre : g.getFormattedGenres().split(", ")) {
+                if (thisGame.getFormattedGenres().contains(genre)) {
+                    matchingGames.add(g);
+                    break; // Break to not duplicating game
+                }
+            }
+        }
+        request.setAttribute("matchingGames", matchingGames);
 
         request.getRequestDispatcher("/pages/game-details.jsp")
                 .forward(request, response);

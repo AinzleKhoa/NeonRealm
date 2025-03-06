@@ -4,7 +4,7 @@
  */
 package gameshop.controller;
 
-import gameshop.DAO.CatalogDAO;
+import gameshop.DAO.GameDAO;
 import gameshop.model.Game;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,10 +32,11 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CatalogDAO cDAO = new CatalogDAO();
-        ArrayList<Game> gameList = cDAO.getList();
+        
+        GameDAO gDAO = new GameDAO();
+        List<Game> gameList = gDAO.getGameList();
 
-        request.setAttribute("catalogGameList", gameList);
+        request.setAttribute("gameList", gameList);
 
         request.getRequestDispatcher("/pages/catalog.jsp")
                 .forward(request, response);

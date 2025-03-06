@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page import="java.util.ArrayList"%>
-<%@page import="gameshop.model.Game"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -106,9 +104,9 @@
                                     <c:set var="iconPath" value=""/>
                                     <c:set var="iconName" value=""/>
                                     <c:choose>
-                                        <c:when test="${platform == 'PC'}">
-                                            <c:set var="iconPath" value="pc.svg" />
-                                            <c:set var="iconName" value="PC" />
+                                        <c:when test="${platform == 'Windows'}">
+                                            <c:set var="iconPath" value="windows.svg" />
+                                            <c:set var="iconName" value="Windows" />
                                         </c:when>
                                         <c:when test="${platform == 'PlayStation'}">
                                             <c:set var="iconPath" value="playstation.svg" />
@@ -219,9 +217,9 @@
                                     <c:set var="iconPath" value=""/>
                                     <c:set var="iconName" value=""/>
                                     <c:choose>
-                                        <c:when test="${platform == 'PC'}">
-                                            <c:set var="iconPath" value="pc.svg" />
-                                            <c:set var="iconName" value="PC" />
+                                        <c:when test="${platform == 'Windows'}">
+                                            <c:set var="iconPath" value="windows.svg" />
+                                            <c:set var="iconName" value="Windows" />
                                         </c:when>
                                         <c:when test="${platform == 'PlayStation'}">
                                             <c:set var="iconPath" value="playstation.svg" />
@@ -332,9 +330,9 @@
                                     <c:set var="iconPath" value=""/>
                                     <c:set var="iconName" value=""/>
                                     <c:choose>
-                                        <c:when test="${platform == 'PC'}">
-                                            <c:set var="iconPath" value="pc.svg" />
-                                            <c:set var="iconName" value="PC" />
+                                        <c:when test="${platform == 'Windows'}">
+                                            <c:set var="iconPath" value="windows.svg" />
+                                            <c:set var="iconName" value="Windows" />
                                         </c:when>
                                         <c:when test="${platform == 'PlayStation'}">
                                             <c:set var="iconPath" value="playstation.svg" />
@@ -445,9 +443,9 @@
                                     <c:set var="iconPath" value=""/>
                                     <c:set var="iconName" value=""/>
                                     <c:choose>
-                                        <c:when test="${platform == 'PC'}">
-                                            <c:set var="iconPath" value="pc.svg" />
-                                            <c:set var="iconName" value="PC" />
+                                        <c:when test="${platform == 'Windows'}">
+                                            <c:set var="iconPath" value="windows.svg" />
+                                            <c:set var="iconName" value="Windows" />
                                         </c:when>
                                         <c:when test="${platform == 'PlayStation'}">
                                             <c:set var="iconPath" value="playstation.svg" />
@@ -558,9 +556,9 @@
                                     <c:set var="iconPath" value=""/>
                                     <c:set var="iconName" value=""/>
                                     <c:choose>
-                                        <c:when test="${platform == 'PC'}">
-                                            <c:set var="iconPath" value="pc.svg" />
-                                            <c:set var="iconName" value="PC" />
+                                        <c:when test="${platform == 'Windows'}">
+                                            <c:set var="iconPath" value="windows.svg" />
+                                            <c:set var="iconName" value="Windows" />
                                         </c:when>
                                         <c:when test="${platform == 'PlayStation'}">
                                             <c:set var="iconPath" value="playstation.svg" />
@@ -671,9 +669,9 @@
                                     <c:set var="iconPath" value=""/>
                                     <c:set var="iconName" value=""/>
                                     <c:choose>
-                                        <c:when test="${platform == 'PC'}">
-                                            <c:set var="iconPath" value="pc.svg" />
-                                            <c:set var="iconName" value="PC" />
+                                        <c:when test="${platform == 'Windows'}">
+                                            <c:set var="iconPath" value="windows.svg" />
+                                            <c:set var="iconName" value="Windows" />
                                         </c:when>
                                         <c:when test="${platform == 'PlayStation'}">
                                             <c:set var="iconPath" value="playstation.svg" />
@@ -784,9 +782,9 @@
                                     <c:set var="iconPath" value=""/>
                                     <c:set var="iconName" value=""/>
                                     <c:choose>
-                                        <c:when test="${platform == 'PC'}">
-                                            <c:set var="iconPath" value="pc.svg" />
-                                            <c:set var="iconName" value="PC" />
+                                        <c:when test="${platform == 'Windows'}">
+                                            <c:set var="iconPath" value="windows.svg" />
+                                            <c:set var="iconName" value="Windows" />
                                         </c:when>
                                         <c:when test="${platform == 'PlayStation'}">
                                             <c:set var="iconPath" value="playstation.svg" />
