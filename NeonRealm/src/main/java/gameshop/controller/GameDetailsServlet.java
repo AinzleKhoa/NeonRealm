@@ -42,17 +42,17 @@ public class GameDetailsServlet extends HttpServlet {
             return;
         }
 
-        request.setAttribute("singleGameDetails", game);
+        request.setAttribute("gameDetails", game);
 
         // For game List
-        ArrayList<Game> gameDetailsRecommendList = gdDAO.getListByCategory();
+        ArrayList<Game> gameList = gdDAO.getListByCategory();
 
-        if (gameDetailsRecommendList.isEmpty() || gameDetailsRecommendList == null) {
+        if (gameList == null || gameList.isEmpty()) {
             response.sendRedirect("/pages/404.jsp");
             return;
         }
 
-        request.setAttribute("gameDetailsRecommendList", gameDetailsRecommendList);
+        request.setAttribute("gameList", gameList);
 
         request.getRequestDispatcher("/pages/game-details.jsp")
                 .forward(request, response);

@@ -4,6 +4,8 @@
     Author     : Ainzle
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.List"%>
@@ -13,62 +15,63 @@
 
 <%@include file="/WEB-INF/include/header1.jsp" %>
 <%@include file="/WEB-INF/include/header2.jsp" %>
-<%
-    Game g = (Game) request.getAttribute("singleGameDetails");
-%>
+
+
+<c:set var="thisGame" value="${requestScope.gameDetails}"/> <%-- thisGame --%>
+
 <!-- section -->
-<section class="section section--first section--bg" data-bg="<%= getServletContext().getContextPath()%>/assets/img/bg.jpg">
+<section class="section section--first section--bg" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg.jpg">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="details">
                     <div class="details__head">
                         <div class="details__cover">
-                            <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= g.getImageUrl()%>" alt="">
+                            <img src="${pageContext.servletContext.contextPath}/assets/img/cards/${thisGame.imageUrl}" alt="">
                                 <a href="http://www.youtube.com/watch?v=0O2aH4XLbto" class="details__trailer"><svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M112,111V401c0,17.44,17,28.52,31,20.16l247.9-148.37c12.12-7.25,12.12-26.33,0-33.58L143,90.84C129,82.48,112,93.56,112,111Z' style='fill:none;stroke-miterlimit:10;stroke-width:32px'/></svg> <span>Watch trailer</span></a>
                         </div>
 
                         <div class="details__wrap">
-                            <h3 class="details__title"><%= g.getTitle()%></h3>
+                            <h3 class="details__title">${thisGame.title}</h3>
 
                             <ul class="details__list">
-                                <li><span>Release date:</span><%= g.getReleaseDate()%></li>
-                                <li><span>Genres:</span><%= g.getFormattedGenres()%><li>
-                                        <li><span>Categories:</span><%= g.getFormattedCategories()%><li>
-                                                <li><span>Developer:</span><%= g.getFormattedDevelopers()%></li>
-                                                <li><span>Publisher:</span><%= g.getFormattedPublishers()%></li>
+                                <li><span>Release date:</span>${thisGame.releaseDate}</li>
+                                <li><span>Genres:</span>${thisGame.formattedGenres}<li>
+                                        <li><span>Categories:</span>${thisGame.formattedCategories}<li>
+                                                <li><span>Developers:</span>${thisGame.formattedDevelopers}</li>
+                                                <li><span>Publishers:</span>${thisGame.formattedPublishers}</li>
                                                 </ul>
 
                                                 <div class="details__text">
-                                                    <p><%= g.getDescription()%></p>
+                                                    <p>${thisGame.description}</p>
                                                 </div>
                                                 </div>
                                                 </div>
 
                                                 <div class="details__gallery">
                                                     <div class="details__carousel owl-carousel" id="details__carousel">
-                                                        <a href="<%= getServletContext().getContextPath()%>/assets/img/details/1-1.jpg" >
-                                                            <img src="<%= getServletContext().getContextPath()%>/assets/img/details/1.jpg" alt="">
+                                                        <a href="${pageContext.servletContext.contextPath}/assets/img/details/1-1.jpg" >
+                                                            <img src="${pageContext.servletContext.contextPath}/assets/img/details/1.jpg" alt="">
                                                         </a>
 
-                                                        <a href="<%= getServletContext().getContextPath()%>/assets/img/details/2-2.jpg" >
-                                                            <img src="<%= getServletContext().getContextPath()%>/assets/img/details/2.jpg" alt="">
+                                                        <a href="${pageContext.servletContext.contextPath}/assets/img/details/2-2.jpg" >
+                                                            <img src="${pageContext.servletContext.contextPath}/assets/img/details/2.jpg" alt="">
                                                         </a>
 
-                                                        <a href="<%= getServletContext().getContextPath()%>/assets/img/details/3-3.jpg" >
-                                                            <img src="<%= getServletContext().getContextPath()%>/assets/img/details/3.jpg" alt="">
+                                                        <a href="${pageContext.servletContext.contextPath}/assets/img/details/3-3.jpg" >
+                                                            <img src="${pageContext.servletContext.contextPath}/assets/img/details/3.jpg" alt="">
                                                         </a>
 
-                                                        <a href="<%= getServletContext().getContextPath()%>/assets/img/details/4-4.jpg" >
-                                                            <img src="<%= getServletContext().getContextPath()%>/assets/img/details/4.jpg" alt="">
+                                                        <a href="${pageContext.servletContext.contextPath}/assets/img/details/4-4.jpg" >
+                                                            <img src="${pageContext.servletContext.contextPath}/assets/img/details/4.jpg" alt="">
                                                         </a>
 
-                                                        <a href="<%= getServletContext().getContextPath()%>/assets/img/details/5-5.jpg" >
-                                                            <img src="<%= getServletContext().getContextPath()%>/assets/img/details/5.jpg" alt="">
+                                                        <a href="${pageContext.servletContext.contextPath}/assets/img/details/5-5.jpg" >
+                                                            <img src="${pageContext.servletContext.contextPath}/assets/img/details/5.jpg" alt="">
                                                         </a>
 
-                                                        <a href="<%= getServletContext().getContextPath()%>/assets/img/details/6-6.jpg" >
-                                                            <img src="<%= getServletContext().getContextPath()%>/assets/img/details/6.jpg" alt="">
+                                                        <a href="${pageContext.servletContext.contextPath}/assets/img/details/6-6.jpg" >
+                                                            <img src="${pageContext.servletContext.contextPath}/assets/img/details/6.jpg" alt="">
                                                         </a>
                                                     </div>
 
@@ -83,57 +86,52 @@
                                                 <div class="details__cart">
                                                     <span class="details__cart-title">Available on platforms:</span>
                                                     <ul class="details__platforms">
-                                                        <% for (String platform : g.getPlatforms()) {
-
-                                                                String iconPath = "";
-                                                                String iconName = "";
-
-                                                                switch (platform) {
-                                                                    case "PC":
-                                                                        iconPath = "pc.svg";
-                                                                        iconName = "PC";
-                                                                        break;
-                                                                    case "PlayStation":
-                                                                        iconPath = "playstation.svg";
-                                                                        iconName = "PlayStation";
-                                                                        break;
-                                                                    case "Xbox":
-                                                                        iconPath = "xbox.svg";
-                                                                        iconName = "Xbox";
-                                                                        break;
-                                                                    case "Nintendo Switch":
-                                                                        iconPath = "nintendo.svg";
-                                                                        iconName = "Nintendo Switch";
-                                                                        break;
-                                                                    case "Mobile":
-                                                                        iconPath = "mobile.svg";
-                                                                        iconName = "Mobile";
-                                                                        break;
-                                                                    case "VR":
-                                                                        iconPath = "vr.svg";
-                                                                        iconName = "VR";
-                                                                        break;
-                                                                    case "Mac":
-                                                                        iconPath = "mac.svg";
-                                                                        iconName = "Mac";
-                                                                        break;
-                                                                    case "Linux":
-                                                                        iconPath = "linux.svg";
-                                                                        iconName = "Linux";
-                                                                        break;
-                                                                    default:
-                                                                        break;
-                                                                }
-                                                        %>
-                                                        <li class="ps">
-                                                            <img src="<%= getServletContext().getContextPath()%>/assets/img/platforms/<%= iconPath%>" alt="<%= iconName%>">
-                                                        </li>
-                                                        <% }%>
+                                                        <c:forEach var="platform" items="${thisGame.platforms}">
+                                                            <c:set var="iconPath" value=""/>
+                                                            <c:set var="iconName" value=""/>
+                                                            <c:choose>
+                                                                <c:when test="${platform == 'PC'}">
+                                                                    <c:set var="iconPath" value="pc.svg" />
+                                                                    <c:set var="iconName" value="PC" />
+                                                                </c:when>
+                                                                <c:when test="${platform == 'PlayStation'}">
+                                                                    <c:set var="iconPath" value="playstation.svg" />
+                                                                    <c:set var="iconName" value="PlayStation" />
+                                                                </c:when>
+                                                                <c:when test="${platform == 'Xbox'}">
+                                                                    <c:set var="iconPath" value="xbox.svg" />
+                                                                    <c:set var="iconName" value="Xbox" />
+                                                                </c:when>
+                                                                <c:when test="${platform == 'Nintendo Switch'}">
+                                                                    <c:set var="iconPath" value="nintendo.svg" />
+                                                                    <c:set var="iconName" value="Nintendo Switch" />
+                                                                </c:when>
+                                                                <c:when test="${platform == 'Mobile'}">
+                                                                    <c:set var="iconPath" value="mobile.svg" />
+                                                                    <c:set var="iconName" value="Mobile" />
+                                                                </c:when>
+                                                                <c:when test="${platform == 'VR'}">
+                                                                    <c:set var="iconPath" value="vr.svg" />
+                                                                    <c:set var="iconName" value="VR" />
+                                                                </c:when>
+                                                                <c:when test="${platform == 'Mac'}">
+                                                                    <c:set var="iconPath" value="mac.svg" />
+                                                                    <c:set var="iconName" value="Mac" />
+                                                                </c:when>
+                                                                <c:when test="${platform == 'Linux'}">
+                                                                    <c:set var="iconPath" value="linux.svg" />
+                                                                    <c:set var="iconName" value="Linux" />
+                                                                </c:when>
+                                                            </c:choose>
+                                                            <li class="ps">
+                                                                <img src="${pageContext.servletContext.contextPath}/assets/img/platforms/${iconPath}" alt="${iconName}">
+                                                            </li>
+                                                        </c:forEach>
                                                     </ul>
 
                                                     <span class="details__cart-title">PRICE</span>
                                                     <div class="details__price">
-                                                        <span>$<%= g.getPrice()%></span>
+                                                        <span>$ ${thisGame.price}</span>
                                                     </div>
 
                                                     <div class="details__actions">
@@ -186,7 +184,7 @@
                                                 <!-- end section -->
 
                                                 <!-- best sellers -->
-                                                <section class="section section--bg section--first" data-bg="<%= getServletContext().getContextPath()%>/img/bg.jpg">
+                                                <section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
                                                     <div class="container">
                                                         <div class="row">
                                                             <!-- title -->
@@ -210,52 +208,32 @@
                                                     </div>
                                                     <!-- carousel -->
                                                     <div class="owl-carousel owl-carousel-gamedetails section__carousel section__carousel--big" id="carousel0">
-                                                        <% ArrayList<Game> gameDetailsRecommendList = (ArrayList) request.getAttribute("gameDetailsRecommendList"); %> <%-- only once, used for all --%>
-                                                        <%    if (gameDetailsRecommendList != null && !gameDetailsRecommendList.isEmpty()) { // Check if not null
+                                                        <c:set var="gameList" value="${requestScope.gameList}"/>
 
-                                                                // Extract game names and genres from the whole list
-                                                                List<String> listGenreNames = new ArrayList<>(); // Take out 
-                                                                for (Game game : gameDetailsRecommendList) {
-                                                                    String[] genreNames = game.getFormattedGenres().split(", ");
-                                                                    for (String names : genreNames) {
-                                                                        listGenreNames.add(names.trim());
-                                                                    }
-                                                                }
-
-                                                                // Get current page game's genres
-                                                                String[] thisPageGenreNames = g.getFormattedGenres().split(", ");
-                                                                List<String> matchingGenreNames = new ArrayList<>();
-
-                                                                // Compare the genres of the current game (g) with genres from other games
-                                                                for (String thisGenre : thisPageGenreNames) {
-                                                                    if (listGenreNames.contains(thisGenre.trim())) {
-                                                                        matchingGenreNames.add(thisGenre.trim());
-                                                                    }
-                                                                }
-
-                                                                // **Use a Set to store unique games** (Prevents duplicate recommendations)
-                                                                Set<Game> uniqueRecommendedGames = new HashSet<>();
-
-                                                                for (Game gbc : gameDetailsRecommendList) { // Loop to get list out
-                                                                    for (String genre : matchingGenreNames) {
-                                                                        if (gbc.getGenres().contains(genre) && !gbc.getTitle().equals(g.getTitle())) {
-                                                                            uniqueRecommendedGames.add(gbc);
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                                // **Now loop through
-                                                                for (Game gbc : uniqueRecommendedGames) {
-                                                        %>
+                                                        <%-- Extract game names and genres from the whole list --%>
+                                                        <c:set var="listGenreNames" value=""/> <%-- ArrayList --%>
+                                                        <c:forEach var="game" items="${gameList}">
+                                                            <c:forEach var="genre" items="${fn:split(game.formattedGenres, ', ')}">
+                                                                <c:set var="listGenreNames" value="${listGenreNames},${genre}"/> <%-- Add to arrayList --%>
+                                                            </c:forEach>
+                                                        </c:forEach>
+                                                        
+                                                        <c:set var="matchingGames" value=""/> <%-- ArrayList --%>
+                                                        <c:forEach var="game" items="${gameList}">
+                                                            <c:forEach var="genre" items="${fn:split(game.formattedGenres, ', ')}">
+                                                                
+                                                            </c:forEach>
+                                                        </c:forEach>
+                                                        
                                                         <!-- big card -->
                                                         <div class="card card--big">
-                                                            <a href="<%= getServletContext().getContextPath()%>/gamedetails?id=<%= gbc.getGameId()%>" class="card__cover">
-                                                                <img src="<%= getServletContext().getContextPath()%>/assets/img/cards/<%= gbc.getImageUrl()%>" alt="">
+                                                            <a href="${pageContext.servletContext.contextPath}/gamedetails?id=<%= gbc.getGameId()%>" class="card__cover">
+                                                                <img src="${pageContext.servletContext.contextPath}/assets/img/cards/<%= gbc.getImageUrl()%>" alt="">
                                                             </a>
 
                                                             <div class="card__wrap">
                                                                 <div class="card__title">
-                                                                    <h3><a href="<%= getServletContext().getContextPath()%>/pages/details.jsp"><%= gbc.getTitle()%></a></h3>
+                                                                    <h3><a href="${pageContext.servletContext.contextPath}/pages/details.jsp"><%= gbc.getTitle()%></a></h3>
                                                                 </div>
 
                                                                 <ul class="card__list">
@@ -307,7 +285,7 @@
                                                                             }
                                                                     %>
                                                                     <li class="ps">
-                                                                        <img src="<%= getServletContext().getContextPath()%>/assets/img/platforms/<%= iconPath%>" alt="<%= iconName%>">
+                                                                        <img src="${pageContext.servletContext.contextPath}/assets/img/platforms/<%= iconPath%>" alt="<%= iconName%>">
                                                                     </li>
                                                                     <% }%>
                                                                 </ul>
@@ -325,7 +303,7 @@
                                                         </div>
                                                         <!-- end big card -->
                                                         <% }
-                                                            }%>
+                                                        }%>
                                                     </div>
                                                     <!-- end carousel -->
                                                 </section>

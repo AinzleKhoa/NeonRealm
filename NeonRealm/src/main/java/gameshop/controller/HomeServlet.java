@@ -34,19 +34,14 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HomeDAO hDAO = new HomeDAO();
-        ArrayList<Game> gameListByCategory = hDAO.getListByCategory();
-        
-        if (gameListByCategory.isEmpty() || gameListByCategory == null) {
+        ArrayList<Game> gameList = hDAO.getListByCategory();
+
+        if (gameList == null || gameList.isEmpty()) {
             response.sendRedirect("/pages/404.jsp");
             return;
+        } else {
+            request.setAttribute("gameList", gameList);
         }
-        
-        request.setAttribute("gamesByCategory", gameListByCategory);
-/* 
-        ArrayList<Game> gameList = hDAO.getList();
-        request.setAttribute("games", gameList);
-*/
-
         request.getRequestDispatcher("/pages/home.jsp")
                 .forward(request, response);
     }
