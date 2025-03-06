@@ -40,7 +40,7 @@ public class GameDetailsServlet extends HttpServlet {
         // Find that specific game
         Game thisGame = gDAO.getGameById(id);
         if (thisGame == null) {
-            response.sendRedirect("/pages/404.jsp");
+            response.sendRedirect("/WEB-INF/pages/404.jsp");
             return;
         }
         request.setAttribute("thisGame", thisGame);
@@ -48,7 +48,7 @@ public class GameDetailsServlet extends HttpServlet {
         // For game List
         List<Game> gameList = gDAO.getGameList();
         if (gameList == null || gameList.isEmpty()) {
-            response.sendRedirect("/pages/404.jsp");
+            response.sendRedirect("/WEB-INF/pages/404.jsp");
             return;
         }
         
@@ -64,7 +64,7 @@ public class GameDetailsServlet extends HttpServlet {
         }
         request.setAttribute("matchingGames", matchingGames);
 
-        request.getRequestDispatcher("/pages/game-details.jsp")
+        request.getRequestDispatcher("/WEB-INF/pages/game-details.jsp")
                 .forward(request, response);
     }
 

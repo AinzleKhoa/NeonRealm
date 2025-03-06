@@ -37,12 +37,12 @@ public class HomeServlet extends HttpServlet {
         List<Game> gameList = gDAO.getGameList();
 
         if (gameList == null || gameList.isEmpty()) {
-            response.sendRedirect("/pages/404.jsp");
+            response.sendRedirect("/WEB-INF/pages/404.jsp");
             return;
         } else {
             request.setAttribute("gameList", gameList);
         }
-        request.getRequestDispatcher("/pages/home.jsp")
+        request.getRequestDispatcher("/WEB-INF/pages/home.jsp")
                 .forward(request, response);
     }
 

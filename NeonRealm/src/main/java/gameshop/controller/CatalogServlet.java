@@ -38,7 +38,7 @@ public class CatalogServlet extends HttpServlet {
 
         request.setAttribute("gameList", gameList);
 
-        request.getRequestDispatcher("/pages/catalog.jsp")
+        request.getRequestDispatcher("/WEB-INF/pages/catalog.jsp")
                 .forward(request, response);
     }
 
