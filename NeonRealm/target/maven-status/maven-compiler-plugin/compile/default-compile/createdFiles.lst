@@ -1,7 +1,13 @@
+gameshop\util\BCryptGenerator.class
+gameshop\controller\LogoutServlet.class
+gameshop\controller\HomeServlet.class
+gameshop\model\User.class
 gameshop\controller\GameDetailsServlet.class
+gameshop\controller\LoginServlet.class
 gameshop\db\DBContext.class
 gameshop\util\PasswordUtils.class
 gameshop\model\Game.class
-gameshop\controller\HomeServlet.class
+gameshop\controller\SignupServlet.class
 gameshop\controller\CatalogServlet.class
 gameshop\DAO\GameDAO.class
+gameshop\DAO\UserDAO.class

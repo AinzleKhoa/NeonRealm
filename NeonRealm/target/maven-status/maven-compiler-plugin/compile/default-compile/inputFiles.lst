@@ -1,7 +1,13 @@
-D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\model\Game.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\LoginServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\HomeServlet.java
-D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CatalogServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\GameDetailsServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\db\DBContext.java
-D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\GameDAO.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\UserDAO.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\LogoutServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\PasswordUtils.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\model\Game.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\BCryptGenerator.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CatalogServlet.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\GameDAO.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\model\User.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\SignupServlet.java

@@ -40,7 +40,8 @@ public class GameDetailsServlet extends HttpServlet {
         // Find that specific game
         Game thisGame = gDAO.getGameById(id);
         if (thisGame == null) {
-            response.sendRedirect("/WEB-INF/pages/404.jsp");
+            request.getRequestDispatcher("/WEB-INF/pages/404.jsp")
+                    .forward(request, response);
             return;
         }
         request.setAttribute("thisGame", thisGame);
@@ -48,10 +49,11 @@ public class GameDetailsServlet extends HttpServlet {
         // For game List
         List<Game> gameList = gDAO.getGameList();
         if (gameList == null || gameList.isEmpty()) {
-            response.sendRedirect("/WEB-INF/pages/404.jsp");
+            request.getRequestDispatcher("/WEB-INF/pages/404.jsp")
+                    .forward(request, response);
             return;
         }
-        
+
         // Matching game (Similar genre) for displaying in the recommend list
         List<Game> matchingGames = new ArrayList<>();
         for (Game g : gameList) {

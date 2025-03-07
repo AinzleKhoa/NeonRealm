@@ -40,7 +40,7 @@
                                         <ul class="dropdown-menu header__nav-menu header__nav-menu--scroll" aria-labelledby="dropdownMenu3">
                                             <li><a href="${pageContext.servletContext.contextPath}/pages/checkout.jsp">Checkout</a></li>
                                             <li><a href="${pageContext.servletContext.contextPath}/pages/about.jsp">About</a></li>
-                                            <li><a href="${pageContext.servletContext.contextPath}/pages/profile.jsp">Profile</a></li>
+                                            <li><a href="${pageContext.servletContext.contextPath}/profile.jsp">Profile</a></li>
                                             <li><a href="${pageContext.servletContext.contextPath}/login">Sign in</a></li>
                                             <li><a href="${pageContext.servletContext.contextPath}/pages/signup.jsp">Sign up</a></li>
                                             <li><a href="${pageContext.servletContext.contextPath}/pages/forgot.jsp">Forgot password</a></li>
