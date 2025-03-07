@@ -10,13 +10,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author Ainzle
  */
-public class LogoutServlet extends HttpServlet {
+public class Error404Servlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -30,18 +29,8 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Get session, don't create new one
-        if (session == null || session.getAttribute("currentUser") == null) {
-            System.out.println("❌ User not logged in! Redirecting to 404 page...");
-            response.sendRedirect(request.getContextPath() + "/404");
-            return; // Stop further execution
-        }
+        request.getRequestDispatcher("/WEB-INF/pages/404.jsp").forward(request, response);
 
-        if (session != null) {
-            session.invalidate();
-        }
-
-        response.sendRedirect(request.getContextPath() + "/login");
     }
 
     /**

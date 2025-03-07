@@ -4,10 +4,6 @@
  */
 package gameshop.controller;
 
-import gameshop.DAO.UserDAO;
-import gameshop.model.User;
-import gameshop.util.BCryptGenerator;
-import gameshop.util.PasswordUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Ainzle
  */
-public class SignupServlet extends HttpServlet {
+public class ProfileServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,14 +30,14 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Get session, don't create a new one
-        if (session != null && session.getAttribute("currentUser") != null) {
-            System.out.println("❌ User already logged in! Redirecting to home...");
-            response.sendRedirect(request.getContextPath() + "/home");
+        HttpSession session = request.getSession(false); // Get session, don't create new one
+        if (session == null || session.getAttribute("currentUser") == null) {
+            System.out.println("❌ User not logged in! Redirecting to 404 page...");
+            response.sendRedirect(request.getContextPath() + "/404");
             return; // Stop further execution
         }
-
-        request.getRequestDispatcher("/WEB-INF/pages/signup.jsp").forward(request, response);
+        
+        request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
     }
 
     /**
@@ -55,26 +51,6 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // For debug, creating a whole new account (BCrypt password cant be insert manually in SQL)
-        if ("true".equals(request.getParameter("generateAccount"))) {
-            BCryptGenerator.generateBCrypt();
-            response.sendRedirect("/login");
-        } else {
-            String username = request.getParameter("username");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String fullname = request.getParameter("fullname");
-            String phone = request.getParameter("phone");
-
-            String hashedPassword = PasswordUtils.hashPassword(password); // Hash the password before storing it
-
-            UserDAO uDAO = new UserDAO();
-            if (uDAO.signup(new User(username, email, hashedPassword, fullname, phone)) > 0) {
-                response.sendRedirect(request.getContextPath() + "/login");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/signup");
-            }
-        }
     }
 
     /**

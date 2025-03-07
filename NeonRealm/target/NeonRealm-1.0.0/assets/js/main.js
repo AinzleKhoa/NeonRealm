@@ -425,3 +425,39 @@ $(document).ready(function () {
     }
     $(window).on('load', initializeSlider());
 });
+
+let modalTimeout;
+
+function confirmLogout() {
+    const modal = document.getElementById("logoutModal");
+    if (!modal)
+        return;
+
+    modal.style.display = "flex"; // Show modal
+    setTimeout(() => modal.classList.add("show"), 10);
+
+    // Auto-close modal after 10 seconds
+    modalTimeout = setTimeout(closeModal, 10000);
+}
+
+function closeModal() {
+    const modal = document.getElementById("logoutModal");
+    if (!modal)
+        return;
+
+    modal.classList.add("hide");
+    setTimeout(() => {
+        modal.classList.remove("show", "hide");
+        modal.style.display = "none";
+    }, 400);
+
+    clearTimeout(modalTimeout); // Prevent auto-close if manually closed
+}
+
+// Close modal if clicked outside content
+document.addEventListener("click", (event) => {
+    const modal = document.getElementById("logoutModal");
+    if (modal && modal.classList.contains("show") && !event.target.closest(".profile__modal__content")) {
+        closeModal();
+    }
+});
