@@ -58,7 +58,7 @@ public class SignupServlet extends HttpServlet {
         // For debug, creating a whole new account (BCrypt password cant be insert manually in SQL)
         if ("true".equals(request.getParameter("generateAccount"))) {
             BCryptGenerator.generateBCrypt();
-            response.sendRedirect("/login");
+            response.sendRedirect(request.getContextPath() + "/login");
         } else {
             String username = request.getParameter("username");
             String email = request.getParameter("email");

@@ -29,7 +29,7 @@
     <%@include file="/WEB-INF/include/header2.jsp" %>
 
     <!-- banner -->
-    <section class="banner_main">
+    <section class="banner_main" style="background-image: url('${pageContext.servletContext.contextPath}/assets/img/banner/neonrealm.jpg');>
         <div class="container-fluid">
             <div class="row d_flex">
                 <div class="col-md-5">
@@ -53,7 +53,7 @@
 <!-- end banner -->
 
 <!-- best sellers -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->

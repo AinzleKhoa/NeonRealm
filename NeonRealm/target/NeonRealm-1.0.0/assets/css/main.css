@@ -1221,12 +1221,29 @@ body::-webkit-scrollbar-thumb {
 /*==============================
         Banner
 ==============================*/
+.banner_main {
+    position: relative; /* Ensures proper layering */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.banner_main::before {
+    content: ""; /* Required for pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 102%;
+    background: rgba(0, 0, 0, 0.2); /* Adjust darkness (0.5 = 50% darker) */
+    z-index: 0; /* Keeps it above background but below content */
+}
 .text-bg {
     text-align: left;
     max-width: 500px;
     width: 100%;
     float: right;
-    padding-top: 190px;
+    padding-top: 150px;
     padding-bottom: 50px;
 }
 
@@ -1285,6 +1302,7 @@ body::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, rgba(167, 130, 233, 0.5) 0%, rgba(107, 38, 228, 0.5) 100%);
     border-radius: 322px 0px 0px 380px;
     padding: 132px 20px 0px 50px;
+    z-index: 6;
 }
 
 .text-img figure {
