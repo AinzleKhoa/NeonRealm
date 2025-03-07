@@ -53,7 +53,7 @@
 <!-- end banner -->
 
 <!-- best sellers -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->
@@ -166,7 +166,7 @@
 <!-- end best sellers -->
 
 <!-- New & Trending -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->
@@ -279,7 +279,7 @@
 <!-- end New & Trending -->
 
 <!-- Pre-Orders -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->
@@ -392,7 +392,7 @@
 <!-- end Pre-Orders -->
 
 <!-- Top Rated -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->
@@ -505,7 +505,7 @@
 <!-- end Top Rated -->
 
 <!-- Cozy & Casual -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->
@@ -618,7 +618,7 @@
 <!-- end Cozy & Casual -->
 
 <!-- Multiplayer & Online -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->
@@ -731,7 +731,7 @@
 <!-- end Multiplayer & Online -->
 
 <!-- Single-Player Favorites -->
-<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/img/bg.jpg">
+<section class="section section--bg section--first" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <!-- title -->

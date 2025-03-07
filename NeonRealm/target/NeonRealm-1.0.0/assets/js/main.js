@@ -84,9 +84,9 @@ $(document).ready(function () {
         if ($(this).attr("data-bg")) {
             $(this).css({
                 'background': 'url(' + $(this).data('bg') + ')',
-                'background-position': 'center top 140px',
+                'background-position': 'center top 120px',
                 'background-repeat': 'no-repeat',
-                'background-size': 'auto 500px'
+                'background-size': 'auto 950px'
             });
         }
     });
@@ -95,7 +95,7 @@ $(document).ready(function () {
         if ($(this).attr("data-bg")) {
             $(this).css({
                 'background': 'url(' + $(this).data('bg') + ')',
-                'background-position': 'center top 140px',
+                'background-position': 'center bottom -120px',
                 'background-repeat': 'no-repeat',
                 'background-size': 'cover'
             });

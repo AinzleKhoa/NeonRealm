@@ -11,7 +11,7 @@
 <%@include file="/WEB-INF/include/header2.jsp" %>
 
 <!-- page title -->
-<section class="section section--first section--last section--head" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg.jpg">
+<section class="section section--first section--last section--head" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/catalog.jpg">
     <div class="container">
         <div class="row">
             <div class="col-12">
