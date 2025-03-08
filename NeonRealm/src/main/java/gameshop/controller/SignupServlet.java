@@ -7,6 +7,7 @@ package gameshop.controller;
 import gameshop.DAO.UserDAO;
 import gameshop.model.User;
 import gameshop.util.BCryptGenerator;
+import gameshop.util.InputValidator;
 import gameshop.util.PasswordUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -55,25 +58,48 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        UserDAO uDAO = new UserDAO();
         // For debug, creating a whole new account (BCrypt password cant be insert manually in SQL)
-        if ("true".equals(request.getParameter("generateAccount"))) {
-            BCryptGenerator.generateBCrypt();
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirm_password");
+
+        List<String> errorMessages = new ArrayList<>();
+
+        if (!password.equals(confirmPassword)) {
+            errorMessages.add("Passwords do not match!");
+        }
+        if (uDAO.isEmailExists(email)) {
+            errorMessages.add("Email already existed!");
+        }
+        if (uDAO.isUsernameExists(username)) {
+            errorMessages.add("Username already existed!");
+        }
+        if (!InputValidator.isUsernameValid(username)) {
+            errorMessages.add("Username must be 3-20 characters (letters, numbers, underscores only).");
+        }
+        if (!InputValidator.isEmailValid(email)) {
+            errorMessages.add("Invalid email format. Example: user@example.com");
+        }
+        if (!InputValidator.isPasswordValid(password)) {
+            errorMessages.add("Password must be at least 8 characters with 1 letter & 1 number.");
+        }
+
+        // If there are errors, return
+        if (!errorMessages.isEmpty()) {
+            request.setAttribute("errors", errorMessages);
+            request.getRequestDispatcher("/WEB-INF/pages/signup.jsp").forward(request, response);
+            return;
+        }
+
+        String hashedPassword = PasswordUtils.hashPassword(password); // Hash the password before storing it
+
+        if (uDAO.signup(new User(username, email, hashedPassword)) > 0) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
-            String username = request.getParameter("username");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String fullname = request.getParameter("fullname");
-            String phone = request.getParameter("phone");
-
-            String hashedPassword = PasswordUtils.hashPassword(password); // Hash the password before storing it
-
-            UserDAO uDAO = new UserDAO();
-            if (uDAO.signup(new User(username, email, hashedPassword, fullname, phone)) > 0) {
-                response.sendRedirect(request.getContextPath() + "/login");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/signup");
-            }
+            response.sendRedirect(request.getContextPath() + "/signup");
         }
     }
 

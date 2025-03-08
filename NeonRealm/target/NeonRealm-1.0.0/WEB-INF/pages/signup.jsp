@@ -3,9 +3,11 @@
     Created on : Feb 24, 2025, 7:01:28 PM
     Author     : Ainzle
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/include/header1.jsp" %>
 <%@include file="/WEB-INF/include/header2.jsp" %>
+
 <body>
     <!-- sign in -->
     <div class="sign section--full-bg" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg2.jpg">
@@ -13,34 +15,26 @@
             <div class="row">
                 <div class="col-12">
                     <div class="sign__content">
-                        <form action="${pageContext.servletContext.contextPath}/signup" method="POST" class="sign__form">
-                            <input type="hidden" name="generateAccount" value="true"/>
-                            <button type="submit" class="sign__btn">Generate new account</button>
-                        </form>
                         <!-- registration form -->
-                        <form action="${pageContext.servletContext.contextPath}/signup" method="POST" class="sign__form">
+                        <form action="${pageContext.servletContext.contextPath}/signup" method="POST" class="sign__form" onsubmit="return validatePassword()">
                             <a href="${pageContext.servletContext.contextPath}/home" class="sign__logo">
                                 <img src="${pageContext.servletContext.contextPath}/assets/img/logo.png" alt="">
                             </a>
 
                             <div class="sign__group">
-                                <input type="text" name="username" class="sign__input" placeholder="Name">
+                                <input type="text" name="username" class="sign__input" placeholder="Name" value="${param.username}" required>
                             </div>
 
                             <div class="sign__group">
-                                <input type="text" name="email" class="sign__input" placeholder="Email">
+                                <input type="text" name="email" class="sign__input" placeholder="Email" value="${param.email}" required>
                             </div>
 
                             <div class="sign__group">
-                                <input type="password" name="password" class="sign__input" placeholder="Password">
+                                <input type="password" name="password" class="sign__input" placeholder="Password" required>
                             </div>
 
                             <div class="sign__group">
-                                <input type="text" name="fullname" class="sign__input" placeholder="Full Name">
-                            </div>
-
-                            <div class="sign__group">
-                                <input type="text" name="phone" class="sign__input" placeholder="Phone">
+                                <input type="password" name="confirm_password" class="sign__input" placeholder="Confirm Password" required>
                             </div>
 
                             <%--
@@ -50,7 +44,20 @@
                             </div>
                             --%>
 
-                            <button class="sign__btn" type="button">Sign up</button>
+                            <c:choose>
+                                <c:when test="${not empty requestScope.errors}">
+                                    <div style="color: red;">
+                                        <c:forEach var="error" items="${requestScope.errors}">
+                                            <p>${error}</p>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <p id="password_error" style="color: red;"></p>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <button class="sign__btn" type="submit">Sign up</button>
 
                             <%--
                             <span class="sign__delimiter">or</span>

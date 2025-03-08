@@ -6,6 +6,7 @@ package gameshop.controller;
 
 import gameshop.DAO.UserDAO;
 import gameshop.model.User;
+import gameshop.util.PasswordUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -53,20 +54,28 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // Destroy old session if any (to prevent session fixation attacks)
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         UserDAO uDAO = new UserDAO();
-        User user = uDAO.login(email, password); // Retrieve user after login
+        User user = uDAO.login(email, password); // Pass raw password (comparison is done inside login method)
+
         if (user != null) { // If user exists
-            HttpSession session = request.getSession();
+            session = request.getSession(true); // Create a new secure session
 
             session.setAttribute("currentUser", user); // Current user
 
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
-            request.getRequestDispatcher("/WEB-INF/pages/login.jsp")
-                    .forward(request, response);
+            request.setAttribute("error", "Invalid email or password.");
+            request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
         }
     }
 

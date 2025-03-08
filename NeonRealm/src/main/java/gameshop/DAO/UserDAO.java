@@ -9,6 +9,7 @@ import gameshop.model.User;
 import gameshop.util.PasswordUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,12 +20,8 @@ import java.util.logging.Logger;
 public class UserDAO extends DBContext {
 
     public boolean isUsernameExists(String username) {
-        try {
-            String query = "SELECT count(u.user_id)\n"
-                    + "FROM Users u\n"
-                    + "WHERE u.username = ?;";
-            Object[] params = {username};
-            ResultSet rs = execSelectQuery(query, params);
+        String query = "SELECT COUNT(user_id) FROM Users WHERE username = ?;";
+        try ( ResultSet rs = execSelectQuery(query, new Object[]{username})) {
             return rs.next() && rs.getInt(1) > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -32,13 +29,9 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public boolean isPhoneExists(String phone) {
-        try {
-            String query = "SELECT count(u.user_id)\n"
-                    + "FROM Users u\n"
-                    + "WHERE u.phone = ?;";
-            Object[] params = {phone};
-            ResultSet rs = execSelectQuery(query, params);
+    public boolean isEmailExists(String email) {
+        String query = "SELECT COUNT(user_id) FROM Users WHERE email = ?;";
+        try ( ResultSet rs = execSelectQuery(query, new Object[]{email})) {
             return rs.next() && rs.getInt(1) > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,20 +41,13 @@ public class UserDAO extends DBContext {
 
     public int signup(User user) {
         try {
-            if (!isUsernameExists(user.getUsername()) || !isPhoneExists(user.getPhone())) {
-                String query = "INSERT INTO Users (username, email, password_hash, full_name, phone) VALUES\n"
-                        + "(?,?,?,?,?);";
-                Object[] params = {
-                    user.getUsername(),
-                    user.getEmail(),
-                    user.getHashedPassword(),
-                    user.getFullName(),
-                    user.getPhone()
-                };
-                return execQuery(query, params);
-            } else {
-                return 0;
-            }
+            String query = "INSERT INTO Users (username, email, password_hash) VALUES\n"
+                    + "(?,?,?);";
+            Object[] params = {
+                user.getUsername(),
+                user.getEmail(),
+                user.getHashedPassword(),};
+            return execQuery(query, params);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,16 +64,29 @@ public class UserDAO extends DBContext {
             if (rs.next()) {
                 String hashedPassword = rs.getString("password_hash");
 
-                if (PasswordUtils.checkPassword(password, hashedPassword)) { // PasswordUtils class in util package will handle it
-                    return new User(
-                            rs.getInt("user_id"),
-                            rs.getString("username"),
-                            rs.getString("email"),
-                            rs.getString("password_hash"),
-                            rs.getString("full_name"),
-                            rs.getString("phone")
-                    );
+                Instant lastLogin = (rs.getTimestamp("last_login") != null ? rs.getTimestamp("last_login").toInstant() : null);
+                Instant createdAt = (rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toInstant() : null);
+
+                // If the user is using local authentication, check the password
+                if ("local".equals(rs.getString("auth_provider"))) {
+                    if (hashedPassword == null || hashedPassword.isEmpty() || !PasswordUtils.checkPassword(password, hashedPassword)) { // PasswordUtils class in util package will handle it
+                        return null; // Wrong password, stop executing immediately
+                    }
                 }
+
+                return new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("password_hash"),
+                        rs.getString("google_id"),
+                        rs.getString("auth_provider"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar_url"),
+                        lastLogin,
+                        createdAt
+                );
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);

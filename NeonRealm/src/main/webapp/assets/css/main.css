@@ -1225,7 +1225,7 @@ body::-webkit-scrollbar-thumb {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.2); /* Adjust darkness (0.5 = 50% darker) */
+    background: rgba(0, 0, 0, 0.4); /* Adjust darkness (0.5 = 50% darker) */
     z-index: 0; /* Keeps it above background but below content */
 }
 .text-bg {

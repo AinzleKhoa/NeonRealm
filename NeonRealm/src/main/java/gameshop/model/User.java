@@ -4,6 +4,8 @@
  */
 package gameshop.model;
 
+import java.time.Instant;
+
 /**
  *
  * @author Ainzle
@@ -14,26 +16,44 @@ public class User {
     private String username;
     private String email;
     private String hashedPassword;
-    private String fullName;
-    private String phone;
-    
-    // For login return full details account
-    public User(int userId, String username, String email, String hashedPassword, String fullName, String phone) {
+    private String googleId;
+    private String authProvider;
+    private String role;
+    private String status;
+    private String avatarUrl;
+    private Instant lastLogin;
+    private Instant createdAt;
+
+    // Constructors
+    public User() {
+    }
+
+    // For sign up
+    public User(String username, String email, String hashedPassword) {
+        this.username = username;
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+    }
+
+    // For login locally
+    public User(String email, String hashedPassword) {
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+    }
+
+    // For login retrieving all data
+    public User(int userId, String username, String email, String hashedPassword, String googleId, String authProvider, String role, String status, String avatarUrl, Instant lastLogin, Instant createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.hashedPassword = hashedPassword;
-        this.fullName = fullName;
-        this.phone = phone;
-    }
-
-    // For signup
-    public User(String username, String email, String hashedPassword, String fullName, String phone) {
-        this.username = username;
-        this.email = email;
-        this.hashedPassword = hashedPassword;
-        this.fullName = fullName;
-        this.phone = phone;
+        this.googleId = googleId;
+        this.authProvider = authProvider;
+        this.role = role;
+        this.status = status;
+        this.avatarUrl = avatarUrl;
+        this.lastLogin = lastLogin;
+        this.createdAt = createdAt;
     }
 
     public int getUserId() {
@@ -68,20 +88,60 @@ public class User {
         this.hashedPassword = hashedPassword;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getGoogleId() {
+        return googleId;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAuthProvider() {
+        return authProvider;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAuthProvider(String authProvider) {
+        this.authProvider = authProvider;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public Instant getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Instant lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
 }
