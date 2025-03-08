@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Destroy old session if any (to prevent session fixation attacks)
+        // Destroy old session if any (to *prevent session fixation attacks)
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
@@ -67,15 +67,24 @@ public class LoginServlet extends HttpServlet {
         UserDAO uDAO = new UserDAO();
         User user = uDAO.login(email, password); // Pass raw password (comparison is done inside login method)
 
-        if (user != null) { // If user exists
-            session = request.getSession(true); // Create a new secure session
-
-            session.setAttribute("currentUser", user); // Current user
-
-            response.sendRedirect(request.getContextPath() + "/home");
-        } else {
-            request.setAttribute("error", "Invalid email or password.");
+        if (user == null) { // Something went wrong
+            request.setAttribute("error", "Something went wrong");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+        } else if (user.getUserId() == -1) { // Account locked - *prevent brute force attacks
+            request.setAttribute("error", "Your account is locked. Try again later.");
+            request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+        } else if (user.getUserId() == -2) { // Invalid password
+            request.setAttribute("error", "Invalid password.");
+            request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+        } else if (user.getUserId() == -3) { // Invalid email
+            request.setAttribute("error", "Invalid email.");
+            request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+        } else { // If user exists (-4 meant OAuth user)
+            session = request.getSession(true); // Create a new secure session
+            session.setAttribute("currentUser", user); // Current user
+            // Set session timeout - *prevent Session Hijacking
+            session.setMaxInactiveInterval(30 * 60); // 30 minutes without interacting
+            response.sendRedirect(request.getContextPath() + "/home");
         }
     }
 

@@ -1,3 +1,4 @@
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\GitHubOAuthServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\LoginServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\HomeServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\GameDetailsServlet.java
@@ -7,7 +8,12 @@ D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\LogoutServlet.j
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\PasswordUtils.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\model\Game.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\BCryptGenerator.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\GitHubOAuthUtil.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\ProfileServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CatalogServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\GameDAO.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\model\User.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\InputValidator.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\security\LoginAttemptTracker.java
+D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\Error404Servlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\SignupServlet.java

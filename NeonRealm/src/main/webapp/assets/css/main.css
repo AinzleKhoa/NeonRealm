@@ -5028,7 +5028,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .sign__social {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
     margin-bottom: 15px;
@@ -5043,6 +5043,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     width: calc(33% - 10px);
     border-radius: 6px;
     color: #fff;
+    background-color: #333333;
 }
 .sign__social a svg {
     width: 18px;

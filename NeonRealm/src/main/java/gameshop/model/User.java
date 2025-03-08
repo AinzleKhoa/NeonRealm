@@ -16,8 +16,8 @@ public class User {
     private String username;
     private String email;
     private String hashedPassword;
-    private String googleId;
-    private String authProvider;
+    private String githubId;
+    private String authProvider; // "local" or "github"
     private String role;
     private String status;
     private String avatarUrl;
@@ -26,6 +26,12 @@ public class User {
 
     // Constructors
     public User() {
+    }
+
+    // Constructor for debugging login issues.
+    public User(int userId, String username) {
+        this.userId = userId;
+        this.username = username;
     }
 
     // For sign up
@@ -41,13 +47,22 @@ public class User {
         this.hashedPassword = hashedPassword;
     }
 
+    // For github login
+    public User(String username, String email, String githubId, String authProvider, Instant createdAt) {
+        this.username = username;
+        this.email = email;
+        this.githubId = githubId;
+        this.authProvider = authProvider;
+        this.createdAt = createdAt;
+    }
+
     // For login retrieving all data
-    public User(int userId, String username, String email, String hashedPassword, String googleId, String authProvider, String role, String status, String avatarUrl, Instant lastLogin, Instant createdAt) {
+    public User(int userId, String username, String email, String hashedPassword, String githubId, String authProvider, String role, String status, String avatarUrl, Instant lastLogin, Instant createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.hashedPassword = hashedPassword;
-        this.googleId = googleId;
+        this.githubId = githubId;
         this.authProvider = authProvider;
         this.role = role;
         this.status = status;
@@ -89,11 +104,11 @@ public class User {
     }
 
     public String getGoogleId() {
-        return googleId;
+        return githubId;
     }
 
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
+    public void setGoogleId(String githubId) {
+        this.githubId = githubId;
     }
 
     public String getAuthProvider() {

@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/include/header1.jsp" %>
 <%@include file="/WEB-INF/include/header2.jsp" %>
@@ -44,7 +45,7 @@
                             <img src="${pageContext.servletContext.contextPath}/assets/img/user.svg" alt="">
                         </div>
                         <div class="profile__meta">
-                            <h3>${user.username}</h3>
+                            <h3>${fn:toUpperCase(user.username)}</h3>
                             <span>ID: ${user.userId}</span>
                         </div>
                     </div>
@@ -196,7 +197,7 @@
                                         <label class="form__label" for="email">Email</label>
                                         <input id="email" type="text" name="email" class="form__input" placeholder="${user.email}">
                                     </div>
-
+                                    <%--
                                     <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                         <label class="form__label" for="firstname">First Name</label>
                                         <input id="firstname" type="text" name="firstname" class="form__input" placeholder="${user.fullName}">
@@ -206,7 +207,7 @@
                                         <label class="form__label" for="lastname">Last Name</label>
                                         <input id="lastname" type="text" name="lastname" class="form__input" placeholder="${user.fullName}">
                                     </div>
-
+                                    --%>
                                     <div class="col-12">
                                         <button class="form__btn" type="button">Save</button>
                                     </div>
