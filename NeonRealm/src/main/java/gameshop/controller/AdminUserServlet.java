@@ -64,7 +64,19 @@ public class AdminUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        String action = request.getParameter("action");
+        AdminUserDAO adminCouponsDAO = new AdminUserDAO();
+
+        try {
+            if ("delete".equals(action)) {
+                int userId = Integer.parseInt(request.getParameter("userId"));
+                adminCouponsDAO.deleteUser(userId);
+            } 
+        } catch (Exception e) {
+            request.setAttribute("error", "Lỗi trong quá trình xử lý!");
+        }
+
+        response.sendRedirect(request.getContextPath() + "/admin/users");
     }
 
     /** 

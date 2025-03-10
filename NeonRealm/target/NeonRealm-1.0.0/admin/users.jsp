@@ -52,6 +52,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Create At</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,6 +64,13 @@
                                     <td><%= user.getEmail()%></td>
                                     <td><%= user.getPhone()%></td>
                                     <td><%= user.getCreatedAt()%></td>
+                                    <td>
+                                            <form action="${pageContext.request.contextPath}/admin/users" method="post" class="d-inline">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="userId" value="<%= user.getUserId()%>">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
+                                            </form>
+                                    </td>
                                 </tr>
                                 <% }%>
                             </tbody>

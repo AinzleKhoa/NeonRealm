@@ -6,6 +6,7 @@ package gameshop.DAO;
 
 import gameshop.db.DBContext;
 import gameshop.model.AdminUser;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +39,19 @@ public class AdminUserDAO extends DBContext {
             Logger.getLogger(AdminUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return users;
+    }
+    
+    // Xóa một mã giảm giá theo ID
+    public boolean deleteUser(int userId) {
+        String query = "DELETE FROM Users WHERE user_id = ?";
+        
+        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+            ps.setInt(1, userId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminCouponsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
 }

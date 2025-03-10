@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class DBContext {
 
-    private Connection conn;
+    public Connection conn;
     private final String DB_URL = "jdbc:sqlserver://localhost\\NeonRealmDatabase:1433;databaseName=NeonRealm;encrypt=true;trustServerCertificate=true";
     private final String DB_USER = "sa";
     private final String DB_PWD = "123";
