@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.time.Instant;
 import org.json.JSONObject;
 
 /**
@@ -56,19 +55,20 @@ public class GitHubOAuthServlet extends HttpServlet {
         }
 
         // Extract user details
-        String githubId = String.valueOf(userInfo.getLong("id"));
+        String githubId = String.valueOf(userInfo.getLong("id")); // Ensure it's stored as Long then as String for User
         String username = userInfo.optString("login");
         String email = userInfo.optString("email", githubId + "@github.com"); // Email might be null
 
         UserDAO userDAO = new UserDAO();
         User user = userDAO.findByGitHubId(githubId);
 
+        // If user doesn't exist, create a new one, To the sign up
         if (user == null) {
-            // If user doesn't exist, create a new one
-            user = new User(username, email, githubId, "github", Instant.now());
+            user = new User(username, email, null, githubId, "github");
             userDAO.signup(user);
         }
 
+        // If user already had an account, login them in without validate further
         // Store user session
         HttpSession session = request.getSession(true);
         session.setAttribute("currentUser", user);

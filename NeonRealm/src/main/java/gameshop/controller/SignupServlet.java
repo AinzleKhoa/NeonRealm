@@ -96,7 +96,7 @@ public class SignupServlet extends HttpServlet {
 
         String hashedPassword = PasswordUtils.hashPassword(password); // Hash the password before storing it
 
-        if (uDAO.signup(new User(username, email, hashedPassword)) > 0) {
+        if (uDAO.signup(new User(username, email, hashedPassword, null, "local")) > 0) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             response.sendRedirect(request.getContextPath() + "/signup");

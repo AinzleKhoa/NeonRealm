@@ -21,6 +21,11 @@ import java.util.logging.Logger;
  */
 public class UserDAO extends DBContext {
 
+    /**
+     *
+     * @param githubId
+     * @return
+     */
     public User findByGitHubId(String githubId) {
         try {
             String query = "SELECT * FROM Users WHERE github_id = ?;";
@@ -32,13 +37,13 @@ public class UserDAO extends DBContext {
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password_hash"),
-                        githubId,
-                        "github",
+                        rs.getString("github_id"),
+                        rs.getString("auth_provider"),
                         rs.getString("role"),
                         rs.getString("status"),
                         rs.getString("avatar_url"),
-                        rs.getTimestamp("last_login").toInstant(),
-                        rs.getTimestamp("created_at").toInstant()
+                        rs.getTimestamp("last_login") != null ? rs.getTimestamp("last_login").toInstant() : null,
+                        rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toInstant() : null
                 );
             }
         } catch (SQLException ex) {
@@ -47,6 +52,11 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public boolean isUsernameExists(String username) {
         String query = "SELECT COUNT(user_id) FROM Users WHERE username = ?;";
         try ( ResultSet rs = execSelectQuery(query, new Object[]{username})) {
@@ -57,6 +67,11 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    /**
+     *
+     * @param email
+     * @return
+     */
     public boolean isEmailExists(String email) {
         String query = "SELECT COUNT(user_id) FROM Users WHERE email = ?;";
         try ( ResultSet rs = execSelectQuery(query, new Object[]{email})) {
@@ -67,6 +82,12 @@ public class UserDAO extends DBContext {
         return false;
     }
 
+    /**
+     *
+     * @param status
+     * @param email
+     * @return
+     */
     public int setStatus(String status, String email) {
         try {
             String query = "UPDATE Users\n"
@@ -83,14 +104,26 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public int signup(User user) {
         try {
-            String query = "INSERT INTO Users (username, email, password_hash) VALUES\n"
-                    + "(?,?,?);";
+            String query = "INSERT INTO Users (username, email, password_hash, github_id, auth_provider, role, status, created_at) VALUES\n"
+                    + "(?,?,?,?,?,?,?,?);";
+            Timestamp timestamp = Timestamp.from(user.getCreatedAt()); // Convert Instant -> Timestamp
             Object[] params = {
-                user.getUsername(),
-                user.getEmail(),
-                user.getHashedPassword(),};
+                user.getUsername(), // CAN'T BE NULL
+                user.getEmail(), // CAN'T BE NULL
+                user.getHashedPassword(), // This will NOT be NULL for "local" users
+                user.getGithubId(), // This will NOT be NULL for "github" users
+                user.getAuthProvider(), // "local" or "github", will be inserted
+                user.getRole(), // Default role: "user"
+                user.getStatus(), // Default status: "active"
+                timestamp
+            };
             return execQuery(query, params);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,13 +131,20 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
+    /**
+     * For traditional login only (Not using any other provider than local)
+     * 
+     * @param email
+     * @param password
+     * @return
+     */
     public User login(String email, String password) {
         try {
             String query = "select *\n"
                     + "FROM Users u\n"
                     + "WHERE u.email = ?;"; // Password will be handled by Java util class not SQL query
             Object[] params = {email};
-            ResultSet rs = execSelectQuery(query, params); // Take the cursor to that specific account row for rs get
+            ResultSet rs = execSelectQuery(query, params); // Take the cursor to that specific account row for rs get correctly later on
 
             // Step 1: Check if the email does exist
             if (!rs.next()) {
@@ -121,14 +161,8 @@ public class UserDAO extends DBContext {
             }
 
             String hashedPassword = rs.getString("password_hash");
-            String authProvider = rs.getString("auth_provider");
 
-            // Step 4: Check if the user is using another provider (Not local)
-            if (!"local".equals(authProvider)) { // If using another provider, return immediately
-                return new User(-4, "USE_OAUTH");
-            }
-
-            // Step 5: If the user is using local authentication, check the password
+            // Step 4: check the password
             if (hashedPassword == null || hashedPassword.isEmpty() || !PasswordUtils.checkPassword(password, hashedPassword)) { // PasswordUtils class in util package will handle it
                 if (tracker.trackFailedLoginAttempt(email) == -1) { // If the password is incorrect and the account is locked
                     setStatus("locked", email);
@@ -138,7 +172,7 @@ public class UserDAO extends DBContext {
                 }
             }
 
-            // Step 6: If password is correct for LOCAL provider (The account isnt locked)
+            // Step 5: If password is correct (The account isnt locked)
             tracker.resetFailedAttempts(email);
             tracker.saveLoginTime(email);
             setStatus("active", email);
@@ -151,7 +185,7 @@ public class UserDAO extends DBContext {
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password_hash"),
-                    rs.getString("google_id"),
+                    rs.getString("github_id"),
                     rs.getString("auth_provider"),
                     rs.getString("role"),
                     rs.getString("status"),

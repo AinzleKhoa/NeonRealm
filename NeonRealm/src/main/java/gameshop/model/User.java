@@ -18,11 +18,11 @@ public class User {
     private String hashedPassword;
     private String githubId;
     private String authProvider; // "local" or "github"
-    private String role;
-    private String status;
+    private String role = "user";
+    private String status = "active";
     private String avatarUrl;
     private Instant lastLogin;
-    private Instant createdAt;
+    private Instant createdAt = Instant.now();
 
     // Constructors
     public User() {
@@ -34,26 +34,19 @@ public class User {
         this.username = username;
     }
 
-    // For sign up
-    public User(String username, String email, String hashedPassword) {
-        this.username = username;
-        this.email = email;
-        this.hashedPassword = hashedPassword;
-    }
-
     // For login locally
     public User(String email, String hashedPassword) {
         this.email = email;
         this.hashedPassword = hashedPassword;
     }
 
-    // For github login
-    public User(String username, String email, String githubId, String authProvider, Instant createdAt) {
+    // For signup locally and provider login/signup
+    public User(String username, String email, String hashedPassword, String githubId, String authProvider) {
         this.username = username;
         this.email = email;
+        this.hashedPassword = hashedPassword;
         this.githubId = githubId;
         this.authProvider = authProvider;
-        this.createdAt = createdAt;
     }
 
     // For login retrieving all data
@@ -103,11 +96,11 @@ public class User {
         this.hashedPassword = hashedPassword;
     }
 
-    public String getGoogleId() {
+    public String getGithubId() {
         return githubId;
     }
 
-    public void setGoogleId(String githubId) {
+    public void setGithubId(String githubId) {
         this.githubId = githubId;
     }
 
