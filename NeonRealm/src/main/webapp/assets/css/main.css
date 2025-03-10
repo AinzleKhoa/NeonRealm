@@ -812,7 +812,7 @@ body::-webkit-scrollbar-thumb {
   padding-bottom: 60px;
 }
 .section--first {
-  padding-top: 200px;
+  padding-top: 40px;
 }
 .section--bg {
   overflow: hidden;
@@ -1101,6 +1101,7 @@ body::-webkit-scrollbar-thumb {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-top: 50px;
 }
 @media (min-width: 576px) {
   .section {
@@ -1110,7 +1111,7 @@ body::-webkit-scrollbar-thumb {
     padding-bottom: 70px;
   }
   .section--first {
-    padding-top: 210px;
+    padding-top: 50px;
   }
   .section--catalog {
     padding-top: 50px;
@@ -1139,7 +1140,7 @@ body::-webkit-scrollbar-thumb {
     padding-bottom: 80px;
   }
   .section--first {
-    padding-top: 220px;
+    padding-top: 50px;
   }
   .section--catalog {
     padding-top: 50px;
@@ -1200,7 +1201,7 @@ body::-webkit-scrollbar-thumb {
     padding-bottom: 90px;
   }
   .section--first {
-    padding-top: 230px;
+    padding-top: 40px;
   }
   .section--catalog {
     padding-top: 50px;
@@ -1543,9 +1544,9 @@ body::-webkit-scrollbar-thumb {
   border-radius: 50%;
   margin-right: 10px;
 }
-.card__platforms li svg {
+.card__platforms li img {
   fill: #fff;
-  width: 14px;
+  width: 26px;
   height: auto;
 }
 .card__platforms li.ps {
@@ -1980,6 +1981,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 6px;
   overflow: hidden;
   background-color: #1b222e;
+  margin-top: 30px;
   padding: 20px;
   width: 100%;
 }
@@ -2163,9 +2165,9 @@ body::-webkit-scrollbar-thumb {
   border-radius: 50%;
   margin-right: 10px;
 }
-.details__platforms li svg {
+.details__platforms li img {
   fill: #fff;
-  width: 14px;
+  width: 26px;
   height: auto;
 }
 .details__platforms li.ps {

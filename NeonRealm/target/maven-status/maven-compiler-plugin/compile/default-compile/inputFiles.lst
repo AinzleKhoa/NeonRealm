@@ -1,4 +1,12 @@
-D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\src\main\java\controller\GameServlet.java
-D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\src\main\java\DAO\GameDAO.java
-D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\src\main\java\model\Game.java
-D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\src\main\java\db\DBContext.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CatalogServlet.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CheckoutServlet.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\controller\GameDetailsServlet.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\model\Cart.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\controller\HomeServlet.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\CatalogDAO.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\db\DBContext.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\HomeDAO.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\controller\CartServlet.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\model\Game.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\CartDAO.java
+D:\Document\FPTU\PRJ\NeonRealm\NeonRealm\NeonRealm\src\main\java\gameshop\DAO\GameDetailsDAO.java

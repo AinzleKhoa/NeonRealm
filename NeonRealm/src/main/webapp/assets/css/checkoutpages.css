@@ -1,0 +1,53 @@
+.header__actions {
+                display: flex;
+                align-items: center;
+                gap: 20px; /* Tạo khoảng cách giữa các phần tử */
+            }
+
+            .header__login {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: #fff;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 5px;
+                background-color: #007bff;
+                transition: background-color 0.3s;
+            }
+
+            .header__login:hover {
+                background-color: #0056b3;
+            }
+
+            .header__cart-link {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: #fff;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 5px;
+                background-color: #28a745;
+                transition: background-color 0.3s;
+            }
+
+            .header__cart-link:hover {
+                background-color: #218838;
+            }
+
+            .header__cart-link svg {
+                width: 24px;
+                height: 24px;
+                margin-right: 8px;
+                fill: white;
+            }
+
+            #cart-total-price {
+                margin-left: 5px;
+                font-weight: bold;
+            }
+            #cart-total-price {
+                margin-right: 5px; /* Tạo khoảng cách giữa totalPrice và cartCount */
+                font-weight: bold;
+            }
