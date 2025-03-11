@@ -242,6 +242,9 @@
                                 <c:if test="${not empty requestScope.selectedGenres}">
                                     <p style="color: white;">Genres: ${fn:join(requestScope.selectedGenres, ', ')}</p>
                                 </c:if>
+                                <c:if test="${not empty requestScope.keyword}">
+                                    <p style="color: white;">Keyword: ${keyword}</p>
+                                </c:if>
 
                                 <p style="color:red;">No game found.</p>
                             </c:otherwise>
@@ -256,6 +259,9 @@
                         </c:if>
                         <c:if test="${not empty requestScope.selectedGenres}">
                             <p style="color: white;">Genres: ${fn:join(requestScope.selectedGenres, ', ')}</p>
+                        </c:if>
+                        <c:if test="${not empty requestScope.keyword}">
+                            <p style="color: white;">Keyword: ${keyword}</p>
                         </c:if>
 
                         <div class="row">

@@ -102,31 +102,43 @@ public class CatalogServlet extends HttpServlet {
         if (selectedGenres == null) {
             selectedGenres = new String[0]; // Prevent null errors
         }
+        if (keyword == null) {
+            keyword = ""; // Prevent null errors
+        }
 
         // Store selected Platform and Genre in request attributes
         request.setAttribute("selectedPlatforms", selectedPlatforms);
         request.setAttribute("selectedGenres", selectedGenres);
+        request.setAttribute("keyword", keyword);
 
         List<Game> gameList = gDAO.getGameList();
         List<Game> matchingGames = new ArrayList<>();
         for (Game game : gameList) {
             boolean matchesPlatform = (selectedPlatforms.length == 0); // If no filter applied, allow all
             boolean matchesGenre = (selectedGenres.length == 0); // If no filter applied, allow all
-            boolean matchesKeyword = (keyword == null);
+            boolean matchesKeyword = (keyword.isEmpty()); // If no keyword, allow all
 
+            // Check platform filter
             for (String platform : selectedPlatforms) {
                 if (game.getFormattedPlatforms().contains(platform)) {
                     matchesPlatform = true;
                     break;
                 }
             }
+            // Check genre filter
             for (String genre : selectedGenres) {
                 if (game.getFormattedGenres().contains(genre)) {
                     matchesGenre = true;
                     break;
                 }
             }
-            if (matchesPlatform && matchesGenre) {
+            // Check keyword filter
+            if (!keyword.isEmpty() && game.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
+                matchesKeyword = true;
+            }
+
+            // If all filters match, add the game to the results
+            if (matchesPlatform && matchesGenre && matchesKeyword) {
                 matchingGames.add(game);
             }
         }
