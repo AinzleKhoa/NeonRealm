@@ -6,7 +6,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="break" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="/WEB-INF/include/header1.jsp" %>

@@ -1,3 +1,4 @@
+gameshop\customtags\PaginationHandler.class
 gameshop\util\BCryptGenerator.class
 gameshop\controller\LogoutServlet.class
 gameshop\controller\ProfileServlet.class
