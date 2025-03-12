@@ -36,15 +36,8 @@ public class CatalogServlet extends HttpServlet {
 
         GameDAO gDAO = new GameDAO();
 
-        // Get platform and genre name
-        List<String> platformNames = gDAO.getPlatformName();
-        List<String> genreNames = gDAO.getGenreName();
-        request.setAttribute("platformNames", platformNames);
-        request.setAttribute("genreNames", genreNames);
-
         int currentPage = 1;
         int totalGamesPerPage = 8;
-        int totalGames = gDAO.countGames();
         if (request.getParameter("page") != null) {
             try {
                 currentPage = Integer.parseInt(request.getParameter("page"));
@@ -52,8 +45,71 @@ public class CatalogServlet extends HttpServlet {
                 currentPage = 1; // Default to page 1 if invalid input
             }
         }
+
         // Calculate OFFSET correctly
         int nextGame = (currentPage - 1) * totalGamesPerPage; // First game start at index 0 thus why - 1
+
+        // Get platform and genre name for filter display
+        List<String> platformNames = gDAO.getPlatformName();
+        List<String> genreNames = gDAO.getGenreName();
+        request.setAttribute("platformNames", platformNames);
+        request.setAttribute("genreNames", genreNames);
+
+        // Retrieve selected filters (if any)
+        String[] selectedPlatforms = request.getParameterValues("platforms");
+        String[] selectedGenres = request.getParameterValues("genres");
+        String keyword = request.getParameter("keyword");
+
+        if (selectedPlatforms == null) {
+            selectedPlatforms = new String[0]; // Prevent null errors
+        }
+        if (selectedGenres == null) {
+            selectedGenres = new String[0]; // Prevent null errors
+        }
+        if (keyword == null) {
+            keyword = ""; // Prevent null errors
+        }
+        // Store selected Platform and Genre in request attributes
+        request.setAttribute("selectedPlatforms", selectedPlatforms);
+        request.setAttribute("selectedGenres", selectedGenres);
+        request.setAttribute("keyword", keyword);
+
+        // Get filtered total count
+        int totalGames = gDAO.countFilteredGames(selectedPlatforms, selectedGenres, keyword);
+        request.setAttribute("totalGames", totalGames);
+
+        List<Game> gameList = gDAO.getGameList();
+        List<Game> matchingGames = new ArrayList<>();
+        for (Game game : gameList) {
+            boolean matchesPlatform = (selectedPlatforms.length == 0); // If no filter applied, allow all
+            boolean matchesGenre = (selectedGenres.length == 0); // If no filter applied, allow all
+            boolean matchesKeyword = (keyword.isEmpty()); // If no keyword, allow all
+
+            // Check platform filter
+            for (String platform : selectedPlatforms) {
+                if (game.getFormattedPlatforms().contains(platform)) {
+                    matchesPlatform = true;
+                    break;
+                }
+            }
+            // Check genre filter
+            for (String genre : selectedGenres) {
+                if (game.getFormattedGenres().contains(genre)) {
+                    matchesGenre = true;
+                    break;
+                }
+            }
+            // Check keyword filter
+            if (!keyword.isEmpty() && game.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
+                matchesKeyword = true;
+            }
+
+            // If all filters match, add the game to the results
+            if (matchesPlatform && matchesGenre && matchesKeyword) {
+                matchingGames.add(game);
+            }
+        }
+
         List<Game> gameListPerPage = gDAO.getPagination(nextGame, totalGamesPerPage);
         request.setAttribute("gameListPerPage", gameListPerPage);
 
@@ -105,7 +161,6 @@ public class CatalogServlet extends HttpServlet {
         if (keyword == null) {
             keyword = ""; // Prevent null errors
         }
-
         // Store selected Platform and Genre in request attributes
         request.setAttribute("selectedPlatforms", selectedPlatforms);
         request.setAttribute("selectedGenres", selectedGenres);

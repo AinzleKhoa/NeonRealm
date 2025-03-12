@@ -26,7 +26,7 @@ public class GameDAO extends DBContext {
             String query = "SELECT name\n"
                     + "FROM Platforms";
             ResultSet rs = execSelectQuery(query);
-            
+
             while (rs.next()) {
                 list.add(rs.getString("name"));
             }
@@ -35,14 +35,14 @@ public class GameDAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<String> getGenreName() {
         List<String> list = new ArrayList<>();
         try {
             String query = "SELECT name\n"
                     + "FROM Genres";
             ResultSet rs = execSelectQuery(query);
-            
+
             while (rs.next()) {
                 list.add(rs.getString("name"));
             }
@@ -404,4 +404,19 @@ public class GameDAO extends DBContext {
         }
         return 0;
     }
+
+    public int countFilteredGames(String[] selectedPlatforms, String[] selectedGenres, String keyword) {
+        String query = "SELECT COUNT(g.game_id)\n"
+                + "FROM Games g";
+        List<Object> params = new ArrayList<>(); // Stores values for the ? placeholders in the SQL query.
+        List<String> conditions = new ArrayList<>(); // Stores different WHERE conditions to be added dynamically.
+        
+        if (keyword != null && !keyword.isEmpty()) {
+            conditions.add("LOWER(g.title) LIKE ?");
+            params.add("%" + keyword.toLowerCase() + "%");
+        }
+
+        return 0;
+    }
+
 }
