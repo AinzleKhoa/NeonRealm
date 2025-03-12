@@ -10,7 +10,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -30,13 +29,6 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Get session, don't create new one
-        if (session == null || session.getAttribute("currentUser") == null) {
-            System.out.println("❌ User not logged in! Redirecting to 404 page...");
-            response.sendRedirect(request.getContextPath() + "/404");
-            return; // Stop further execution
-        }
-        
         request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
     }
 

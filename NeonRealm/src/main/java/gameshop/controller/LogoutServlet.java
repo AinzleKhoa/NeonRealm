@@ -31,11 +31,6 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false); // Get session, don't create new one
-        if (session == null || session.getAttribute("currentUser") == null) {
-            System.out.println("❌ User not logged in! Redirecting to 404 page...");
-            response.sendRedirect(request.getContextPath() + "/404");
-            return; // Stop further execution
-        }
 
         if (session != null) {
             session.invalidate();

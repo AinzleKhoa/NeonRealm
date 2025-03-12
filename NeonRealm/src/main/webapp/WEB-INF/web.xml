@@ -77,4 +77,24 @@
             30
         </session-timeout>
     </session-config>
+    <filter> <!-- For logged-in -->
+        <filter-name>authReverse</filter-name>
+        <filter-class>gameshop.filter.AuthFilterReverse</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authReverse</filter-name>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/signup</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter> <!-- For not logged-in -->
+        <filter-name>auth</filter-name>
+        <filter-class>gameshop.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>auth</filter-name>
+        <url-pattern>/profile</url-pattern>
+        <url-pattern>/logout</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
 </web-app>

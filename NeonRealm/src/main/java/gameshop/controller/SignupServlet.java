@@ -6,7 +6,6 @@ package gameshop.controller;
 
 import gameshop.DAO.UserDAO;
 import gameshop.model.User;
-import gameshop.util.BCryptGenerator;
 import gameshop.util.InputValidator;
 import gameshop.util.PasswordUtils;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +35,6 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Get session, don't create a new one
-        if (session != null && session.getAttribute("currentUser") != null) {
-            System.out.println("❌ User already logged in! Redirecting to home...");
-            response.sendRedirect(request.getContextPath() + "/home");
-            return; // Stop further execution
-        }
 
         request.getRequestDispatcher("/WEB-INF/pages/signup.jsp").forward(request, response);
     }
