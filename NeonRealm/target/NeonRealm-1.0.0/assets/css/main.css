@@ -1485,6 +1485,12 @@ body::-webkit-scrollbar-thumb {
     border-color: rgba(167, 130, 233, 0.5);
     color: #fff;
 }
+
+.paginator__last--disabled a {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0;
+}
 @media (min-width: 576px) {
     .paginator {
         margin-top: 50px;

@@ -36,29 +36,54 @@ public class CatalogServlet extends HttpServlet {
 
         GameDAO gDAO = new GameDAO();
 
-        int currentPage = 1;
-        int totalGamesPerPage = 8;
-        if (request.getParameter("page") != null) {
-            try {
-                currentPage = Integer.parseInt(request.getParameter("page"));
-            } catch (NumberFormatException e) {
-                currentPage = 1; // Default to page 1 if invalid input
-            }
-        }
-
-        // Calculate OFFSET correctly
-        int nextGame = (currentPage - 1) * totalGamesPerPage; // First game start at index 0 thus why - 1
-
         // Get platform and genre name for filter display
         List<String> platformNames = gDAO.getPlatformName();
         List<String> genreNames = gDAO.getGenreName();
         request.setAttribute("platformNames", platformNames);
         request.setAttribute("genreNames", genreNames);
 
+        int currentPage;
+        int totalGamesPerPage = 8;
+        String pageParam = request.getParameter("page");
+        // If "page" is missing or invalid, redirect to ?page=1
+        if (pageParam == null || pageParam.isEmpty()) {
+            String queryString = request.getQueryString();
+            String newUrl = request.getContextPath() + "/catalog";
+
+            // Only append `?` if `queryString` is empty
+            if (queryString != null && !queryString.isEmpty()) {
+                newUrl += "?" + queryString;
+            }
+
+            // Ensure page=1 is added correctly
+            if (!newUrl.contains("page=")) {
+                newUrl += newUrl.contains("?") ? "&page=1" : "?page=1";
+            }
+
+            response.sendRedirect(newUrl);
+            return;
+        } else {
+            try {
+                currentPage = Integer.parseInt(pageParam);
+            } catch (NumberFormatException e) {
+                currentPage = 1; // Default to page 1 if invalid input
+            }
+        }
+
         // Retrieve selected filters (if any)
         String[] selectedPlatforms = request.getParameterValues("platforms");
         String[] selectedGenres = request.getParameterValues("genres");
         String keyword = request.getParameter("keyword");
+
+        // Convert comma-separated values into array so e.g http://localhost:8080/NeonRealm/catalog?platforms=Windows,Xbox&page=2 will work
+        // Split so getQueryString can retrieve correctly for each "," 
+        // E.g: platforms = ["Windows,Xbox"]; will become platforms = ["{Windows},{Xbox}"]; because split help it read individually
+        if (selectedPlatforms != null && selectedPlatforms.length == 1 && selectedPlatforms[0].contains(",")) {
+            selectedPlatforms = selectedPlatforms[0].split(",");
+        }
+        if (selectedGenres != null && selectedGenres.length == 1 && selectedGenres[0].contains(",")) {
+            selectedGenres = selectedGenres[0].split(",");
+        }
 
         if (selectedPlatforms == null) {
             selectedPlatforms = new String[0]; // Prevent null errors
@@ -69,7 +94,8 @@ public class CatalogServlet extends HttpServlet {
         if (keyword == null) {
             keyword = ""; // Prevent null errors
         }
-        // Store selected Platform and Genre in request attributes
+
+        // Store filters in request attributes so they persist
         request.setAttribute("selectedPlatforms", selectedPlatforms);
         request.setAttribute("selectedGenres", selectedGenres);
         request.setAttribute("keyword", keyword);
@@ -78,51 +104,18 @@ public class CatalogServlet extends HttpServlet {
         int totalGames = gDAO.countFilteredGames(selectedPlatforms, selectedGenres, keyword);
         request.setAttribute("totalGames", totalGames);
 
-        List<Game> gameList = gDAO.getGameList();
-        List<Game> matchingGames = new ArrayList<>();
-        for (Game game : gameList) {
-            boolean matchesPlatform = (selectedPlatforms.length == 0); // If no filter applied, allow all
-            boolean matchesGenre = (selectedGenres.length == 0); // If no filter applied, allow all
-            boolean matchesKeyword = (keyword.isEmpty()); // If no keyword, allow all
-
-            // Check platform filter
-            for (String platform : selectedPlatforms) {
-                if (game.getFormattedPlatforms().contains(platform)) {
-                    matchesPlatform = true;
-                    break;
-                }
-            }
-            // Check genre filter
-            for (String genre : selectedGenres) {
-                if (game.getFormattedGenres().contains(genre)) {
-                    matchesGenre = true;
-                    break;
-                }
-            }
-            // Check keyword filter
-            if (!keyword.isEmpty() && game.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
-                matchesKeyword = true;
-            }
-
-            // If all filters match, add the game to the results
-            if (matchesPlatform && matchesGenre && matchesKeyword) {
-                matchingGames.add(game);
-            }
-        }
-
-        List<Game> gameListPerPage = gDAO.getPagination(nextGame, totalGamesPerPage);
-        request.setAttribute("gameListPerPage", gameListPerPage);
-
-        // Calculate total pages correctly, e.g if 8.5 it will round up to 9
+        // Calculate total pages correctly
         int numOfPages = (int) Math.ceil((double) totalGames / totalGamesPerPage);
         request.setAttribute("numOfPages", numOfPages);
 
-        // Calculate current total games. At final page will display max from max numOfPages
-        int currentTotalGames = (currentPage < numOfPages ? totalGamesPerPage * currentPage : totalGames);
+        // Ensure correct current total games
+        int currentTotalGames = Math.min(currentPage * totalGamesPerPage, totalGames);
         request.setAttribute("currentTotalGames", currentTotalGames);
 
-        // Calculate total games
-        request.setAttribute("totalGames", gDAO.countGames());
+        // Calculate OFFSET correctly
+        int nextGame = (currentPage - 1) * totalGamesPerPage;
+        List<Game> filteredGamePagination = gDAO.getFilteredPagination(nextGame, totalGamesPerPage, selectedPlatforms, selectedGenres, keyword);
+        request.setAttribute("filteredGamesPage", filteredGamePagination);
 
         request.getRequestDispatcher("/WEB-INF/pages/catalog.jsp")
                 .forward(request, response);
@@ -139,69 +132,6 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        GameDAO gDAO = new GameDAO();
-
-        // Get platform and genre name
-        List<String> platformNames = gDAO.getPlatformName();
-        List<String> genreNames = gDAO.getGenreName();
-        request.setAttribute("platformNames", platformNames);
-        request.setAttribute("genreNames", genreNames);
-
-        // Retrieve selected filters (if any)
-        String[] selectedPlatforms = request.getParameterValues("platforms");
-        String[] selectedGenres = request.getParameterValues("genres");
-        String keyword = request.getParameter("keyword");
-
-        if (selectedPlatforms == null) {
-            selectedPlatforms = new String[0]; // Prevent null errors
-        }
-        if (selectedGenres == null) {
-            selectedGenres = new String[0]; // Prevent null errors
-        }
-        if (keyword == null) {
-            keyword = ""; // Prevent null errors
-        }
-        // Store selected Platform and Genre in request attributes
-        request.setAttribute("selectedPlatforms", selectedPlatforms);
-        request.setAttribute("selectedGenres", selectedGenres);
-        request.setAttribute("keyword", keyword);
-
-        List<Game> gameList = gDAO.getGameList();
-        List<Game> matchingGames = new ArrayList<>();
-        for (Game game : gameList) {
-            boolean matchesPlatform = (selectedPlatforms.length == 0); // If no filter applied, allow all
-            boolean matchesGenre = (selectedGenres.length == 0); // If no filter applied, allow all
-            boolean matchesKeyword = (keyword.isEmpty()); // If no keyword, allow all
-
-            // Check platform filter
-            for (String platform : selectedPlatforms) {
-                if (game.getFormattedPlatforms().contains(platform)) {
-                    matchesPlatform = true;
-                    break;
-                }
-            }
-            // Check genre filter
-            for (String genre : selectedGenres) {
-                if (game.getFormattedGenres().contains(genre)) {
-                    matchesGenre = true;
-                    break;
-                }
-            }
-            // Check keyword filter
-            if (!keyword.isEmpty() && game.getTitle().toLowerCase().contains(keyword.toLowerCase())) {
-                matchesKeyword = true;
-            }
-
-            // If all filters match, add the game to the results
-            if (matchesPlatform && matchesGenre && matchesKeyword) {
-                matchingGames.add(game);
-            }
-        }
-
-        request.setAttribute("filteredGameList", matchingGames);
-
-        request.getRequestDispatcher("/WEB-INF/pages/catalog.jsp")
-                .forward(request, response);
     }
 
     /**

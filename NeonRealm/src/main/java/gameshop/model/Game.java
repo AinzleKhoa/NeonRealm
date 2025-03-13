@@ -46,6 +46,20 @@ public class Game {
         this.categories = categories;
     }
 
+    // Retrieve for catalog
+    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
+        this.gameId = gameId;
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.releaseDate = releaseDate;
+        this.developers = developers;
+        this.publishers = publishers;
+        this.genres = genres;
+        this.platforms = platforms;
+        this.categories = categories;
+    }
+
     // Retrieve game for home
     public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;

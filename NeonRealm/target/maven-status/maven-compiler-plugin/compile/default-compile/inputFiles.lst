@@ -10,7 +10,6 @@ D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\LogoutServlet.j
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\PasswordUtils.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\customtags\PaginationHandler.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\model\Game.java
-D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\BCryptGenerator.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\util\GitHubOAuthUtil.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\controller\ProfileServlet.java
 D:\.github\NeonRealm\NeonRealm\src\main\java\gameshop\filter\AuthFilter.java

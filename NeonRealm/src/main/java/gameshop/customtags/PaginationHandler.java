@@ -43,18 +43,20 @@ public class PaginationHandler extends TagSupport {
         StringBuilder pagination = new StringBuilder();
 
         try {
+            String pageParam = url.endsWith("?") || url.endsWith("&") ? "" : (url.contains("?") ? "&" : "?");
             pagination.append("<ul class='paginator__wrap'>");
 
             // Previous Button
             if (currentPage > 1) {
-                pagination.append(String.format("<li class='paginator__item'><a href='%s?page=1'>&laquo;</a></li>", url));
+                pagination.append(String.format("<li class='paginator__item'><a href='%s%spage=1'>&laquo;</a></li>", url, pageParam));
                 pagination.append(String.format(
-                        "<li class='paginator__item paginator__item--prev'><a href='%s?page=%d'>"
+                        "<li class='paginator__item paginator__item--prev'><a href='%s%spage=%d'>"
                         + "<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'>"
                         + "<polyline points='244 400 100 256 244 112' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/>"
                         + "<line x1='120' y1='256' x2='412' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/>"
-                        + "</svg></a></li>", url, currentPage - 1));
+                        + "</svg></a></li>", url, pageParam, currentPage - 1));
             } else {
+                pagination.append("<li class='paginator__item paginator__last--disabled'><a href='javascript:void(0)'>&laquo;</a></li>");
                 pagination.append(
                         "<li class='paginator__item paginator__item--prev disabled'><span>"
                         + "<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'>"
@@ -83,21 +85,21 @@ public class PaginationHandler extends TagSupport {
             // Generate the page numbers
             for (int i = startPage; i <= endPage; i++) {
                 if (i == currentPage) {
-                    pagination.append(String.format("<li class='paginator__item paginator__item--active'><a href='%s?page=%d'>%d</a></li>", url, i, i));
+                    pagination.append(String.format("<li class='paginator__item paginator__item--active'><a href='javascript:void(0)'>%d</a></li>", i));
                 } else {
-                    pagination.append(String.format("<li class='paginator__item'><a href='%s?page=%d'>%d</a></li>", url, i, i));
+                    pagination.append(String.format("<li class='paginator__item'><a href='%s%spage=%d'>%d</a></li>", url, pageParam, i, i));
                 }
             }
 
             // Next Button
             if (currentPage < totalPages) {
                 pagination.append(String.format(
-                        "<li class='paginator__item paginator__item--next'><a href='%s?page=%d'>"
+                        "<li class='paginator__item paginator__item--next'><a href='%s%spage=%d'>"
                         + "<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'>"
                         + "<polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/>"
                         + "<line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/>"
-                        + "</svg></a></li>", url, currentPage + 1));
-                pagination.append(String.format("<li class='paginator__item'><a href='%s?page=%d'>&raquo;</a></li>", url, totalPages));
+                        + "</svg></a></li>", url, pageParam, currentPage + 1));
+                pagination.append(String.format("<li class='paginator__item'><a href='%s%spage=%d'>&raquo;</a></li>", url, pageParam, totalPages));
 
             } else {
                 pagination.append(
@@ -106,6 +108,7 @@ public class PaginationHandler extends TagSupport {
                         + "<polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/>"
                         + "<line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px'/>"
                         + "</svg></span></li>");
+                pagination.append("<li class='paginator__item paginator__last--disabled'><a href='javascript:void(0)'>&raquo;</a></li>");
             }
 
             pagination.append("</ul>");
