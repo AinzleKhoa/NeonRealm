@@ -4,12 +4,18 @@
  */
 package gameshop.controller;
 
+import gameshop.DAO.UserDAO;
+import gameshop.model.User;
+import gameshop.util.InputValidator;
+import gameshop.util.PasswordUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,8 +39,8 @@ public class ProfileServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
-     *1
+     * Handles the HTTP <code>POST</code> method. 1
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -43,6 +49,97 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String oldPass = request.getParameter("oldpass");
+        String newPass = request.getParameter("newpass");
+        String confirmNewPass = request.getParameter("confirmnewpass");
+
+        UserDAO uDAO = new UserDAO();
+
+        List<String> errorMessages = new ArrayList<>();
+
+        int result = uDAO.profileUpdateAuth(id, oldPass);
+
+        if ((newPass != null && !newPass.trim().isEmpty())) {
+            switch (result) {
+                case 1:
+                    // Nothing happen, moving on.
+                    break;
+                case -1:
+                    errorMessages.add("Your account is locked. Try again later.");
+                    request.setAttribute("errors", errorMessages);
+                    request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+                    return;
+                case -2:
+                    errorMessages.add("Incorrect old password! Too many failed attempts may lock your account.");
+                    request.setAttribute("errors", errorMessages);
+                    request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+                    return;
+                default:
+                    errorMessages.add("Something went wrong!");
+                    request.setAttribute("errors", errorMessages);
+                    request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+                    return;
+            }
+
+            // After password is correct
+            if (oldPass.equals(newPass)) {
+                errorMessages.add("The old password is identical to the new password!");
+            }
+            if (!newPass.equals(confirmNewPass)) {
+                errorMessages.add("New Passwords do not match!");
+            }
+            if (!InputValidator.isUsernameValid(username)) {
+                errorMessages.add("Username must be 3-20 characters (letters, numbers, underscores only).");
+            }
+            if (!InputValidator.isEmailValid(email)) {
+                errorMessages.add("Invalid email format. Example: user@example.com");
+            }
+            if (!InputValidator.isPasswordValid(newPass)) {
+                errorMessages.add("Password must be at least 8 characters with 1 letter & 1 number.");
+            }
+            // If there are errors, return
+            if (!errorMessages.isEmpty()) {
+                request.setAttribute("errors", errorMessages);
+                request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+                return;
+            }
+
+            String hashedNewPassword = PasswordUtils.hashPassword(newPass); // Hash the password before storing it
+
+            if (uDAO.profileUpdate(id, username, email, hashedNewPassword) > 0) {
+                request.setAttribute("success", "Successfully updated your account info!!");
+                request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+            } else {
+                errorMessages.add("Something went wrong...");
+                request.setAttribute("errors", errorMessages);
+                request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+            }
+        } else {
+            if (!InputValidator.isUsernameValid(username)) {
+                errorMessages.add("Username must be 3-20 characters (letters, numbers, underscores only).");
+            }
+            if (!InputValidator.isEmailValid(email)) {
+                errorMessages.add("Invalid email format. Example: user@example.com");
+            }
+            // If there are errors, return
+            if (!errorMessages.isEmpty()) {
+                request.setAttribute("errors", errorMessages);
+                request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+                return;
+            }
+
+            if (uDAO.profileUpdate(id, username, email) > 0) {
+                request.setAttribute("success", "Successfully updated your account info!!");
+                request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+            } else {
+                errorMessages.add("Something went wrong...");
+                request.setAttribute("errors", errorMessages);
+                request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+            }
+        }
     }
 
     /**

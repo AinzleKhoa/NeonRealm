@@ -16,7 +16,7 @@
                 <div class="col-12">
                     <div class="sign__content">
                         <!-- registration form -->
-                        <form action="${pageContext.servletContext.contextPath}/signup" method="POST" class="sign__form" onsubmit="return validatePassword()">
+                        <form action="${pageContext.servletContext.contextPath}/signup" method="POST" class="sign__form">
                             <a href="${pageContext.servletContext.contextPath}/home" class="sign__logo">
                                 <img src="${pageContext.servletContext.contextPath}/assets/img/logo.png" alt="">
                             </a>
@@ -44,18 +44,13 @@
                             </div>
                             --%>
 
-                            <c:choose>
-                                <c:when test="${not empty requestScope.errors}">
+                                <c:if test="${not empty requestScope.errors}">
                                     <div style="color: red;">
                                         <c:forEach var="error" items="${requestScope.errors}">
                                             <p>${error}</p>
                                         </c:forEach>
                                     </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <p id="password_error" style="color: red;"></p>
-                                </c:otherwise>
-                            </c:choose>
+                                </c:if>
 
                             <button class="sign__btn" type="submit">Sign up</button>
 

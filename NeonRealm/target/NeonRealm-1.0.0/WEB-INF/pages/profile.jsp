@@ -50,13 +50,30 @@
                         </div>
                     </div>
 
+                    <c:choose>
+                        <c:when test="${empty requestScope.errors}">
+                            <c:set var="activeTab" value="tab-1"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="activeTab" value="tab-2"/>
+                        </c:otherwise>
+                    </c:choose>
+
                     <ul class="nav nav-tabs profile__tabs" id="profile__tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">My purchases</a>
+                            <a class="nav-link ${activeTab == 'tab-1' ? 'active' : ''}" 
+                               data-toggle="tab" href="#tab-1" role="tab" 
+                               aria-controls="tab-1" aria-selected="${activeTab == 'tab-1' ? 'true' : 'false'}">
+                                My purchases
+                            </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Settings</a>
+                            <a class="nav-link ${activeTab == 'tab-2' ? 'active' : ''}" 
+                               data-toggle="tab" href="#tab-2" role="tab" 
+                               aria-controls="tab-2" aria-selected="${activeTab == 'tab-2' ? 'true' : 'false'}">
+                                Settings
+                            </a>
                         </li>
                     </ul>
 
@@ -84,7 +101,7 @@
         <div class="container">
             <!-- content tabs -->
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+                <div class="tab-pane fade ${activeTab == 'tab-1' ? 'show active' : ''}" id="tab-1" role="tabpanel">
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive table-responsive--border">
@@ -178,24 +195,44 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                <div class="tab-pane fade ${activeTab == 'tab-2' ? 'show active' : ''}" id="tab-2" role="tabpanel">
                     <div class="row">
                         <!-- details form -->
                         <div class="col-12 col-lg-6">
-                            <form action="#" class="form">
+                            <form action="${pageContext.servletContext.contextPath}/profile" method="POST" class="form">
                                 <div class="row">
                                     <div class="col-12">
                                         <h4 class="form__title">Profile details</h4>
                                     </div>
+                                    <input hidden name="id" value="${user.userId}"/>
 
                                     <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                         <label class="form__label" for="username">Username</label>
-                                        <input id="username" type="text" name="username" class="form__input" placeholder="${user.username}">
+                                        <input id="username" type="text" name="username" class="form__input" placeholder="${user.username}" value="${user.username}" required>
                                     </div>
 
                                     <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                         <label class="form__label" for="email">Email</label>
-                                        <input id="email" type="text" name="email" class="form__input" placeholder="${user.email}">
+                                        <input id="email" type="text" name="email" class="form__input" placeholder="${user.email}" value="${user.email}" required>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <h4 class="form__title">Change password</h4>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label class="form__label" for="oldpass">Old Password (Required to update profile)</label>
+                                        <input id="oldpass" type="password" name="oldpass" class="form__input" required>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                        <label class="form__label" for="newpass">New Password</label>
+                                        <input id="newpass" type="password" name="newpass" class="form__input">
+                                    </div>
+
+                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                        <label class="form__label" for="confirmpass">Confirm New Password</label>
+                                        <input id="confirmpass" type="password" name="confirmnewpass" class="form__input">
                                     </div>
                                     <%--
                                     <div class="col-12 col-md-6 col-lg-12 col-xl-6">
@@ -208,17 +245,33 @@
                                         <input id="lastname" type="text" name="lastname" class="form__input" placeholder="${user.fullName}">
                                     </div>
                                     --%>
-                                    <div class="col-12">
-                                        <button class="form__btn" type="button">Save</button>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <c:choose>
+                                            <c:when test="${not empty requestScope.errors}">
+                                                <div style="color: red;">
+                                                    <c:forEach var="error" items="${requestScope.errors}">
+                                                        <p>${error}</p>
+                                                    </c:forEach>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:if test="${not empty requestScope.success}"><p style="color: greenyellow;">${requestScope.success}</p></c:if>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
+
+                                    <div class="col-12">
+                                        <button class="form__btn" type="submit">Save</button>
+                                    </div>
+
                                 </div>
-                            </form>
                         </div>
                         <!-- end details form -->
 
+                        <%--
                         <!-- password form -->
                         <div class="col-12 col-lg-6">
-                            <form action="#" class="form">
                                 <div class="row">
                                     <div class="col-12">
                                         <h4 class="form__title">Change password</h4>
@@ -253,9 +306,9 @@
                                         <button class="form__btn" type="button">Change</button>
                                     </div>
                                 </div>
-                            </form>
                         </div>
                         <!-- end password form -->
+                        --%>
                     </div>
                 </div>
             </div>

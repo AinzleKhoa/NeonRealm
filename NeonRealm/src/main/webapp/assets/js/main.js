@@ -461,15 +461,3 @@ document.addEventListener("click", (event) => {
         closeModal();
     }
 });
-
-function validatePassword() {
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirm_password").value;
-    let errorMessage = document.getElementById("password_error");
-    
-    if (password !== confirmPassword) {
-        errorMessage.innerText = "Passwords do not match!";
-        return false;
-    }
-    return true;
-}

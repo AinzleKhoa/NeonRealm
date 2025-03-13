@@ -131,9 +131,109 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
+    /*
+    public int profileUpdate(String username, String email, String newHashedPassword) {
+        try {
+            String query = "select user_id\n"
+                    + "FROM Users u\n"
+                    + "WHERE u.email = ?;";
+            Object[] params = {email};
+            ResultSet rs = execSelectQuery(query, params);
+            if (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String queryUpdate = "UPDATE Users\n"
+                        + "SET username = ?, email = ?, password_hash = ? "
+                        + "WHERE user_id = ?";
+                Object[] paramss = {username, email, newHashedPassword, userId};
+                return execQuery(queryUpdate, paramss);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+     */
+    // With new password
+    public int profileUpdate(int id, String username, String email, String newHashedPassword) {
+        try {
+            String query = "UPDATE Users\n"
+                    + "SET username = ?, email = ?, password_hash = ?"
+                    + "WHERE user_id = ?;";
+            Object[] params = {
+                username,
+                email,
+                newHashedPassword,
+                id
+            };
+
+            return execQuery(query, params);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    // Without new password
+    public int profileUpdate(int id, String username, String email) {
+        try {
+            String query = "UPDATE Users\n"
+                    + "SET username = ?, email = ?"
+                    + "WHERE user_id = ?;";
+            Object[] params = {
+                username,
+                email,
+                id
+            };
+
+            return execQuery(query, params);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int profileUpdateAuth(int id, String oldPass) {
+        try {
+            String query = "select *\n"
+                    + "FROM Users u\n"
+                    + "WHERE u.user_id = ?;";
+            Object[] params = {id};
+            ResultSet rs = execSelectQuery(query, params);
+
+            // Step 1: Check if the id doesn't exist
+            if (!rs.next()) {
+                return -3; // Unexpected issues
+            }
+
+            LoginAttemptTracker tracker = new LoginAttemptTracker();
+            String hashedPassword = rs.getString("password_hash");
+            String email = rs.getString("email");
+
+            // Step 2: check the password
+            if (hashedPassword == null || hashedPassword.isEmpty() || !PasswordUtils.checkPassword(oldPass, hashedPassword)) { // PasswordUtils class in util package will handle it
+                if (tracker.trackFailedLoginAttempt(email) == -1) { // If the password is incorrect and the account is locked
+                    setStatus("locked", email);
+                    return -1;
+                } else { // If the account login attempt is less than 5 and is not locked. Only incorrect password
+                    return -2;
+                }
+            }
+
+            // If password is correct (The account isnt locked)
+            tracker.resetFailedAttempts(email);
+            tracker.saveLoginTime(email);
+            setStatus("active", email);
+
+            return 1; // Succeed
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     /**
      * For traditional login only (Not using any other provider than local)
-     * 
+     *
      * @param email
      * @param password
      * @return
