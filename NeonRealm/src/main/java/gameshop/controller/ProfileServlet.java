@@ -4,7 +4,9 @@
  */
 package gameshop.controller;
 
+import gameshop.DAO.OrderDAO;
 import gameshop.DAO.UserDAO;
+import gameshop.model.OrderDetails;
 import gameshop.model.User;
 import gameshop.util.InputValidator;
 import gameshop.util.PasswordUtils;
@@ -37,6 +39,15 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        OrderDAO oDAO = new OrderDAO();
+        User user = (User) session.getAttribute("currentUser"); // Cast to User
+
+        List<OrderDetails> orderDetailsList = oDAO.getOrderHistory(user.getUserId());
+
+        // Set attribute to forward data to JSP
+        request.setAttribute("orderHistory", orderDetailsList);
+
         request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
     }
 

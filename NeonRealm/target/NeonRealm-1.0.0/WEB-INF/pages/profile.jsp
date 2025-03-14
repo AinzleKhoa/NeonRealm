@@ -6,6 +6,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/include/header1.jsp" %>
 <%@include file="/WEB-INF/include/header2.jsp" %>
@@ -109,70 +111,41 @@
                                     <thead>
                                         <tr>
                                             <th>№</th>
-                                            <th><a href="#">Product <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.71,10.21,12,7.91l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-3-3a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,1.42,1.42Zm4.58,4.58L12,17.09l-2.29-2.3a1,1,0,0,0-1.42,1.42l3,3a1,1,0,0,0,1.42,0l3-3a1,1,0,0,0-1.42-1.42Z"/></svg></a></th>
-                                            <th><a href="#" class="active">Title <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,13.41,12.71,9.17a1,1,0,0,0-1.42,0L7.05,13.41a1,1,0,0,0,0,1.42,1,1,0,0,0,1.41,0L12,11.29l3.54,3.54a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29A1,1,0,0,0,17,13.41Z"/></svg></a></th>
-                                            <th><a href="#">Platform <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.71,10.21,12,7.91l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-3-3a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,1.42,1.42Zm4.58,4.58L12,17.09l-2.29-2.3a1,1,0,0,0-1.42,1.42l3,3a1,1,0,0,0,1.42,0l3-3a1,1,0,0,0-1.42-1.42Z"/></svg></a></th>
-                                            <th><a href="#" class="active">Date <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></a></th>
-                                            <th><a href="#">Price <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.71,10.21,12,7.91l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-3-3a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,1.42,1.42Zm4.58,4.58L12,17.09l-2.29-2.3a1,1,0,0,0-1.42,1.42l3,3a1,1,0,0,0,1.42,0l3-3a1,1,0,0,0-1.42-1.42Z"/></svg></a></th>
-                                            <th><a href="#">Status <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.71,10.21,12,7.91l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-3-3a1,1,0,0,0-1.42,0l-3,3a1,1,0,0,0,1.42,1.42Zm4.58,4.58L12,17.09l-2.29-2.3a1,1,0,0,0-1.42,1.42l3,3a1,1,0,0,0,1.42,0l3-3a1,1,0,0,0-1.42-1.42Z"/></svg></a></th>
+                                            <th><a href="">Product</a></th>
+                                            <th><a href="" class="active">Title</a></th>
+                                            <th><a href="" class="active">Purchased Date</a></th>
+                                            <th><a href="">Price</a></th>
                                             <th></th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td><a href="#modal-info" class="open-modal">8451</a></td>
-                                            <td>
-                                                <div class="profile__img">
-                                                    <img src="${pageContext.servletContext.contextPath}/assets/img/cards/5.jpg" alt="">
-                                                </div>
-                                            </td>
-                                            <td>Desperados III Digital Deluxe Edition</td>
-                                            <td>XBOX</td>
-                                            <td>Aug 22, 2021</td>
-                                            <td><span class="profile__price">$49.00</span></td>
-                                            <td><span class="profile__status">Not confirmed</span></td>
-                                            <td><button class="profile__delete" type="button"><svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#modal-info" class="open-modal">8126</a></td>
-                                            <td>
-                                                <div class="profile__img">
-                                                    <img src="${pageContext.servletContext.contextPath}/assets/img/cards/7.jpg" alt="">
-                                                </div>
-                                            </td>
-                                            <td>Red Dead Redemption 2</td>
-                                            <td>PC</td>
-                                            <td>July 22, 2021</td>
-                                            <td><span class="profile__price">$59.00</span></td>
-                                            <td><span class="profile__status profile__status--confirmed">Confirmed</span></td>
-                                            <td><button class="profile__delete" type="button"><svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#modal-info" class="open-modal">7314</a></td>
-                                            <td>
-                                                <div class="profile__img">
-                                                    <img src="${pageContext.servletContext.contextPath}/assets/img/cards/3.jpg" alt="">
-                                                </div>
-                                            </td>
-                                            <td>Baldur's Gate II: Enhanced Edition</td>
-                                            <td>PC</td>
-                                            <td>June 12, 2020</td>
-                                            <td><span class="profile__price">$38.99</span></td>
-                                            <td><span class="profile__status profile__status--cenceled">Canceled</span></td>
-                                            <td><button class="profile__delete" type="button"><svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg></button></td>
-                                        </tr>
+                                        <c:forEach var="o" items="${requestScope.orderHistory}">
+                                            <tr>
+                                                <td><a>${o.orderDetailId}</a></td>
+                                                <td>
+                                                    <a href="${pageContext.servletContext.contextPath}/gamedetails?id=${o.game.gameId}">
+                                                        <div class="profile__img">
+                                                            <img src="${pageContext.servletContext.contextPath}/assets/img/cards/${o.game.imageUrl}" alt="">
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td>${o.game.title}</td>
+                                                <td>${o.order.createdAt}</td>
+                                                <td><span class="profile__price">${o.price}</span></td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
-                        <!-- paginator -->
-                        <div class="col-12">
-                            <div class="paginator">
-                                <div class="paginator__counter">
-                                    3 from 9
-                                </div>
+                        <%--
+                                                <!-- paginator -->
+                                                <div class="col-12">
+                                                    <div class="paginator">
+                                                        <div class="paginator__counter">
+                                                            3 from 9
+                                                        </div>
 
                                 <ul class="paginator__wrap">
                                     <li class="paginator__item paginator__item--prev">
@@ -192,6 +165,7 @@
                             </div>
                         </div>
                         <!-- end paginator -->
+                        --%>
                     </div>
                 </div>
 
@@ -217,7 +191,7 @@
                                         <label class="form__label" for="email">Email</label>
                                         <input id="email" type="text" name="email" class="form__input" placeholder="${user.email}" value="${user.email}" required>
                                     </div>
-                                    
+
                                     <h4 class="form__title">${user.authProvider == 'local' ? '' : 'You will need to reauthorize with GitHub to make changes to your account.'}</h4>
 
                                     <c:if test="${user.authProvider == 'local'}">

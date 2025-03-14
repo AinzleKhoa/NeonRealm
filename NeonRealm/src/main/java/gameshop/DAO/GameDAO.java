@@ -8,7 +8,7 @@ import gameshop.db.DBContext;
 import gameshop.model.Game;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -104,7 +104,7 @@ public class GameDAO extends DBContext {
         try ( ResultSet rs = execSelectQuery(query, params)) {
             if (rs.next()) {
 
-                LocalDate releaseDate = (rs.getDate("release_date") != null ? rs.getDate("release_date").toLocalDate() : null);
+                LocalDateTime releaseDate = (rs.getTimestamp("release_date") != null ? rs.getTimestamp("release_date").toLocalDateTime() : null);
 
                 List<String> developerNames = new ArrayList<>();
                 if (rs.getString("developers") != null) {
@@ -220,7 +220,7 @@ public class GameDAO extends DBContext {
         try ( ResultSet rs = execSelectQuery(query)) {
             while (rs.next()) {  // Always check if there's data first!
 
-                LocalDate releaseDate = (rs.getDate("release_date") != null ? rs.getDate("release_date").toLocalDate() : null);
+                LocalDateTime releaseDate = (rs.getTimestamp("release_date") != null ? rs.getTimestamp("release_date").toLocalDateTime() : null);
 
                 List<String> genreNames = new ArrayList<>();
                 if (rs.getString("genres") != null) {
@@ -338,7 +338,7 @@ public class GameDAO extends DBContext {
             ResultSet rs = execSelectQuery(query, params);
 
             while (rs.next()) {
-                LocalDate releaseDate = (rs.getDate("release_date") != null ? rs.getDate("release_date").toLocalDate() : null);
+                LocalDateTime releaseDate = (rs.getTimestamp("release_date") != null ? rs.getTimestamp("release_date").toLocalDateTime() : null);
 
                 List<String> genreNames = new ArrayList<>();
                 if (rs.getString("genres") != null) {
@@ -504,7 +504,7 @@ public class GameDAO extends DBContext {
             ResultSet rs = execSelectQuery(query.toString(), params.toArray());
 
             while (rs.next()) {
-                LocalDate releaseDate = (rs.getDate("release_date") != null ? rs.getDate("release_date").toLocalDate() : null);
+                LocalDateTime releaseDate = (rs.getTimestamp("release_date") != null ? rs.getTimestamp("release_date").toLocalDateTime() : null);
 
                 List<String> developerNames = new ArrayList<>();
                 if (rs.getString("developers") != null) {

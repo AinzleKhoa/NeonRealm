@@ -5,7 +5,8 @@
 package gameshop.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 import java.util.List;
 
 /**
@@ -19,8 +20,8 @@ public class Game {
     private String description;
     private String imageUrl;
     private BigDecimal price;
-    private LocalDate releaseDate;
-    private LocalDate createdAt;
+    private LocalDateTime  releaseDate;;
+    private LocalDateTime  createdAt;
     private List<String> developers;
     private List<String> publishers;
     private List<String> genres;
@@ -29,9 +30,11 @@ public class Game {
 
     public Game() {
     }
+    
+    // For OrderDetails
 
     // Retrieve all
-    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDate releaseDate, LocalDate createdAt, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDateTime  releaseDate, LocalDateTime  createdAt, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.description = description;
@@ -47,7 +50,7 @@ public class Game {
     }
 
     // Retrieve for catalog
-    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDateTime  releaseDate, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.imageUrl = imageUrl;
@@ -61,7 +64,7 @@ public class Game {
     }
 
     // Retrieve game for home
-    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> genres, List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDateTime  releaseDate, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.imageUrl = imageUrl;
@@ -73,7 +76,7 @@ public class Game {
     }
 
     // Retrieve game for game details
-    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDate releaseDate, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, LocalDateTime  releaseDate, List<String> developers, List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.description = description;
@@ -127,19 +130,19 @@ public class Game {
         this.price = price;
     }
 
-    public LocalDate getReleaseDate() {
+    public LocalDateTime  getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(LocalDateTime  releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime  getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime  createdAt) {
         this.createdAt = createdAt;
     }
 
