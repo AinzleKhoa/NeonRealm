@@ -40,21 +40,21 @@ public class GitHubOAuthCallbackServlet extends HttpServlet {
             throws ServletException, IOException {
         String code = request.getParameter("code");
         if (code == null) {
-            response.sendRedirect("login.jsp?error=GitHub authorization failed");
+            response.sendRedirect("/error?error=GitHub authorization failed");
             return;
         }
 
         // Get access token from GitHub
         String accessToken = GitHubOAuthUtil.getAccessToken(code);
         if (accessToken == null) {
-            response.sendRedirect("login.jsp?error=GitHub token retrieval failed");
+            response.sendRedirect("/error?error=GitHub token retrieval failed");
             return;
         }
 
         // Get user info from GitHub API
         JSONObject userInfo = GitHubOAuthUtil.getUserInfo(accessToken);
         if (userInfo == null) {
-            response.sendRedirect("login.jsp?error=GitHub user retrieval failed");
+            response.sendRedirect("/error?error=GitHub user retrieval failed");
             return;
         }
 

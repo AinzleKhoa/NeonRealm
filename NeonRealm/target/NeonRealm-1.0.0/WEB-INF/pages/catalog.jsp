@@ -7,9 +7,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="neon" uri="/WEB-INF/tags/implicit.tld" %>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/include/header1.jsp" %>
 <%@include file="/WEB-INF/include/header2.jsp" %>
 
@@ -56,30 +56,7 @@
                                         <label class="filter__label">Keyword:</label>
                                         <input type="text" class="filter__input" name="keyword" placeholder="Keyword">
                                     </div>
-                                    <%--
-                                    <div class="filter__group">
-                                        <label for="sort" class="filter__label">Sort by:</label>
-
-                                        <div class="filter__select-wrap">
-                                            <select name="sort" id="sort" class="filter__select">
-                                                <option value="0">Relevance</option>
-                                                <option value="1">Newest</option>
-                                                <option value="2">Oldest</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="filter__group">
-                                        <label class="filter__label">Price:</label>
-
-                                        <div class="filter__range">
-                                            <div id="filter__range-start"></div>
-                                            <div id="filter__range-end"></div>
-                                        </div>
-
-                                        <div id="filter__range"></div>
-                                    </div>
-                                    --%>
+                                    
                                     <div class="filter__group">
                                         <label class="filter__label">Platforms:</label>
                                         <ul class="filter__checkboxes">

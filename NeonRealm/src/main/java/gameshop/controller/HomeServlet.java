@@ -37,8 +37,7 @@ public class HomeServlet extends HttpServlet {
         List<Game> gameList = gDAO.getGameList();
 
         if (gameList == null || gameList.isEmpty()) {
-            request.getRequestDispatcher("/WEB-INF/pages/404.jsp")
-                    .forward(request, response);
+            response.sendRedirect("/error?error=Couldn't retrieve game list from home database");
             return;
         } else {
             request.setAttribute("gameList", gameList);

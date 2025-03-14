@@ -8,7 +8,7 @@
 <%@include file="/WEB-INF/include/header2.jsp" %>
 <body>
     <!-- sign in -->
-    <div class="sign section--full-bg" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg2.jpg">
+    <div class="sign section--full-bg" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/citypixel.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-12">

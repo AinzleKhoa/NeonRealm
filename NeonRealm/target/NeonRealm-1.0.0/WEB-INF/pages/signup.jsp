@@ -10,7 +10,7 @@
 
 <body>
     <!-- sign in -->
-    <div class="sign section--full-bg" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg2.jpg">
+    <div class="sign section--full-bg" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/cityneon.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-12">

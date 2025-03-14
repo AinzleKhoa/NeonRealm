@@ -1,52 +1,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- CSS -->
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/cdn.css.bootstrap.min">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/bootstrap-reboot.min.css">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/bootstrap-grid.min.css">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/nouislider.min.css">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/paymentfont.min.css">
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/main.css">
 
-        <!-- Favicons -->
-        <link rel="icon" type="image/png" href="${pageContext.servletContext.contextPath}/assets/icon/favicon-32x32.png" sizes="32x32">
-        <link rel="apple-touch-icon" href="${pageContext.servletContext.contextPath}/assets/icon/favicon-32x32.png">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/include/header1.jsp" %>
+<%@include file="/WEB-INF/include/header2.jsp" %>
 
-        <meta name="description" content="Digital marketplace HTML Template by Dmitry Volkov">
-        <meta name="keywords" content="">
-        <meta name="author" content="Dmitry Volkov">
-        <title>NeonRealm</title>
-
-    </head>
-    <%@include file="/WEB-INF/include/header2.jsp" %>
-
-    <!-- banner -->
-    <section class="banner_main" style="background-image: url('${pageContext.servletContext.contextPath}/assets/img/banner/neonrealm.jpg');>
-        <div class="container-fluid">
-            <div class="row d_flex">
-                <div class="col-md-5">
-                    <div class="text-bg">
-                        <h1>NeonRealm</h1>
-                        <strong>Next-Gen Gaming & Digital Store</strong>
-                        <span>Dive into the ultimate gaming experience with exclusive deals, cutting-edge tech, and neon-inspired aesthetics. Whether you're a casual gamer or a hardcore enthusiast, NeonRealm is your gateway to the future of gaming.</span>
-                        <a href="#">Browse Now</a>
-                    </div>
-                </div>
-                <div class="col-md-7 padding_right1">
-                    <div class="text-img">
-                        <figure><img src="${pageContext.servletContext.contextPath}/assets/img/banner/spiderman.png" alt="#"/></figure>
-                    </div>
-                </div>
+<!-- banner -->
+<section class="banner_main" style="background-image: url('${pageContext.servletContext.contextPath}/assets/img/banner/neonrealm.jpg');>
+         <div class="container-fluid">
+    <div class="row d_flex">
+        <div class="col-md-5">
+            <div class="text-bg">
+                <h1>NeonRealm</h1>
+                <strong>Next-Gen Gaming & Digital Store</strong>
+                <span>Dive into the ultimate gaming experience with exclusive deals, cutting-edge tech, and neon-inspired aesthetics. Whether you're a casual gamer or a hardcore enthusiast, NeonRealm is your gateway to the future of gaming.</span>
+                <a href="${pageContext.servletContext.contextPath}/catalog">Browse Now</a>
             </div>
         </div>
-    </section>
+        <div class="col-md-7 padding_right1">
+            <div class="text-img">
+                <figure><img src="${pageContext.servletContext.contextPath}/assets/img/banner/spiderman.png" alt="#"/></figure>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 </div>
 </header>
 <!-- end banner -->
@@ -843,17 +820,4 @@
 <!-- end Single-Player Favorites -->
 
 <%@include file="/WEB-INF/include/footer1.jsp" %>
-
-<!-- JS -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/cdn.bootstrap.bundle.min"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/jquery-3.5.1.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/owl.carousel.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.magnific-popup.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/wNumb.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/nouislider.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.mousewheel.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.mCustomScrollbar.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/main.js"></script>
-</body>
-</html>
+<%@include file="/WEB-INF/include/footer2.jsp" %>

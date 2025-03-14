@@ -12,7 +12,7 @@
 
 <c:set var="user" value="${sessionScope.currentUser}"/>
 <!-- page title -->
-<section class="section section--first section--last section--head" data-bg="${pageContext.servletContext.contextPath}/assets/img/bg.jpg">
+<section class="section section--first section--last section--head" data-bg="${pageContext.servletContext.contextPath}/assets/img/banner/cityafar.jpg">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -267,47 +267,6 @@
                                 </div>
                         </div>
                         <!-- end details form -->
-
-                        <%--
-                        <!-- password form -->
-                        <div class="col-12 col-lg-6">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h4 class="form__title">Change password</h4>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="oldpass">Old Password</label>
-                                        <input id="oldpass" type="password" name="oldpass" class="form__input">
-                                    </div>
-
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="newpass">New Password</label>
-                                        <input id="newpass" type="password" name="newpass" class="form__input">
-                                    </div>
-
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="confirmpass">Confirm New Password</label>
-                                        <input id="confirmpass" type="password" name="confirmpass" class="form__input">
-                                    </div>
-
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="select">Select</label>
-                                        <select name="select" id="select" class="form__select">
-                                            <option value="0">Option</option>
-                                            <option value="1">Option 2</option>
-                                            <option value="2">Option 3</option>
-                                            <option value="3">Option 4</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <button class="form__btn" type="button">Change</button>
-                                    </div>
-                                </div>
-                        </div>
-                        <!-- end password form -->
-                        --%>
                     </div>
                 </div>
             </div>
@@ -315,25 +274,6 @@
         </div>
 </section>
 <!-- end section -->
-
-<!-- modal info -->
-<div id="modal-info" class="zoom-anim-dialog mfp-hide modal">
-    <button class="modal__close" type="button"><svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><line x1='368' y1='368' x2='144' y2='144' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><line x1='368' y1='144' x2='144' y2='368' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg></button>
-
-    <h4 class="modal__title">Receipt</h4>
-
-    <div class="modal__group">
-        <label class="modal__label" for="value">Total cost:</label>
-        <span class="modal__value">$59.00</span>
-    </div>
-
-    <div class="modal__group">
-        <label class="modal__label" for="method">Payment method: <b>Paypal</b></label>
-
-        <span class="modal__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</span>
-    </div>
-</div>
-<!-- end modal info -->
 
 <%@include file="/WEB-INF/include/footer1.jsp" %>
 <%@include file="/WEB-INF/include/footer2.jsp" %>

@@ -28,9 +28,8 @@ public class Error404Servlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
         request.getRequestDispatcher("/WEB-INF/pages/404.jsp").forward(request, response);
-
     }
 
     /**
