@@ -203,8 +203,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <h4 class="form__title">Profile details</h4>
+                                        <h4 class="form__title">${user.authProvider == 'local' ? '' : 'You can modify your username and email here. These changes will only apply to your account on this platform and will not affect your GitHub/Google account.'}</h4>
                                     </div>
                                     <input hidden name="id" value="${user.userId}"/>
+                                    <input hidden name="authProvider" value="${user.authProvider}"/>
 
                                     <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                         <label class="form__label" for="username">Username</label>
@@ -215,36 +217,33 @@
                                         <label class="form__label" for="email">Email</label>
                                         <input id="email" type="text" name="email" class="form__input" placeholder="${user.email}" value="${user.email}" required>
                                     </div>
+                                    
+                                    <h4 class="form__title">${user.authProvider == 'local' ? '' : 'You will need to reauthorize with GitHub to make changes to your account.'}</h4>
 
-                                    <div class="col-12">
-                                        <h4 class="form__title">Change password</h4>
-                                    </div>
+                                    <c:if test="${user.authProvider == 'local'}">
+                                        <div class="col-12">
+                                            <h4 class="form__title">Change password</h4>
+                                        </div>
 
-                                    <div class="col-12">
-                                        <label class="form__label" for="oldpass">Old Password (Required to update profile)</label>
-                                        <input id="oldpass" type="password" name="oldpass" class="form__input" required>
-                                    </div>
+                                        <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                            <label class="form__label" for="newpass">New Password</label>
+                                            <input id="newpass" type="password" name="newpass" class="form__input">
+                                        </div>
 
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="newpass">New Password</label>
-                                        <input id="newpass" type="password" name="newpass" class="form__input">
-                                    </div>
+                                        <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                            <label class="form__label" for="confirmpass">Confirm New Password</label>
+                                            <input id="confirmpass" type="password" name="confirmnewpass" class="form__input">
+                                        </div>
 
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="confirmpass">Confirm New Password</label>
-                                        <input id="confirmpass" type="password" name="confirmnewpass" class="form__input">
-                                    </div>
-                                    <%--
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="firstname">First Name</label>
-                                        <input id="firstname" type="text" name="firstname" class="form__input" placeholder="${user.fullName}">
-                                    </div>
+                                        <div class="col-12">
+                                            <h4 class="form__title">Your old Password is required to update profile</h4>
+                                        </div>
 
-                                    <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                                        <label class="form__label" for="lastname">Last Name</label>
-                                        <input id="lastname" type="text" name="lastname" class="form__input" placeholder="${user.fullName}">
-                                    </div>
-                                    --%>
+                                        <div class="col-12">
+                                            <label class="form__label" for="oldpass">Old Password</label>
+                                            <input id="oldpass" type="password" name="oldpass" class="form__input" required>
+                                        </div>
+                                    </c:if>
 
                                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                                         <c:choose>

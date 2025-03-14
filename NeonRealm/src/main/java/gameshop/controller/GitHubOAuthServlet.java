@@ -4,17 +4,13 @@
  */
 package gameshop.controller;
 
-import gameshop.DAO.UserDAO;
-import gameshop.model.User;
-import gameshop.util.GitHubOAuthUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import org.json.JSONObject;
+import java.net.URLEncoder;
 
 /**
  *
@@ -34,47 +30,14 @@ public class GitHubOAuthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String code = request.getParameter("code");
-        if (code == null) {
-            response.sendRedirect("login.jsp?error=GitHub authorization failed");
-            return;
-        }
 
-        // Get access token
-        String accessToken = GitHubOAuthUtil.getAccessToken(code);
-        if (accessToken == null) {
-            response.sendRedirect("login.jsp?error=GitHub token retrieval failed");
-            return;
-        }
+        String clientId = "Ov23liUhueVZV9HOxwYI";  // Your GitHub OAuth Client ID
 
-        // Get user info
-        JSONObject userInfo = GitHubOAuthUtil.getUserInfo(accessToken);
-        if (userInfo == null) {
-            response.sendRedirect("login.jsp?error=GitHub user retrieval failed");
-            return;
-        }
-
-        // Extract user details
-        String githubId = String.valueOf(userInfo.getLong("id")); // Ensure it's stored as Long then as String for User
-        String username = userInfo.optString("login");
-        String email = userInfo.optString("email", githubId + "@github.com"); // Email might be null
-
-        UserDAO userDAO = new UserDAO();
-        User user = userDAO.findByGitHubId(githubId);
-
-        // If user doesn't exist, create a new one, To the sign up
-        if (user == null) {
-            user = new User(username, email, null, githubId, "github");
-            userDAO.signup(user);
-        }
-
-        // If user already had an account, login them in without validate further
-        // Store user session
-        HttpSession session = request.getSession(true);
-        session.setAttribute("currentUser", user);
-
-        // Redirect to home
-        response.sendRedirect(request.getContextPath() + "/home");
+        String redirectUri = "http://localhost:8080/NeonRealm/auth/github/callback";
+        String oauthUrl = "https://github.com/login/oauth/authorize?client_id=" + clientId
+                + "&redirect_uri=" + redirectUri
+                + "&scope=user:email";
+        response.sendRedirect(oauthUrl);
     }
 
     /**

@@ -76,6 +76,7 @@ public class LoginServlet extends HttpServlet {
         } else { // If user exists (-4 meant OAuth user)
             session = request.getSession(true); // Create a new secure session
             session.setAttribute("currentUser", user); // Current user
+            session.setAttribute("currentEmail", user.getEmail());
             // Set session timeout - *prevent Session Hijacking
             session.setMaxInactiveInterval(30 * 60); // 30 minutes without interacting
             response.sendRedirect(request.getContextPath() + "/home");

@@ -66,9 +66,6 @@ public class SignupServlet extends HttpServlet {
         if (uDAO.isEmailExists(email)) {
             errorMessages.add("Email already existed!");
         }
-        if (uDAO.isUsernameExists(username)) {
-            errorMessages.add("Username already existed!");
-        }
         if (!InputValidator.isUsernameValid(username)) {
             errorMessages.add("Username must be 3-20 characters (letters, numbers, underscores only).");
         }

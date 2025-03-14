@@ -8,12 +8,14 @@ import gameshop.DAO.UserDAO;
 import gameshop.model.User;
 import gameshop.util.InputValidator;
 import gameshop.util.PasswordUtils;
+import gameshop.util.SessionUpdater;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,11 +52,23 @@ public class ProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        String authProvider = request.getParameter("authProvider");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String oldPass = request.getParameter("oldpass");
         String newPass = request.getParameter("newpass");
         String confirmNewPass = request.getParameter("confirmnewpass");
+
+        HttpSession session = request.getSession(false); // Get the current session, don't create if not exists
+
+        if (!authProvider.equals("local")) {
+            session.setAttribute("profileUsername", username);
+            session.setAttribute("profileEmail", email);
+            session.setAttribute("profileUserId", id);
+            session.setAttribute("isUpdating", Boolean.TRUE);
+            response.sendRedirect(request.getContextPath() + "/auth/github/authorize");
+            return;
+        } // If OAuth is not local, redirect to github servlet
 
         UserDAO uDAO = new UserDAO();
 
@@ -91,6 +105,12 @@ public class ProfileServlet extends HttpServlet {
             if (!newPass.equals(confirmNewPass)) {
                 errorMessages.add("New Passwords do not match!");
             }
+            // Only check email if it's changed
+            if (email != null && session.getAttribute("currentEmail") != null && !email.equals(session.getAttribute("currentEmail"))) {
+                if (uDAO.isEmailExists(email)) {
+                    errorMessages.add("Email already exists!");
+                }
+            }
             if (!InputValidator.isUsernameValid(username)) {
                 errorMessages.add("Username must be 3-20 characters (letters, numbers, underscores only).");
             }
@@ -110,6 +130,8 @@ public class ProfileServlet extends HttpServlet {
             String hashedNewPassword = PasswordUtils.hashPassword(newPass); // Hash the password before storing it
 
             if (uDAO.profileUpdate(id, username, email, hashedNewPassword) > 0) {
+                // Use the utility method to dynamically update the session with the new user data
+                SessionUpdater.sessionUpdate(request.getSession(false), id);
                 request.setAttribute("success", "Successfully updated your account info!!");
                 request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
             } else {
@@ -117,7 +139,13 @@ public class ProfileServlet extends HttpServlet {
                 request.setAttribute("errors", errorMessages);
                 request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
             }
-        } else {
+        } else { // When people dont want to change their password
+            // Only check email if it's changed
+            if (email != null && session.getAttribute("currentEmail") != null && !email.equals(session.getAttribute("currentEmail"))) {
+                if (uDAO.isEmailExists(email)) {
+                    errorMessages.add("Email already exists!");
+                }
+            }
             if (!InputValidator.isUsernameValid(username)) {
                 errorMessages.add("Username must be 3-20 characters (letters, numbers, underscores only).");
             }
@@ -132,6 +160,8 @@ public class ProfileServlet extends HttpServlet {
             }
 
             if (uDAO.profileUpdate(id, username, email) > 0) {
+                // Use the utility method to dynamically update the session with the new user data
+                SessionUpdater.sessionUpdate(request.getSession(false), id);
                 request.setAttribute("success", "Successfully updated your account info!!");
                 request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
             } else {

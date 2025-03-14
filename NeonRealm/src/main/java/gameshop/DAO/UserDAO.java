@@ -52,6 +52,32 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    public User findById(int id) {
+        try {
+            String query = "SELECT * FROM Users WHERE user_id = ?;";
+            Object[] params = {id};
+            ResultSet rs = execSelectQuery(query, params);
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("password_hash"),
+                        rs.getString("github_id"),
+                        rs.getString("auth_provider"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar_url"),
+                        rs.getTimestamp("last_login") != null ? rs.getTimestamp("last_login").toInstant() : null,
+                        rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toInstant() : null
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     /**
      *
      * @param username

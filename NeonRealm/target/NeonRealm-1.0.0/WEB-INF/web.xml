@@ -33,6 +33,10 @@
         <servlet-class>gameshop.controller.Error404Servlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GitHubOAuthCallbackServlet</servlet-name>
+        <servlet-class>gameshop.controller.GitHubOAuthCallbackServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GitHubOAuthServlet</servlet-name>
         <servlet-class>gameshop.controller.GitHubOAuthServlet</servlet-class>
     </servlet>
@@ -69,15 +73,20 @@
         <url-pattern>/404</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GitHubOAuthServlet</servlet-name>
+        <servlet-name>GitHubOAuthCallbackServlet</servlet-name>
         <url-pattern>/auth/github/callback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GitHubOAuthServlet</servlet-name>
+        <url-pattern>/auth/github/authorize</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <filter> <!-- For logged-in -->
+    <filter>
+        <!-- For logged-in -->
         <filter-name>authReverse</filter-name>
         <filter-class>gameshop.filter.AuthFilterReverse</filter-class>
     </filter>
@@ -87,7 +96,8 @@
         <url-pattern>/signup</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-    <filter> <!-- For not logged-in -->
+    <filter>
+        <!-- For not logged-in -->
         <filter-name>auth</filter-name>
         <filter-class>gameshop.filter.AuthFilter</filter-class>
     </filter>
