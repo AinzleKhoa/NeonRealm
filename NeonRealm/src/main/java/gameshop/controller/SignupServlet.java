@@ -80,6 +80,7 @@ public class SignupServlet extends HttpServlet {
         if (!errorMessages.isEmpty()) {
             request.setAttribute("errors", errorMessages);
             request.getRequestDispatcher("/WEB-INF/pages/signup.jsp").forward(request, response);
+            return;
         }
 
         String hashedPassword = PasswordUtils.hashPassword(password); // Hash the password before storing it

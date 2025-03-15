@@ -44,6 +44,22 @@
         <servlet-name>ServerErrorServlet</servlet-name>
         <servlet-class>gameshop.controller.ServerErrorServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <servlet-class>gameshop.controller.AdminUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminCouponsServlet</servlet-name>
+        <servlet-class>gameshop.controller.AdminCouponsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminOrdersServlet</servlet-name>
+        <servlet-class>gameshop.controller.AdminOrdersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminGamesServlet</servlet-name>
+        <servlet-class>gameshop.controller.AdminGamesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -87,6 +103,22 @@
     <servlet-mapping>
         <servlet-name>ServerErrorServlet</servlet-name>
         <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCouponsServlet</servlet-name>
+        <url-pattern>/admin/coupons</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminOrdersServlet</servlet-name>
+        <url-pattern>/admin/orders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminGamesServlet</servlet-name>
+        <url-pattern>/admin/games</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

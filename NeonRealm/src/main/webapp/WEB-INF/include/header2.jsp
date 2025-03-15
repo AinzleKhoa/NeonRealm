@@ -37,6 +37,18 @@
                                 <div class="header__lang">
                                     <c:choose>
                                         <c:when test="${not empty user}">
+                                            <!-- Nếu user là admin, hiển thị thêm nút Admin Panel -->
+                                            <c:if test="${user.role eq 'admin'}">
+                                                <a href="${pageContext.servletContext.contextPath}/admin/games" class="header__link">
+                                                    <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'>
+                                                        <path d='M32 128h448v304a16 16 0 01-16 16H48a16 16 0 01-16-16V128z' fill='none' stroke='currentColor' stroke-linejoin='round' stroke-width='32'/>
+                                                        <rect x='96' y='32' width='320' height='64' rx='8' ry='8' fill='none' stroke='currentColor' stroke-linejoin='round' stroke-width='32'/>
+                                                        <line x1='112' y1='224' x2='400' y2='224' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'/>
+                                                        <line x1='112' y1='320' x2='400' y2='320' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'/>
+                                                    </svg>
+                                                    <span>Admin Panel</span>
+                                                </a>
+                                            </c:if>
                                             <a href="checkout.jsp" class="header__link">
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                                 <span>$00.00</span>

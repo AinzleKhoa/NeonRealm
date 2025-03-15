@@ -8,7 +8,7 @@ DECLARE @order_id_user1 INT;
 
 -- Insert Order for User (with SUMMER20 discount)
 INSERT INTO Orders (user_id, total_price, discount_code)
-VALUES (5, 95.98, 'SUMMER20');
+VALUES (1, 95.98, 'SUMMER20');
 SET @order_id_user1 = SCOPE_IDENTITY();
 
 -- Insert Order Details for User
