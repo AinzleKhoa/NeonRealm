@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- *
+ * Servlet for managing admin order operations, such as listing and paginating orders.
  * @author Pham Van Hoai - CE181744
  */
 @WebServlet(name = "AdminOrdersServlet", urlPatterns = {"/admin/orders"})
@@ -24,7 +24,7 @@ public class AdminOrdersServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method to display a paginated list of orders with optional sorting.
      *
      * @param request servlet request
      * @param response servlet response
@@ -33,56 +33,56 @@ public class AdminOrdersServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
-    // Kiểm tra quyền admin
-    if (!SessionUtil.isAdmin(request)) {
-        response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
-        return;
-    }
-
-    AdminOrdersDAO adminOrdersDAO = new AdminOrdersDAO();
-
-    // Lấy tham số sắp xếp (nếu không có thì mặc định là null)
-    String sortPrice = request.getParameter("sortPrice");
-
-    // Xử lý phân trang
-    int pageSize = 3;
-    int currentPage = 1;
-
-    try {
-        if (request.getParameter("page") != null && !request.getParameter("page").trim().isEmpty()) {
-            currentPage = Integer.parseInt(request.getParameter("page"));
+        // Check if the user is an admin; redirect to home if not
+        if (!SessionUtil.isAdmin(request)) {
+            response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
+            return;
         }
-    } catch (NumberFormatException e) {
-        currentPage = 1; // Nếu lỗi, đặt về trang 1
-    }
 
-    int offset = (currentPage - 1) * pageSize;
+        AdminOrdersDAO adminOrdersDAO = new AdminOrdersDAO();
 
-    // Lấy danh sách đơn hàng theo trang và sắp xếp
-    List<AdminOrders> orders = adminOrdersDAO.getAllOrders(sortPrice, offset, pageSize);
-    int totalOrders = adminOrdersDAO.countTotalOrders();
-    int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
-    
-    // Calculate current total games. At final page will display max from max numOfPages
+        // Retrieve sorting parameter (defaults to null if not provided)
+        String sortPrice = request.getParameter("sortPrice");
+
+        // Pagination setup
+        int pageSize = 10; // Number of orders per page
+        int currentPage = 1; // Default to page 1
+
+        try {
+            // Parse the current page from request parameter, if provided
+            if (request.getParameter("page") != null && !request.getParameter("page").trim().isEmpty()) {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+            }
+        } catch (NumberFormatException e) {
+            currentPage = 1; // Fallback to page 1 if parsing fails
+        }
+
+        int offset = (currentPage - 1) * pageSize; // Calculate offset for pagination
+
+        // Fetch paginated and sorted list of orders
+        List<AdminOrders> orders = adminOrdersDAO.getAllOrders(sortPrice, offset, pageSize);
+        int totalOrders = adminOrdersDAO.countTotalOrders(); // Get total number of orders
+        int totalPages = (int) Math.ceil((double) totalOrders / pageSize); // Calculate total pages
+
+        // Calculate the current total orders displayed (full page size or remaining orders on the last page)
         int currentTotalOrders = (currentPage < totalPages ? pageSize * currentPage : totalOrders);
         request.setAttribute("currentTotalOrders", currentTotalOrders);
 
-    // Gửi dữ liệu về JSP với tên chính xác
-    request.setAttribute("orders", orders);
-    request.setAttribute("totalPages", totalPages);  // ✅ Đúng với custom tag
-    request.setAttribute("totalOrders", totalOrders); // ✅ Tổng số đơn hàng
-    request.setAttribute("currentPage", currentPage);
-    request.setAttribute("sortPrice", sortPrice);
+        // Set attributes for JSP rendering
+        request.setAttribute("orders", orders);           // List of orders
+        request.setAttribute("totalPages", totalPages);   // Total number of pages for pagination
+        request.setAttribute("totalOrders", totalOrders); // Total number of orders
+        request.setAttribute("currentPage", currentPage); // Current page number
+        request.setAttribute("sortPrice", sortPrice);     // Sorting parameter for reuse in JSP
 
-    request.getRequestDispatcher("/admin/orders.jsp").forward(request, response);
-}
-
-
+        // Forward request to the orders JSP page
+        request.getRequestDispatcher("/admin/orders.jsp").forward(request, response);
+    }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method. Currently unimplemented.
      *
      * @param request servlet request
      * @param response servlet response
@@ -92,6 +92,7 @@ public class AdminOrdersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // TODO: Implement POST handling logic if needed (e.g., order updates or deletions)
     }
 
     /**
@@ -101,7 +102,6 @@ public class AdminOrdersServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Admin Orders Servlet";
+        return "Admin Orders Servlet for managing order operations";
     }// </editor-fold>
-
 }

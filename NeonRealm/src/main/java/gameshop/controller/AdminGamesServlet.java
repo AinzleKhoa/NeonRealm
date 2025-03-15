@@ -5,9 +5,7 @@
 package gameshop.controller;
 
 import gameshop.DAO.AdminGamesDAO;
-import gameshop.DAO.GameDAO;
 import gameshop.model.AdminGames;
-import gameshop.model.Game;
 import gameshop.util.SessionUtil;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -26,32 +24,36 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Servlet for managing admin game operations such as listing, adding, editing, and deleting games.
+ * Supports file uploads for game images with specified size limits.
  * @author Pham Van Hoai - CE181744
  */
 @WebServlet(name = "AdminGamesServlet", urlPatterns = {"/admin/games"})
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50 // 50MB
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB - Memory threshold before writing to disk
+        maxFileSize = 1024 * 1024 * 10,      // 10MB - Maximum size for a single file
+        maxRequestSize = 1024 * 1024 * 50    // 50MB - Maximum size for the entire request
 )
 public class AdminGamesServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Directory where uploaded game images are stored.
+     */
+    private static final String UPLOAD_DIR = "/assets/img/cards/";
+
+    /**
+     * Handles the HTTP <code>GET</code> method to display the game list, add game form, or edit game form.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String UPLOAD_DIR = "/assets/img/cards/"; // Thư mục lưu ảnh
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Kiểm tra quyền admin
+        // Check if the user is an admin; redirect to home if not
         if (!SessionUtil.isAdmin(request)) {
             response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
             return;
@@ -59,75 +61,80 @@ public class AdminGamesServlet extends HttpServlet {
 
         AdminGamesDAO adminGamesDAO = new AdminGamesDAO();
 
-        // Xử lý yêu cầu thêm game
+        // Handle request to display the add game form
         if (request.getParameter("add") != null) {
             loadFormData(request, adminGamesDAO);
             request.getRequestDispatcher("/admin/add-game.jsp").forward(request, response);
             return;
         }
 
-        // Xử lý yêu cầu chỉnh sửa game
+        // Handle request to edit a specific game
         String editId = request.getParameter("editId");
         if (editId != null) {
             try {
                 int gameId = Integer.parseInt(editId);
                 AdminGames game = adminGamesDAO.getGameById(gameId);
 
+                // Redirect to 404 page if the game is not found
                 if (game == null) {
                     response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
                     return;
                 }
 
-                // Lấy dữ liệu danh sách để hiển thị trong form chỉnh sửa
+                // Load form data and set game object for editing
                 loadFormData(request, adminGamesDAO);
                 request.setAttribute("game", game);
                 request.getRequestDispatcher("/admin/edit-game.jsp").forward(request, response);
                 return;
             } catch (NumberFormatException e) {
+                // Redirect to game list if editId is invalid
                 response.sendRedirect(request.getContextPath() + "/admin/games");
                 return;
             }
         }
-        String selectedGenre = request.getParameter("genre");
-        String searchQuery = request.getParameter("search"); // Lấy giá trị tìm kiếm
 
+        // Fetch filter parameters for genre and search query
+        String selectedGenre = request.getParameter("genre");
+        String searchQuery = request.getParameter("search");
+
+        // Pagination setup
         int totalGamesPerPage = 10;
         int currentPage = (request.getParameter("page") != null) ? Integer.parseInt(request.getParameter("page")) : 1;
-
         int offset = (currentPage - 1) * totalGamesPerPage;
 
+        // Retrieve filtered and paginated game list
         List<AdminGames> games = adminGamesDAO.getGamesByFilter(searchQuery, selectedGenre, offset, totalGamesPerPage);
         int totalGames = adminGamesDAO.countGamesByFilter(searchQuery, selectedGenre);
         int totalPages = (int) Math.ceil((double) totalGames / totalGamesPerPage);
 
+        // Set pagination attributes
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", currentPage);
-        
-        // Calculate total games
         request.setAttribute("totalGames", totalGames);
 
-        // Xử lý hiển thị danh sách game (lọc theo thể loại nếu có)
+        // Load all genres for filtering
         List<String> allGenres = adminGamesDAO.getAllGenres();
         request.setAttribute("allGenres", allGenres);
 
-        // Calculate total pages correctly, e.g if 8.5 it will round up to 9
+        // Calculate total pages and current total games for display
         int numOfPages = (int) Math.ceil((double) totalGames / totalGamesPerPage);
-
-        // Calculate current total games. At final page will display max from max numOfPages
         int currentTotalGames = (currentPage < numOfPages ? totalGamesPerPage * currentPage : totalGames);
         request.setAttribute("currentTotalGames", currentTotalGames);
-
         request.setAttribute("numOfPages", numOfPages);
 
+        // Set game list and filter parameters for JSP
         request.setAttribute("games", games);
-        request.setAttribute("selectedGenre", selectedGenre); // Gửi giá trị để sử dụng trong phân trang
+        request.setAttribute("selectedGenre", selectedGenre);
         request.setAttribute("searchQuery", searchQuery);
 
+        // Forward to the game list page
         request.getRequestDispatcher("/admin/games.jsp").forward(request, response);
     }
 
     /**
-     * Lấy dữ liệu danh sách để hiển thị trong form chỉnh sửa hoặc thêm game
+     * Loads data for dropdowns or selections in add/edit game forms.
+     * @param request The servlet request to set attributes
+     * @param adminGamesDAO The DAO instance to fetch data
      */
     private void loadFormData(HttpServletRequest request, AdminGamesDAO adminGamesDAO) {
         request.setAttribute("allGenres", adminGamesDAO.getAllGenres());
@@ -138,7 +145,7 @@ public class AdminGamesServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method to process actions like adding, editing, or deleting games.
      *
      * @param request servlet request
      * @param response servlet response
@@ -153,25 +160,27 @@ public class AdminGamesServlet extends HttpServlet {
 
         if ("add".equals(action) || "edit".equals(action)) {
             try {
-                // Nhận dữ liệu từ form
+                // Retrieve form data
                 int gameId = "edit".equals(action) ? Integer.parseInt(request.getParameter("game_id")) : 0;
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 BigDecimal price = new BigDecimal(request.getParameter("price"));
                 Date releaseDate = Date.valueOf(request.getParameter("release_date"));
 
-                // Xử lý upload ảnh
+                // Handle image upload or reuse existing image
                 String imageUrl = handleFileUpload(request, gameId, adminGamesDAO);
 
-                // Nhận danh sách từ form, nếu null thì dùng danh sách rỗng
+                // Get safe lists for multi-select fields, defaulting to empty if null
                 List<String> genres = getSafeList(request.getParameterValues("genres"));
                 List<String> categories = getSafeList(request.getParameterValues("categories"));
                 List<String> developers = getSafeList(request.getParameterValues("developers"));
                 List<String> publishers = getSafeList(request.getParameterValues("publishers"));
                 List<String> platforms = getSafeList(request.getParameterValues("platforms"));
 
+                // Create game object with form data
                 AdminGames game = new AdminGames(gameId, title, description, imageUrl, price, releaseDate, developers, publishers, genres, platforms, categories);
 
+                // Perform add or edit operation
                 if ("add".equals(action)) {
                     adminGamesDAO.addGame(game);
                     request.getSession().setAttribute("successMessage", "Add game successfully!");
@@ -180,12 +189,15 @@ public class AdminGamesServlet extends HttpServlet {
                     request.getSession().setAttribute("successMessage", "Game updated successfully!");
                 }
 
+                // Redirect to game list page
                 response.sendRedirect(request.getContextPath() + "/admin/games");
             } catch (Exception e) {
                 e.printStackTrace();
+                // Redirect with error parameter if an exception occurs
                 response.sendRedirect(request.getContextPath() + "/admin/games?error=1");
             }
         } else if ("delete".equals(action)) {
+            // Delete a game by ID
             int gameId = Integer.parseInt(request.getParameter("gameId"));
             adminGamesDAO.deleteGame(gameId);
             request.getSession().setAttribute("successMessage", "Game deleted successfully!");
@@ -194,25 +206,32 @@ public class AdminGamesServlet extends HttpServlet {
     }
 
     /**
-     * Xử lý upload ảnh, nếu không có ảnh mới thì giữ ảnh cũ.
+     * Handles file upload for game images. Reuses the existing image if no new file is uploaded.
+     * @param request The servlet request containing the file part
+     * @param gameId The ID of the game (0 for new games)
+     * @param adminGamesDAO The DAO instance to fetch existing game data
+     * @return The image URL (newly uploaded or existing)
+     * @throws IOException if an I/O error occurs
+     * @throws ServletException if a servlet-specific error occurs
      */
     private String handleFileUpload(HttpServletRequest request, int gameId, AdminGamesDAO adminGamesDAO) throws IOException, ServletException {
         Part filePart = request.getPart("image");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         String imageUrl = null;
 
+        // Handle new file upload
         if (fileName != null && !fileName.isEmpty()) {
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
-                uploadDir.mkdir();
+                uploadDir.mkdir(); // Create directory if it doesn't exist
             }
 
             String filePath = uploadPath + File.separator + fileName;
-            filePart.write(filePath);
+            filePart.write(filePath); // Save the uploaded file
             imageUrl = fileName;
         } else if (gameId != 0) {
-            // Nếu không có ảnh mới, lấy ảnh cũ từ DB
+            // Reuse existing image for edits if no new file is uploaded
             AdminGames existingGame = adminGamesDAO.getGameById(gameId);
             if (existingGame != null) {
                 imageUrl = existingGame.getImageUrl();
@@ -222,8 +241,9 @@ public class AdminGamesServlet extends HttpServlet {
     }
 
     /**
-     * Kiểm tra danh sách từ request, nếu null thì trả về danh sách rỗng để
-     * tránh lỗi.
+     * Safely converts an array of values into a list, returning an empty list if null.
+     * @param values The array of values from the request
+     * @return A list of strings, or an empty list if values is null
      */
     private List<String> getSafeList(String[] values) {
         return (List<String>) ((values != null) ? Arrays.asList(values) : new ArrayList<>());
@@ -236,7 +256,6 @@ public class AdminGamesServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet for managing admin game operations";
     }// </editor-fold>
-
 }

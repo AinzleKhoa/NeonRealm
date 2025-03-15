@@ -65,8 +65,9 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Buyer</th>
+                                        <th>Order ID</th>
                                         <th>Game Name</th>
-                                        <th>Total Price</th>
+                                        <th>Price</th>
                                         <th>Discount Code</th>
                                         <th>Creation Date</th>
 
@@ -75,8 +76,9 @@
                                 <tbody>
                                     <c:forEach var="order" items="${requestScope.orders}">
                                         <tr class="align-middle">
-                                            <td>${order.orderId}</td>
+                                            <td>${order.order_detail_id}</td>
                                             <td>${order.username}</td>
+                                            <td>${order.order_id}</td>
                                             <td><a target="_blank" style="text-decoration: none;" href="<%= getServletContext().getContextPath()%>/gamedetails?id=${order.gameId}">${order.gameTitle}</a></td>
                                             <td>${order.totalPrice}</td>
                                             <td>${empty order.discountCode ? "Null" : order.discountCode}</td>

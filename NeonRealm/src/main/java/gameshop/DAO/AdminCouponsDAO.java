@@ -15,13 +15,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * AdminCouponsDAO - Thao tac voi bang Coupons
+ * AdminCouponsDAO - Handles operations related to the Coupons table.
+ * Provides methods for retrieving, adding, updating, and deleting discount coupons.
  * 
- * @author Pham Van Hoai - CE181744
+ * Author: Pham Van Hoai - CE181744
  */
 public class AdminCouponsDAO extends DBContext {
 
-    // Lấy danh sách tất cả các mã giảm giá
+    // Retrieve all discount coupons
+    /**
+     * Retrieves a list of all coupons from the database.
+     * 
+     * @return List of AdminCoupons objects.
+     */
     public List<AdminCoupons> getAllCoupons() {
         List<AdminCoupons> coupons = new ArrayList<>();
         String query = "SELECT coupon_id, code, discount_percentage, expiration_date, usage_limit, created_at FROM Coupons";
@@ -43,7 +49,13 @@ public class AdminCouponsDAO extends DBContext {
         return coupons;
     }
 
-    // Thêm một mã giảm giá mới
+    // Add a new discount coupon
+    /**
+     * Adds a new coupon to the database.
+     * 
+     * @param coupon The AdminCoupons object containing coupon details.
+     * @return true if the coupon was successfully added, otherwise false.
+     */
     public boolean addCoupon(AdminCoupons coupon) {
         String query = "INSERT INTO Coupons (code, discount_percentage, expiration_date, usage_limit) VALUES (?, ?, ?, ?)";
         
@@ -59,7 +71,13 @@ public class AdminCouponsDAO extends DBContext {
         }
     }
 
-    // Xóa một mã giảm giá theo ID
+    // Delete a discount coupon by ID
+    /**
+     * Deletes a coupon from the database based on its ID.
+     * 
+     * @param couponId The ID of the coupon to be deleted.
+     * @return true if the deletion was successful, otherwise false.
+     */
     public boolean deleteCoupon(int couponId) {
         String query = "DELETE FROM Coupons WHERE coupon_id = ?";
         
@@ -72,7 +90,13 @@ public class AdminCouponsDAO extends DBContext {
         }
     }
 
-    // Cập nhật thông tin mã giảm giá
+    // Update coupon details
+    /**
+     * Updates an existing coupon's details in the database.
+     * 
+     * @param coupon The AdminCoupons object containing updated coupon details.
+     * @return true if the update was successful, otherwise false.
+     */
     public boolean updateCoupon(AdminCoupons coupon) {
         String query = "UPDATE Coupons SET code = ?, discount_percentage = ?, expiration_date = ?, usage_limit = ? WHERE coupon_id = ?";
         
@@ -89,7 +113,13 @@ public class AdminCouponsDAO extends DBContext {
         }
     }
 
-    // Lấy thông tin mã giảm giá theo ID
+    // Retrieve a coupon by ID
+    /**
+     * Retrieves a coupon from the database based on its ID.
+     * 
+     * @param couponId The ID of the coupon to retrieve.
+     * @return An AdminCoupons object if found, otherwise null.
+     */
     public AdminCoupons getCouponById(int couponId) {
         String query = "SELECT * FROM Coupons WHERE coupon_id = ?";
         

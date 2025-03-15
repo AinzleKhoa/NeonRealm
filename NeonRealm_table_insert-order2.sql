@@ -29,6 +29,6 @@ VALUES
 COMMIT TRANSACTION;
 
 INSERT INTO Cart (user_id, game_id) VALUES
-(1, 3),  -- User added GTA V to their cart
-(1, 8);  -- User added DOOM Eternal to their cart
+(2, 4),  -- User added GTA V to their cart
+(2, 9);  -- User added DOOM Eternal to their cart
 GO
