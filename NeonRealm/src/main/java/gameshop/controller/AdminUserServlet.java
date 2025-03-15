@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package gameshop.controller;
 
 import gameshop.DAO.AdminUserDAO;
@@ -27,8 +26,9 @@ import java.util.List;
 public class AdminUserServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,26 +36,51 @@ public class AdminUserServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         AdminUserDAO adminUserDAO = new AdminUserDAO();
-    List<AdminUser> adminUsers = adminUserDAO.getAllAdminUsers();  // Lấy danh sách user
-    
-    if (!SessionUtil.isAdmin(request)) {
+        if (!SessionUtil.isAdmin(request)) {
             response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
             return;
         }
 
-    if (adminUsers == null || adminUsers.isEmpty()) {
-        response.sendRedirect(request.getContextPath() + "/pages/404.jsp");  
-        return;
+        // Nhận từ khóa tìm kiếm
+        String searchQuery = request.getParameter("search");
+
+        // Phân trang
+        int usersPerPage = 10; // Số user trên mỗi trang
+        int currentPage = 1;
+        if (request.getParameter("page") != null) {
+            try {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+            } catch (NumberFormatException e) {
+                currentPage = 1;
+            }
+        }
+        int offset = (currentPage - 1) * usersPerPage;
+
+
+
+        // Lấy danh sách user theo bộ lọc
+        List<AdminUser> adminUsers = adminUserDAO.getAllAdminUsers(searchQuery, offset, usersPerPage);
+        int totalUsers = adminUserDAO.countUsersByFilter(searchQuery);
+        int totalPages = (int) Math.ceil((double) totalUsers / usersPerPage);
+        
+    int currentTotalUsers = (currentPage < totalPages ? usersPerPage * currentPage : totalUsers);
+        
+        // Gửi dữ liệu tới JSP
+        request.setAttribute("users", adminUsers);
+        request.setAttribute("totalUsers", totalUsers);
+        request.setAttribute("searchQuery", searchQuery);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("currentTotalUsers", currentTotalUsers);
+
+        request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
     }
 
-    request.setAttribute("users", adminUsers);  // Đặt vào request scope
-    request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
-    } 
-
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -63,7 +88,7 @@ public class AdminUserServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String action = request.getParameter("action");
         AdminUserDAO adminCouponsDAO = new AdminUserDAO();
 
@@ -71,7 +96,7 @@ public class AdminUserServlet extends HttpServlet {
             if ("delete".equals(action)) {
                 int userId = Integer.parseInt(request.getParameter("userId"));
                 adminCouponsDAO.deleteUser(userId);
-            } 
+            }
         } catch (Exception e) {
             request.setAttribute("error", "Lỗi trong quá trình xử lý!");
         }
@@ -79,8 +104,9 @@ public class AdminUserServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/admin/users");
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

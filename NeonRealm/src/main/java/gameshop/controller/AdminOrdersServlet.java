@@ -9,6 +9,7 @@ import gameshop.model.AdminOrders;
 import gameshop.util.SessionUtil;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import java.util.List;
  *
  * @author Pham Van Hoai - CE181744
  */
+@WebServlet(name = "AdminOrdersServlet", urlPatterns = {"/admin/orders"})
 public class AdminOrdersServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -31,28 +33,49 @@ public class AdminOrdersServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
 
-        // Kiểm tra nếu không phải admin thì chuyển hướng về trang chủ
-        if (!SessionUtil.isAdmin(request)) {
-            response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
-            return;
-        }
-
-        // Lấy danh sách đơn hàng
-        AdminOrdersDAO adminOrdersDAO = new AdminOrdersDAO();
-        List<AdminOrders> orders = adminOrdersDAO.getAllOrders();
-
-        // Nếu không có đơn hàng, chuyển hướng sang trang 404
-        if (orders == null || orders.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
-            return;
-        }
-
-        // Đặt danh sách đơn hàng vào request scope và chuyển đến trang quản lý đơn hàng
-        request.setAttribute("orders", orders);
-        request.getRequestDispatcher("/admin/orders.jsp").forward(request, response);
+    // Kiểm tra quyền admin
+    if (!SessionUtil.isAdmin(request)) {
+        response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
+        return;
     }
+
+    AdminOrdersDAO adminOrdersDAO = new AdminOrdersDAO();
+
+    // Lấy tham số sắp xếp (nếu không có thì mặc định là null)
+    String sortPrice = request.getParameter("sortPrice");
+
+    // Xử lý phân trang
+    int pageSize = 3;
+    int currentPage = 1;
+
+    try {
+        if (request.getParameter("page") != null && !request.getParameter("page").trim().isEmpty()) {
+            currentPage = Integer.parseInt(request.getParameter("page"));
+        }
+    } catch (NumberFormatException e) {
+        currentPage = 1; // Nếu lỗi, đặt về trang 1
+    }
+
+    int offset = (currentPage - 1) * pageSize;
+
+    // Lấy danh sách đơn hàng theo trang và sắp xếp
+    List<AdminOrders> orders = adminOrdersDAO.getAllOrders(sortPrice, offset, pageSize);
+    int totalOrders = adminOrdersDAO.countTotalOrders();
+    int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
+
+    // Gửi dữ liệu về JSP với tên chính xác
+    request.setAttribute("orders", orders);
+    request.setAttribute("totalPages", totalPages);  // ✅ Đúng với custom tag
+    request.setAttribute("totalOrders", totalOrders); // ✅ Tổng số đơn hàng
+    request.setAttribute("currentPage", currentPage);
+    request.setAttribute("sortPrice", sortPrice);
+
+    request.getRequestDispatcher("/admin/orders.jsp").forward(request, response);
+}
+
+
 
     /**
      * Handles the HTTP <code>POST</code> method.

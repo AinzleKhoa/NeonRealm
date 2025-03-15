@@ -5,7 +5,9 @@
 package gameshop.controller;
 
 import gameshop.DAO.AdminGamesDAO;
+import gameshop.DAO.GameDAO;
 import gameshop.model.AdminGames;
+import gameshop.model.Game;
 import gameshop.util.SessionUtil;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -86,17 +88,41 @@ public class AdminGamesServlet extends HttpServlet {
                 return;
             }
         }
+        String selectedGenre = request.getParameter("genre");
+        String searchQuery = request.getParameter("search"); // Lấy giá trị tìm kiếm
+
+        int totalGamesPerPage = 10;
+        int currentPage = (request.getParameter("page") != null) ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        int offset = (currentPage - 1) * totalGamesPerPage;
+
+        List<AdminGames> games = adminGamesDAO.getGamesByFilter(searchQuery, selectedGenre, offset, totalGamesPerPage);
+        int totalGames = adminGamesDAO.countGamesByFilter(searchQuery, selectedGenre);
+        int totalPages = (int) Math.ceil((double) totalGames / totalGamesPerPage);
+
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", currentPage);
+        
+        // Calculate total games
+        request.setAttribute("totalGames", totalGames);
 
         // Xử lý hiển thị danh sách game (lọc theo thể loại nếu có)
         List<String> allGenres = adminGamesDAO.getAllGenres();
         request.setAttribute("allGenres", allGenres);
 
-        String selectedGenre = request.getParameter("genre");
-        List<AdminGames> games = (selectedGenre == null || selectedGenre.isEmpty())
-                ? adminGamesDAO.getAllGames()
-                : adminGamesDAO.getGamesByGenre(selectedGenre);
+        // Calculate total pages correctly, e.g if 8.5 it will round up to 9
+        int numOfPages = (int) Math.ceil((double) totalGames / totalGamesPerPage);
+
+        // Calculate current total games. At final page will display max from max numOfPages
+        int currentTotalGames = (currentPage < numOfPages ? totalGamesPerPage * currentPage : totalGames);
+        request.setAttribute("currentTotalGames", currentTotalGames);
+
+        request.setAttribute("numOfPages", numOfPages);
 
         request.setAttribute("games", games);
+        request.setAttribute("selectedGenre", selectedGenre); // Gửi giá trị để sử dụng trong phân trang
+        request.setAttribute("searchQuery", searchQuery);
+
         request.getRequestDispatcher("/admin/games.jsp").forward(request, response);
     }
 

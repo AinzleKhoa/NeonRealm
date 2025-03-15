@@ -5,6 +5,7 @@ D:\NeonRealm\src\main\java\gameshop\util\BCryptGenerator.java
 D:\NeonRealm\src\main\java\gameshop\DAO\AdminUserDAO.java
 D:\NeonRealm\src\main\java\gameshop\controller\AdminUserServlet.java
 D:\NeonRealm\src\main\java\gameshop\controller\LoginServlet.java
+D:\NeonRealm\src\main\java\gameshop\security\LoginAttemptTracker.java
 D:\NeonRealm\src\main\java\gameshop\model\AdminCoupons.java
 D:\NeonRealm\src\main\java\gameshop\DAO\GameDetailsDAO.java
 D:\NeonRealm\src\main\java\gameshop\DAO\UserDAO.java
@@ -13,12 +14,16 @@ D:\NeonRealm\src\main\java\gameshop\model\AdminGames.java
 D:\NeonRealm\src\main\java\gameshop\controller\GameDetailsServlet.java
 D:\NeonRealm\src\main\java\gameshop\model\User.java
 D:\NeonRealm\src\main\java\gameshop\controller\AdminCouponsServlet.java
+D:\NeonRealm\src\main\java\gameshop\customtags\AdminPaginationHandler.java
 D:\NeonRealm\src\main\java\gameshop\DAO\AdminOrdersDAO.java
 D:\NeonRealm\src\main\java\gameshop\controller\LogoutServlet.java
 D:\NeonRealm\src\main\java\gameshop\controller\Error404Servlet.java
+D:\NeonRealm\src\main\java\gameshop\customtags\PaginationHandler.java
+D:\NeonRealm\src\main\java\gameshop\controller\GitHubOAuthServlet.java
 D:\NeonRealm\src\main\java\gameshop\model\AdminOrders.java
 D:\NeonRealm\src\main\java\gameshop\DAO\GameDAO.java
 D:\NeonRealm\src\main\java\gameshop\DAO\CatalogDAO.java
+D:\NeonRealm\src\main\java\gameshop\util\GitHubOAuthUtil.java
 D:\NeonRealm\src\main\java\gameshop\controller\SignupServlet.java
 D:\NeonRealm\src\main\java\gameshop\DAO\HomeDAO.java
 D:\NeonRealm\src\main\java\gameshop\controller\AdminGamesServlet.java
@@ -27,5 +32,6 @@ D:\NeonRealm\src\main\java\gameshop\util\SessionUtil.java
 D:\NeonRealm\src\main\java\gameshop\DAO\AdminGamesDAO.java
 D:\NeonRealm\src\main\java\gameshop\util\PasswordUtils.java
 D:\NeonRealm\src\main\java\gameshop\controller\AdminOrdersServlet.java
+D:\NeonRealm\src\main\java\gameshop\util\InputValidator.java
 D:\NeonRealm\src\main\java\gameshop\controller\ProfileServlet.java
 D:\NeonRealm\src\main\java\gameshop\DAO\AdminCouponsDAO.java

@@ -17,6 +17,19 @@
     <div class="app-content-header">
         <!--begin::Container-->
         <div class="container-fluid">
+
+            <%-- Kiểm tra nếu có thông báo thành công --%>
+            <%
+                String successMessage = (String) session.getAttribute("successMessage");
+                if (successMessage != null) {
+                    session.removeAttribute("successMessage"); // Xóa thông báo sau khi hiển thị
+            %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5><i class="bi bi-check2-circle"></i> <%= successMessage%></h5>
+            </div>
+            <%
+                }
+            %>
             <!--begin::Row-->
             <div class="row">
                 <div class="col-sm-6"><h3 class="mb-0">Coupons List</h3></div>
@@ -42,7 +55,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <h3 class="card-title">Danh sách Mã Giảm Giá</h3>
-                            <a href="add-coupon.jsp" class="btn btn-primary float-end">Thêm Mã Giảm Giá</a>
+                            <a href="?add" class="btn btn-primary float-end">Thêm Mã Giảm Giá</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

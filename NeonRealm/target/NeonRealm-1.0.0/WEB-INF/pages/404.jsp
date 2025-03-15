@@ -18,6 +18,13 @@
                         <div class="page-404__content">
                             <h1 class="page-404__title">404</h1>
                             <p class="page-404__text">The page you are looking for not available!</p>
+                                <c:if test="${not empty requestScope.errors}">
+                                    <div style="color: red;">
+                                        <c:forEach var="error" items="${requestScope.errors}">
+                                            <p class="page-404__text">${error}</p>
+                                        </c:forEach>
+                                    </div>
+                                </c:if>
                             <a href="<%= getServletContext().getContextPath()%>/index.jsp" class="page-404__btn">go back</a>
                         </div>
                     </div>

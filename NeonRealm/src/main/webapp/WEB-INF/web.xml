@@ -33,6 +33,10 @@
         <servlet-class>gameshop.controller.Error404Servlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GitHubOAuthServlet</servlet-name>
+        <servlet-class>gameshop.controller.GitHubOAuthServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AdminUserServlet</servlet-name>
         <servlet-class>gameshop.controller.AdminUserServlet</servlet-class>
     </servlet>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>Error404Servlet</servlet-name>
         <url-pattern>/404</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GitHubOAuthServlet</servlet-name>
+        <url-pattern>/auth/github/callback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminUserServlet</servlet-name>

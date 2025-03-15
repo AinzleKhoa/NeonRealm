@@ -5,48 +5,61 @@
 package gameshop.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 /**
  *
  * @author Pham Van Hoai - CE181744
  */
 public class AdminUser {
-    private int userId;
+
+    private int user_id;
     private String username;
     private String email;
-    private String fullName;
-    private String phone;
-    private String googleAuthId;
-    private Timestamp createdAt;
+    private String githubId;
+    private String auth_provider; // "local" or "github"
+    private String role;
+    private String status;
+    private String avatarUrl;
+    private Timestamp last_login;
+    private Timestamp created_at;
 
-    public AdminUser(int userId, String username, String email, String fullName, String phone, String googleAuthId, Timestamp createdAt) {
-        this.userId = userId;
+    public AdminUser(int user_id, String username, String email, String role, String status, Timestamp last_login, Timestamp created_at) {
+        this.user_id = user_id;
         this.username = username;
         this.email = email;
-        this.fullName = fullName;
-        this.phone = phone;
-        this.googleAuthId = googleAuthId;
-        this.createdAt = createdAt;
+        this.role = role;
+        this.status = status;
+        this.last_login = last_login;
+        this.created_at = created_at;
     }
 
-    public AdminUser(int userId, String username, String email, String fullName, String phone, Timestamp createdAt) {
-        this.userId = userId;
+    public AdminUser(int user_id, String username, String email, Timestamp created_at) {
+        this.user_id = user_id;
         this.username = username;
         this.email = email;
-        this.fullName = fullName;
-        this.phone = phone;
-        this.createdAt = createdAt;
+        this.created_at = created_at;
     }
 
-    
-
-    public int getUserId() {
-        return userId;
+    public AdminUser(int user_id, String username, String email, String githubId, String authProvider, String avatarUrl, Timestamp last_login, Timestamp created_at) {
+        this.user_id = user_id;
+        this.username = username;
+        this.email = email;
+        this.githubId = githubId;
+        this.auth_provider = authProvider;
+        this.avatarUrl = avatarUrl;
+        this.last_login = last_login;
+        this.created_at = created_at;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public AdminUser() {
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -65,37 +78,62 @@ public class AdminUser {
         this.email = email;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getGithubId() {
+        return githubId;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setGithubId(String githubId) {
+        this.githubId = githubId;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAuth_provider() {
+        return auth_provider;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAuth_provider(String auth_provider) {
+        this.auth_provider = auth_provider;
     }
 
-    public String getGoogleAuthId() {
-        return googleAuthId;
+    public String getRole() {
+        return role;
     }
 
-    public void setGoogleAuthId(String googleAuthId) {
-        this.googleAuthId = googleAuthId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
+    public void setStatus(String status) {
+        this.status = status;
     }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public Timestamp getLast_login() {
+        return last_login;
+    }
+
+    public void setLast_login(Timestamp last_login) {
+        this.last_login = last_login;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
     
     
 }

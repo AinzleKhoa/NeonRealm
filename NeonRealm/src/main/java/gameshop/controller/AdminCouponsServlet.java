@@ -44,7 +44,13 @@ public class AdminCouponsServlet extends HttpServlet {
         }
 
         AdminCouponsDAO adminCouponsDAO = new AdminCouponsDAO();
-
+        
+        // Xử lý yêu cầu thêm coupon
+        if (request.getParameter("add") != null) {
+            request.getRequestDispatcher("/admin/add-coupon.jsp").forward(request, response);
+            return;
+        }
+        
         // Kiểm tra nếu có yêu cầu chỉnh sửa
         String editId = request.getParameter("editId");
         if (editId != null) {
@@ -98,6 +104,7 @@ public class AdminCouponsServlet extends HttpServlet {
 
                 if (code == null || code.isEmpty() || discount < 1 || discount > 100 || expiration.isEmpty() || usageLimit < 1) {
                     request.setAttribute("error", "Vui lòng nhập đúng thông tin!");
+                    request.getSession().setAttribute("successMessage", "Add coupon successfully!");
                     response.sendRedirect(request.getContextPath() + "/admin/add-coupon");
                     return;
                 }

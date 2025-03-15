@@ -5,12 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, gameshop.model.AdminGames" %>
-<%
-    List<AdminGames> games = (List<AdminGames>) request.getAttribute("games");
-%>
+<%@ taglib prefix="neon" uri="/WEB-INF/tags/implicit.tld" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@include file="../WEB-INF/include/admin-head.jsp" %>
+
 <!--begin::App Main-->
 <main class="app-main">
     <!--begin::App Content Header-->
@@ -22,7 +22,7 @@
                 <div class="col-sm-6"><h3 class="mb-0">Games List</h3></div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a href="<%= getServletContext().getContextPath()%>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="${pageContext.servletContext.contextPath}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Games List</li>
                     </ol>
                 </div>
@@ -34,54 +34,48 @@
     <!--end::App Content Header-->
     <!--begin::App Content-->
     <div class="app-content">
-        <!--begin::Container-->
         <div class="container-fluid">
+            <c:if test="${not empty sessionScope.successMessage}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h5><i class="bi bi-check2-circle"></i> ${sessionScope.successMessage}</h5>
+                </div>
+                <c:remove var="successMessage" scope="session"/>
+            </c:if>
 
-            <%-- Kiểm tra nếu có thông báo thành công --%>
-            <%
-                String successMessage = (String) session.getAttribute("successMessage");
-                if (successMessage != null) {
-                    session.removeAttribute("successMessage"); // Xóa thông báo sau khi hiển thị
-%>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <h5><i class="bi bi-check2-circle"></i> <%= successMessage%></h5>
-            </div>
-            <%
-                }
-            %>
-            <!--begin::Row-->
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title">Danh sách Games</h3>
+                            <div class="card-title">
+                                <form class="row row-cols-lg-auto g-3 align-items-center" method="GET" action="${pageContext.servletContext.contextPath}/admin/games">
+                                    <!-- Lọc theo thể loại -->
+                                    <div class="col-12">
+                                        <label for="genre">Chọn thể loại:</label>
+                                        <select name="genre" id="genre">
+                                            <option value="">Tất cả</option>
+                                            <c:forEach var="genre" items="${requestScope.allGenres}">
+                                                <option value="${genre}" ${genre eq param.genre ? 'selected' : ''}>${genre}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <!-- Tìm kiếm theo tên -->
+                                        <input type="text" name="search" value="${requestScope.searchQuery}" placeholder="Tìm kiếm game..." />
+
+                                    </div>
+
+                                    <div class="col-12">
+                                        <!-- Submit -->
+                                        <button type="submit" class="btn btn-success">Áp dụng</button>
+                                    </div>
+                                </form>
+                            </div>
+
                             <a href="?add" class="btn btn-primary float-end">Add Game</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form method="GET" action="games">
-                                <label for="genre">Chọn thể loại:</label>
-                                <select name="genre" id="genre">
-                                    <option value="">Tất cả</option>
-                                    <%
-                                        List<String> allGenres = (List<String>) request.getAttribute("allGenres");
-                                        if (allGenres != null) {
-                                            for (String genre : allGenres) {
-                                    %>
-                                    <option value="<%= genre%>" <%= genre.equals(request.getParameter("genre")) ? "selected" : ""%>>
-                                        <%= genre%>
-                                    </option>
-                                    <%
-                                            }
-                                        }
-                                    %>
-                                </select>
-                                <button type="submit">Lọc</button>
-                            </form>
-
-
-
-                            <table class="table table-bordered">
+                                                        <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -97,47 +91,59 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for (AdminGames game : games) {%>
-                                    <tr class="align-middle">
-                                        <td><%= game.getGameId()%></td>
-                                        <td>
-                                            <img src="<%= request.getContextPath() + "/assets/img/cards/" + game.getImageUrl()%>" 
-                                                 alt="Game Image" width="100">
-                                        </td>
-                                        <td><%= game.getTitle()%></td>
-                                        <td><%= game.getDescription()%></td>
-                                        <td>$<%= game.getPrice()%></td>
-                                        <td><%= game.getReleaseDate()%></td>
-                                        <td><%= game.getCreatedAt()%></td>
-                                        <td><%= String.join(", ", game.getGenres())%></td>
-                                        <td><%= String.join(", ", game.getPublishers())%></td>
-
-                                        <td>
-                                            <!-- Nút Edit -->
-                                            <a href="${pageContext.request.contextPath}/admin/games?editId=<%= game.getGameId()%>" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </a>
-                                            <form action="${pageContext.request.contextPath}/admin/games" method="post" class="d-inline">
-                                                <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="gameId" value="<%= game.getGameId()%>">
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <% }%>
+                                    <c:forEach var="game" items="${requestScope.games}">
+                                        <tr class="align-middle">
+                                            <td>${game.gameId}</td>
+                                            <td>
+                                                <img src="${pageContext.request.contextPath}/assets/img/cards/${game.imageUrl}" 
+                                                     alt="Game Image" width="100">
+                                            </td>
+                                            <td>${game.title}</td>
+                                            <td>${game.description}</td>
+                                            <td>$${game.price}</td>
+                                            <td>${game.releaseDate}</td>
+                                            <td>${game.createdAt}</td>
+                                            <td>
+                                                <c:forEach var="genre" items="${game.genres}" varStatus="status">
+                                                    ${genre}<c:if test="${!status.last}">, </c:if>
+                                                </c:forEach>
+                                            </td>
+                                            <td>
+                                                <c:forEach var="publisher" items="${game.publishers}" varStatus="status">
+                                                    ${publisher}<c:if test="${!status.last}">, </c:if>
+                                                </c:forEach>
+                                            </td>
+                                            <td>
+                                                <a href="${pageContext.request.contextPath}/admin/games?editId=${game.gameId}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
+                                                <form action="${pageContext.request.contextPath}/admin/games" method="post" class="d-inline">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <input type="hidden" name="gameId" value="${game.gameId}">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
+
                         <!-- /.card-body -->
+
+                        <!-- /.pagination -->
                         <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-end">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
+                            <div class="paginator">
+                                ${requestScope.currentTotalGames} from ${requestScope.totalGames}
+                            </div>
+
+                            <c:set var="paginationUrl" value="${pageContext.servletContext.contextPath}/admin/games" />
+                            <c:if test="${not empty param.genre}">
+                                <c:set var="paginationUrl" value="${paginationUrl}?genre=${param.genre}" />
+                            </c:if>
+                            <neon:adminpagination currentPage="${param.page}" totalPages="${requestScope.numOfPages}" url="${paginationUrl}" />
                         </div>
+
                     </div>
                     <!-- /.card -->
                 </div>
@@ -150,4 +156,6 @@
     <!--end::App Content-->      
 </main>
 <!--end::App Main-->
+
+
 <%@include file="../WEB-INF/include/admin-foot.jsp" %>

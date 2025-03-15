@@ -817,9 +817,6 @@ body::-webkit-scrollbar-thumb {
 .section--first {
     padding-top: 40px;
 }
-.section--bg {
-    overflow: hidden;
-}
 .section--bg .container {
     position: relative;
     z-index: 2;
@@ -829,7 +826,7 @@ body::-webkit-scrollbar-thumb {
     position: absolute;
     display: block;
     z-index: 1;
-    top: 140px;
+    top: 120px;
     left: 0;
     right: 0;
     height: 500px;
@@ -858,12 +855,12 @@ body::-webkit-scrollbar-thumb {
     position: absolute;
     display: block;
     z-index: 1;
-    top: 140px;
+    top: 70px;
     left: 0;
     right: 0;
     bottom: 0;
     pointer-events: none;
-    background-color: rgba(27, 34, 46, 0.7);
+    background-color: rgba(27, 34, 46, 0.4);
 }
 .section--full-bg {
     overflow: hidden;
@@ -1221,21 +1218,14 @@ body::-webkit-scrollbar-thumb {
 /*==============================
         Banner
 ==============================*/
-.banner_main {
-    position: relative; /* Ensures proper layering */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 .banner_main::before {
     content: ""; /* Required for pseudo-elements */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 102%;
-    background: rgba(0, 0, 0, 0.2); /* Adjust darkness (0.5 = 50% darker) */
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Adjust darkness (0.5 = 50% darker) */
     z-index: 0; /* Keeps it above background but below content */
 }
 .text-bg {
@@ -1302,7 +1292,7 @@ body::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, rgba(167, 130, 233, 0.5) 0%, rgba(107, 38, 228, 0.5) 100%);
     border-radius: 322px 0px 0px 380px;
     padding: 132px 20px 0px 50px;
-    z-index: 6;
+    z-index: 999;
 }
 
 .text-img figure {
@@ -5038,7 +5028,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .sign__social {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
     margin-bottom: 15px;
@@ -5053,6 +5043,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     width: calc(33% - 10px);
     border-radius: 6px;
     color: #fff;
+    background-color: #333333;
 }
 .sign__social a svg {
     width: 18px;
