@@ -77,8 +77,8 @@
                             <a href="?add" class="btn btn-primary float-end">Add Game</a>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
-                            <table class="table table-bordered">
+                        <div class="card-body table-responsive">
+                            <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -101,7 +101,7 @@
                                                 <img src="${pageContext.request.contextPath}/assets/img/cards/${game.imageUrl}" 
                                                      alt="Game Image" width="100">
                                             </td>
-                                            <td>${game.title}</td>
+                                            <td><a target="_blank" style="text-decoration: none;" href="<%= getServletContext().getContextPath()%>/gamedetails?id=${game.gameId}">${game.title}</a></td>
                                             <td>${game.description}</td>
                                             <td>$${game.price}</td>
                                             <td>${game.releaseDate}</td>

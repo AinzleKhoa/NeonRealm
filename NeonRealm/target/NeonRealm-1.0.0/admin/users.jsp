@@ -53,15 +53,15 @@
                             </form>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
-                            <table class="table table-bordered">
+                        <div class="card-body table-responsive">
+                            <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Phone</th>
+                                        <th>Status</th>
                                         <th>Last Login</th>
                                         <th>Create At</th>
                                         <th>Action</th>
