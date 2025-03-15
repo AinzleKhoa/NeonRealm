@@ -10,15 +10,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/bootstrap-reboot.min.css">
-        <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/bootstrap-grid.min.css">
-        <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/paymentfont.min.css">
-        <link rel="stylesheet" href="<%= getServletContext().getContextPath()%>/assets/css/main.css">
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/paymentfont.min.css">
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/main.css">
 
         <!-- Favicons -->
-        <link rel="icon" type="image/png" href="<%= getServletContext().getContextPath()%>/assets/icon/favicon-32x32.png" sizes="32x32">
-        <link rel="apple-touch-icon" href="<%= getServletContext().getContextPath()%>/assets/icon/favicon-32x32.png">
+        <link rel="icon" type="image/png" href="${pageContext.servletContext.contextPath}/assets/icon/favicon-32x32.png" sizes="32x32">
+        <link rel="apple-touch-icon" href="${pageContext.servletContext.contextPath}/assets/icon/favicon-32x32.png">
 
         <meta name="description" content="Digital marketplace">
         <meta name="keywords" content="">

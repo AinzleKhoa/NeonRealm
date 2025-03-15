@@ -2866,43 +2866,6 @@ body::-webkit-scrollbar-thumb {
     opacity: 1;
     transform: translateY(0);
 }
-.profile__logout {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 44px;
-    height: 44px;
-    background-color: rgba(167, 130, 233, 0.03);
-    border: 1px solid rgba(167, 130, 233, 0.4);
-    border-radius: 6px;
-    font-size: 12px;
-    color: #fff;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    transition: 0.5s;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-.profile__logout span {
-    display: none;
-}
-.profile__logout svg {
-    stroke: #fff;
-    width: 22px;
-    height: auto;
-    transition: stroke 0.5s;
-}
-.profile__logout:hover {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-    color: #a782e9;
-    cursor: pointer;
-}
-.profile__logout:hover svg {
-    stroke: #a782e9;
-}
 .profile__table {
     width: 100%;
     min-width: 920px;
@@ -2997,23 +2960,6 @@ body::-webkit-scrollbar-thumb {
 .profile__table tbody tr:last-child td:first-child {
     padding: 10px 20px 20px 20px;
 }
-.profile__delete {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-}
-.profile__delete svg {
-    stroke: #dbdada;
-    width: 24px;
-    height: auto;
-    transition: stroke 0.5s ease;
-}
-.profile__delete:hover svg {
-    stroke: #a782e9;
-}
 .profile__img {
     width: 100px;
     height: auto;
@@ -3081,54 +3027,6 @@ body::-webkit-scrollbar-thumb {
 .profile__avatar img {
     width: 100%;
 }
-.profile__modal {
-    display: none; /* Hidden by default */
-    position: absolute;
-    left: 50%;
-    top: 15%;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.4s ease-in-out;
-    z-index: 9999 !important; /* Ensures it's on top of everything */
-}
-
-/* Ensure the modal content is centered and visible */
-.profile__modal__content {
-    color: black;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    transform: scale(0.8);
-    transition: transform 0.3s ease-in-out;
-    width: 300px; /* Adjust width if needed */
-    z-index: 10000 !important; /* Higher than the background */
-}
-
-/* Show modal with fade-in effect */
-.profile__modal.show {
-    display: flex !important; /* Ensure it is visible */
-    opacity: 1;
-}
-
-/* Scale up effect */
-.profile__modal.show .profile__modal__content {
-    transform: scale(1);
-}
-
-/* Hide with fade-out effect */
-.profile__modal.hide {
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-}
-
-/* Scale down effect */
-.profile__modal.hide .profile__modal__content {
-    transform: scale(0.8);
-}
 @media (min-width: 768px) {
     .profile {
         flex-direction: row;
@@ -3148,34 +3046,14 @@ body::-webkit-scrollbar-thumb {
         align-items: center;
         height: 70px;
     }
-    .profile__logout {
-        width: 120px;
-        position: relative;
-        top: auto;
-        right: auto;
-    }
-    .profile__logout svg {
-        display: none;
-    }
-    .profile__logout span {
-        display: block;
-    }
     .profile__user {
         margin-bottom: 0;
         margin-right: 40px;
     }
 }
 @media (min-width: 1200px) {
-    .profile__logout {
-        width: 114px;
-    }
     .profile__user {
         margin-right: 100px;
-    }
-}
-@media (min-width: 1310px) {
-    .profile__logout {
-        width: 130px;
     }
 }
 /*==============================

@@ -45,43 +45,6 @@ $(document).ready(function () {
     setBackground('.section--full-bg', 'cover', 'center center');
 
     /*==============================
-     Logout Modal Handling
-     ==============================*/
-    let modalTimeout;
-
-    function confirmLogout() {
-        const modal = $("#logoutModal");
-        if (!modal.length) return;
-
-        modal.css("display", "flex").addClass("show");
-
-        // Auto-close modal after 10 seconds
-        modalTimeout = setTimeout(closeModal, 10000);
-    }
-
-    function closeModal() {
-        const modal = $("#logoutModal");
-        if (!modal.length) return;
-
-        modal.addClass("hide");
-        setTimeout(() => {
-            modal.removeClass("show hide").css("display", "none");
-        }, 400);
-
-        clearTimeout(modalTimeout); // Prevent auto-close if manually closed
-    }
-
-    // Close modal if clicked outside content
-    $(document).on("click", function (event) {
-        const modal = $("#logoutModal");
-        if (modal.length && modal.hasClass("show") && !$(event.target).closest(".profile__modal__content").length) {
-            closeModal();
-        }
-    });
-
-    $(".profile__logout").on("click", confirmLogout);
-
-    /*==============================
      Section Carousels (Owl Carousel)
      ==============================*/
     function initOwlCarousel(selector) {
@@ -100,10 +63,10 @@ $(document).ready(function () {
                 autoplayHoverPause: true,
                 smartSpeed: 700,
                 responsive: {
-                    0: { items: 2 },
-                    576: { items: 3 },
-                    768: { items: 1, margin: 30, autoWidth: false },
-                    1200: { items: 2, margin: 30, autoWidth: false }
+                    0: {items: 2},
+                    576: {items: 3},
+                    768: {items: 1, margin: 30, autoWidth: false},
+                    1200: {items: 2, margin: 30, autoWidth: false}
                 }
             });
         });
@@ -134,11 +97,11 @@ $(document).ready(function () {
         autoHeight: true,
         autoWidth: true,
         responsive: {
-            0: { items: 2 },
-            576: { items: 3 },
-            768: { autoWidth: false, items: 4 },
-            992: { autoWidth: false, items: 5 },
-            1200: { autoWidth: false, items: 6 }
+            0: {items: 2},
+            576: {items: 3},
+            768: {autoWidth: false, items: 4},
+            992: {autoWidth: false, items: 5},
+            1200: {autoWidth: false, items: 6}
         }
     });
 

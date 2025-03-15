@@ -77,27 +77,14 @@
                                 Settings
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Logout</a>
+                        </li>
                     </ul>
 
-                    <button class="profile__logout" type="button" onclick="confirmLogout()">
-                        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256' fill='none' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'/></svg>
-                        <span>Logout</span>
-                    </button>
                 </div>
             </div>	
-        </div>
-
-        <!-- Logout Confirmation Modal -->
-        <div class="container profile__modal" id="logoutModal">
-            <div class="row">
-                <div class="col-12">
-                    <div class="profile__modal__content">
-                        <p>Are you sure you want to log out?</p>
-                        <a class="btn-danger" type="button" href="${pageContext.servletContext.contextPath}/logout">Yes</a>
-                        <button class="btn-primary" onclick="closeModal()">Cancel</button>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="container">
@@ -110,19 +97,17 @@
                                 <table class="profile__table">
                                     <thead>
                                         <tr>
-                                            <th>№</th>
-                                            <th><a href="">Product</a></th>
-                                            <th><a href="" class="active">Title</a></th>
-                                            <th><a href="" class="active">Purchased Date</a></th>
-                                            <th><a href="">Price</a></th>
+                                            <th><p href="">Product</p></th>
+                                            <th><p href="" class="active">Title</p></th>
                                             <th></th>
+                                            <th><p href="">Price</p></th>
+                                            <th><p href="" class="active">Purchased Date</p></th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <c:forEach var="o" items="${requestScope.orderHistory}">
                                             <tr>
-                                                <td><a>${o.orderDetailId}</a></td>
                                                 <td>
                                                     <a href="${pageContext.servletContext.contextPath}/gamedetails?id=${o.game.gameId}">
                                                         <div class="profile__img">
@@ -131,8 +116,9 @@
                                                     </a>
                                                 </td>
                                                 <td>${o.game.title}</td>
-                                                <td>${o.order.createdAt}</td>
+                                                <td></td>
                                                 <td><span class="profile__price">${o.price}</span></td>
+                                                <td>${o.order.createdAt}</td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -239,10 +225,26 @@
                                     </div>
 
                                 </div>
+                            </form>
                         </div>
                         <!-- end details form -->
                     </div>
                 </div>
+
+                <div class="tab-pane fade tab-3" id="tab-3" role="tabpanel">
+                    <div class="row">
+                        <!-- details form -->
+                        <div class="col-12 col-lg-6">
+                            <h4 class="form__title">Are you sure you want to log out?</h4>
+                            <div class="col-12">
+                                <a class="form__btn" type="button" href="${pageContext.servletContext.contextPath}/logout">Yes</a>
+                            </div>
+                        </div>
+                        <!-- end details form -->
+                    </div>
+                </div>
+
+
             </div>
             <!-- end content tabs -->
         </div>
