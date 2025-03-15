@@ -5,10 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, gameshop.model.AdminCoupons" %>
-<%
-    List<AdminCoupons> coupons = (List<AdminCoupons>) request.getAttribute("coupons");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <%@include file="../WEB-INF/include/admin-head.jsp" %>
 <!--begin::App Main-->
@@ -23,7 +22,7 @@
                 String successMessage = (String) session.getAttribute("successMessage");
                 if (successMessage != null) {
                     session.removeAttribute("successMessage"); // Xóa thông báo sau khi hiển thị
-            %>
+%>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <h5><i class="bi bi-check2-circle"></i> <%= successMessage%></h5>
             </div>
@@ -54,8 +53,8 @@
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title">Danh sách Mã Giảm Giá</h3>
-                            <a href="?add" class="btn btn-primary float-end">Thêm Mã Giảm Giá</a>
+                            <h3 class="card-title">Coupons List</h3>
+                            <a href="?add" class="btn btn-primary float-end">Add Coupon</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -63,49 +62,44 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Mã Code</th>
-                                        <th>Giảm Giá (%)</th>
-                                        <th>Hạn Sử Dụng</th>
-                                        <th>Giới Hạn Lượt Dùng</th>
-                                        <th>Ngày Tạo</th>
-                                        <th>Hành Động</th>
+                                        <th>Code</th>
+                                        <th>Discount (%)</th>
+                                        <th>Expiration Date</th>
+                                        <th>Usage Limit</th>
+                                        <th>Creation Date</th>
+                                        <th>Actions</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for (AdminCoupons coupon : coupons) {%>
-                                    <tr class="align-middle">
-                                        <td><%= coupon.getCouponId()%></td>
-                                        <td><%= coupon.getCode()%></td>
-                                        <td><%= coupon.getDiscountPercentage()%>%</td>
-                                        <td><%= coupon.getExpirationDate()%></td>
-                                        <td><%= coupon.getUsageLimit()%></td>
-                                        <td><%= coupon.getCreatedAt()%></td>
-                                        <td>
-                                            <!-- Nút Edit -->
-                                            <a href="${pageContext.request.contextPath}/admin/coupons?editId=<%= coupon.getCouponId()%>" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </a>
-                                            <form action="${pageContext.request.contextPath}/admin/coupons" method="post" class="d-inline">
-                                                <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="couponId" value="<%= coupon.getCouponId()%>">
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <% }%>
+                                    <c:forEach var="coupon" items="${coupons}">                                    
+                                        <tr class="align-middle">
+                                            <td>${coupon.couponId}</td>
+                                            <td>${coupon.code}</td>
+                                            <td>${coupon.discountPercentage}%</td>
+                                            <td>${coupon.expirationDate}</td>
+                                            <td>${coupon.usageLimit}</td>
+                                            <td>${coupon.createdAt}</td>
+                                            <td>
+                                                <!-- Nút Edit -->
+                                                <a href="${pageContext.request.contextPath}/admin/coupons?editId=${coupon.couponId}" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
+                                                <form action="${pageContext.request.contextPath}/admin/coupons" method="post" class="d-inline">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <input type="hidden" name="couponId" value="${coupon.couponId}">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-end">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
+
+
+
                     </div>
                     <!-- /.card -->
                 </div>

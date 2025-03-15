@@ -41,9 +41,15 @@
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <form action="${pageContext.servletContext.contextPath}/admin/users" method="get">
-                                <input type="text" name="search" value="${requestScope.searchQuery}" placeholder="Tìm kiếm user..." />
-                                <button type="submit">Tìm</button>
+                            <form class="row row-cols-lg-auto g-3 align-items-center" action="${pageContext.servletContext.contextPath}/admin/users" method="get">
+                                <div  class="col-12">
+                                    <input type="text" name="search" value="${requestScope.searchQuery}" placeholder="Search for a user..." />
+                                </div>
+                                <div  class="col-12">
+                                    <button type="submit" class="btn btn-success">Search</button>
+                                    <!-- Reset Button -->
+                                    <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/admin/users">Reset</a>
+                                </div>
                             </form>
                         </div>
                         <!-- /.card-header -->

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="../WEB-INF/include/admin-head.jsp" %>
-<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <!--begin::App Main-->
@@ -34,90 +34,90 @@
                 <div class="col-md-8 offset-md-2">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Thêm Game Mới</h3>
+                            <h3 class="card-title">Add New Game</h3>
                         </div>
                         <div class="card-body">
-                            <% String error = (String) request.getAttribute("error");
-                               if (error != null) { %>
-                                <div class="alert alert-danger"><%= error %></div>
-                            <% } %>
+                            <!-- Hiển thị lỗi nếu có -->
+                            <c:if test="${not empty error}">
+                                <div class="alert alert-danger">${error}</div>
+                            </c:if>
 
                             <form action="${pageContext.request.contextPath}/admin/games" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="action" value="add">
 
                                 <div class="mb-3">
-                                    <label for="title" class="form-label">Tên Game</label>
+                                    <label for="title" class="form-label">Game Title</label>
                                     <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Mô Tả</label>
+                                    <label for="description" class="form-label">Description</label>
                                     <textarea class="form-control" id="description" name="description"></textarea>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="image" class="form-label">Hình Ảnh</label>
+                                    <label for="image" class="form-label">Image</label>
                                     <input type="file" class="form-control" id="image" name="image" accept="image/*">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="price" class="form-label">Giá (VND)</label>
+                                    <label for="price" class="form-label">Price (VND)</label>
                                     <input type="number" class="form-control" id="price" name="price" min="0" step="0.01" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="release_date" class="form-label">Ngày Phát Hành</label>
+                                    <label for="release_date" class="form-label">Release Date</label>
                                     <input type="date" class="form-control" id="release_date" name="release_date">
                                 </div>
 
                                 <!-- Dropdowns for Genres, Categories, Developers, Publishers, Platforms -->
                                 <div class="mb-3">
-                                    <label for="genres" class="form-label">Thể Loại</label>
+                                    <label for="genres" class="form-label">Genres</label>
                                     <select class="form-select" id="genres" name="genres" multiple>
-                                        <% for (String genre : (List<String>) request.getAttribute("allGenres")) { %>
-                                            <option value="<%= genre %>"><%= genre %></option>
-                                        <% } %>
+                                        <c:forEach var="genre" items="${allGenres}">
+                                            <option value="${genre}">${genre}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="categories" class="form-label">Danh Mục</label>
+                                    <label for="categories" class="form-label">Categories</label>
                                     <select class="form-select" id="categories" name="categories" multiple>
-                                        <% for (String category : (List<String>) request.getAttribute("allCategories")) { %>
-                                            <option value="<%= category %>"><%= category %></option>
-                                        <% } %>
+                                        <c:forEach var="category" items="${allCategories}">
+                                            <option value="${category}">${category}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="developers" class="form-label">Nhà Phát Triển</label>
+                                    <label for="developers" class="form-label">Developers</label>
                                     <select class="form-select" id="developers" name="developers" multiple>
-                                        <% for (String developer : (List<String>) request.getAttribute("allDevelopers")) { %>
-                                            <option value="<%= developer %>"><%= developer %></option>
-                                        <% } %>
+                                        <c:forEach var="developer" items="${allDevelopers}">
+                                            <option value="${developer}">${developer}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="publishers" class="form-label">Nhà Phát Hành</label>
+                                    <label for="publishers" class="form-label">Publishers</label>
                                     <select class="form-select" id="publishers" name="publishers" multiple>
-                                        <% for (String publisher : (List<String>) request.getAttribute("allPublishers")) { %>
-                                            <option value="<%= publisher %>"><%= publisher %></option>
-                                        <% } %>
+                                        <c:forEach var="publisher" items="${allPublishers}">
+                                            <option value="${publisher}">${publisher}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="platforms" class="form-label">Nền Tảng</label>
+                                    <label for="platforms" class="form-label">Platforms</label>
                                     <select class="form-select" id="platforms" name="platforms" multiple>
-                                        <% for (String platform : (List<String>) request.getAttribute("allPlatforms")) { %>
-                                            <option value="<%= platform %>"><%= platform %></option>
-                                        <% } %>
+                                        <c:forEach var="platform" items="${allPlatforms}">
+                                            <option value="${platform}">${platform}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Thêm Game</button>
-                                <a href="<%= request.getContextPath()%>/admin/games" class="btn btn-secondary">Hủy</a>
+                                <button type="submit" class="btn btn-primary">Add Game</button>
+                                <a href="${pageContext.request.contextPath}/admin/games" class="btn btn-secondary">Cancel</a>
                             </form>
                         </div>
                     </div>

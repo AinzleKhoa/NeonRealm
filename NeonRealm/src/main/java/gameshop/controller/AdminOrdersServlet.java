@@ -64,6 +64,10 @@ public class AdminOrdersServlet extends HttpServlet {
     List<AdminOrders> orders = adminOrdersDAO.getAllOrders(sortPrice, offset, pageSize);
     int totalOrders = adminOrdersDAO.countTotalOrders();
     int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
+    
+    // Calculate current total games. At final page will display max from max numOfPages
+        int currentTotalOrders = (currentPage < totalPages ? pageSize * currentPage : totalOrders);
+        request.setAttribute("currentTotalOrders", currentTotalOrders);
 
     // Gửi dữ liệu về JSP với tên chính xác
     request.setAttribute("orders", orders);

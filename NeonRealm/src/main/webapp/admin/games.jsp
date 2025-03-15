@@ -50,24 +50,27 @@
                                 <form class="row row-cols-lg-auto g-3 align-items-center" method="GET" action="${pageContext.servletContext.contextPath}/admin/games">
                                     <!-- Lọc theo thể loại -->
                                     <div class="col-12">
-                                        <label for="genre">Chọn thể loại:</label>
+                                        <label for="genre">Select Genre:</label>
                                         <select name="genre" id="genre">
-                                            <option value="">Tất cả</option>
+                                            <option value="">All</option>
                                             <c:forEach var="genre" items="${requestScope.allGenres}">
                                                 <option value="${genre}" ${genre eq param.genre ? 'selected' : ''}>${genre}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
-                                    <div class="col-12">
-                                        <!-- Tìm kiếm theo tên -->
-                                        <input type="text" name="search" value="${requestScope.searchQuery}" placeholder="Tìm kiếm game..." />
 
+                                    <div class="col-12">
+                                        <!-- Search by name -->
+                                        <input type="text" name="search" value="${requestScope.searchQuery}" placeholder="Search for a game..." />
                                     </div>
 
                                     <div class="col-12">
                                         <!-- Submit -->
-                                        <button type="submit" class="btn btn-success">Áp dụng</button>
+                                        <button type="submit" class="btn btn-success">Apply</button>
+                                        <!-- Reset Button -->
+                                        <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/admin/games">Reset</a>
                                     </div>
+
                                 </form>
                             </div>
 
@@ -75,7 +78,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                                                        <table class="table table-bordered">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -120,7 +123,7 @@
                                                 <form action="${pageContext.request.contextPath}/admin/games" method="post" class="d-inline">
                                                     <input type="hidden" name="action" value="delete">
                                                     <input type="hidden" name="gameId" value="${game.gameId}">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>

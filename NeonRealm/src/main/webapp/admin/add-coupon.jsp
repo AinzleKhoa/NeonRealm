@@ -32,41 +32,41 @@
                 <div class="col-md-8 offset-md-2">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Thêm Mã Giảm Giá</h3>
+                            <h3 class="card-title">Add Discount Code</h3>
                         </div>
                         <div class="card-body">
-                            <%-- Hiển thị thông báo lỗi nếu có --%>
+                            <%-- Display error message if any --%>
                             <% String error = (String) request.getAttribute("error");
-                               if (error != null) { %>
-                                <div class="alert alert-danger"><%= error %></div>
-                            <% } %>
+                                if (error != null) {%>
+                            <div class="alert alert-danger"><%= error%></div>
+                            <% }%>
 
                             <form action="${pageContext.request.contextPath}/admin/coupons" method="post">
-                                <%-- Xác định action là "add" để Servlet xử lý đúng --%>
+                                <%-- Define action as "add" so the Servlet processes it correctly --%>
                                 <input type="hidden" name="action" value="add">
 
                                 <div class="mb-3">
-                                    <label for="code" class="form-label">Mã Coupon</label>
+                                    <label for="code" class="form-label">Coupon Code</label>
                                     <input type="text" class="form-control" id="code" name="code" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="discount" class="form-label">Phần Trăm Giảm (%)</label>
+                                    <label for="discount" class="form-label">Discount Percentage (%)</label>
                                     <input type="number" class="form-control" id="discount" name="discount" min="1" max="100" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="expiration" class="form-label">Ngày Hết Hạn</label>
+                                    <label for="expiration" class="form-label">Expiration Date</label>
                                     <input type="date" class="form-control" id="expiration" name="expiration" required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="usage_limit" class="form-label">Giới Hạn Sử Dụng</label>
+                                    <label for="usage_limit" class="form-label">Usage Limit</label>
                                     <input type="number" class="form-control" id="usage_limit" name="usageLimit" min="1" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Thêm Coupon</button>
-                                <a href="<%= request.getContextPath()%>/admin/coupons" class="btn btn-secondary">Hủy</a>
+                                <button type="submit" class="btn btn-primary">Add Coupon</button>
+                                <a href="<%= request.getContextPath()%>/admin/coupons" class="btn btn-secondary">Cancel</a>
                             </form>
                         </div>
                     </div>

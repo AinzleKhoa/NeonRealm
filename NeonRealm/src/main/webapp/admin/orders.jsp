@@ -41,23 +41,22 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <div class="card-title">
-                                <!-- Bộ lọc theo giá & Sắp xếp -->
-                                <form method="GET" action="${pageContext.servletContext.contextPath}/admin/orders">
-                                    <label for="sortPrice">Sắp xếp theo giá:</label>
-                                    <select name="sortPrice" id="sortPrice">
-                                        <option value="">Mặc định (ID tăng dần)</option>
-                                        <option value="asc" ${param.sortPrice eq 'asc' ? 'selected' : ''}>Giá thấp đến cao</option>
-                                        <option value="desc" ${param.sortPrice eq 'desc' ? 'selected' : ''}>Giá cao đến thấp</option>
-                                    </select>
-                                    <button type="submit">Lọc</button>
-
-                                    <!-- Nút Reset -->
-                                    <a href="${pageContext.servletContext.contextPath}/admin/orders">
-                                        <button type="button">Reset</button>
-                                    </a>
+                                <!-- Price Filter & Sorting -->
+                                <form class="row row-cols-lg-auto g-3 align-items-center" method="GET" action="${pageContext.servletContext.contextPath}/admin/orders">
+                                    <div class="col-12">
+                                        <label for="sortPrice">Sort by Price:</label>
+                                        <select name="sortPrice" id="sortPrice">
+                                            <option value="">Default (Ascending ID)</option>
+                                            <option value="asc" ${param.sortPrice eq 'asc' ? 'selected' : ''}>Lowest to Highest</option>
+                                            <option value="desc" ${param.sortPrice eq 'desc' ? 'selected' : ''}>Highest to Lowest</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-success">Filter</button>
+                                        <!-- Reset Button -->
+                                        <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/admin/orders">Reset</a>
+                                    </div>
                                 </form>
-
-
                             </div>
                         </div>
                         <div class="card-body">
@@ -65,11 +64,12 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Người Mua</th>
-                                        <th>Tên Game</th>
-                                        <th>Tổng giá</th>
-                                        <th>Mã giảm giá</th>
-                                        <th>Ngày tạo</th>
+                                        <th>Buyer</th>
+                                        <th>Game Name</th>
+                                        <th>Total Price</th>
+                                        <th>Discount Code</th>
+                                        <th>Creation Date</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,7 +79,7 @@
                                             <td>${order.username}</td>
                                             <td><a target="_blank" style="text-decoration: none;" href="<%= getServletContext().getContextPath()%>/gamedetails?id=${order.gameId}">${order.gameTitle}</a></td>
                                             <td>${order.totalPrice}</td>
-                                            <td>${empty order.discountCode ? "Không có" : order.discountCode}</td>
+                                            <td>${empty order.discountCode ? "Null" : order.discountCode}</td>
                                             <td>${order.createdAt}</td>
                                         </tr>
                                     </c:forEach>
@@ -91,7 +91,7 @@
                         <!-- /.pagination -->
                         <div class="card-footer clearfix">
                             <div class="paginator">
-                                ${requestScope.currentTotalOrders} from ${requestScope.totalPage}
+                                ${requestScope.currentTotalOrders} from ${requestScope.totalOrders}
                             </div>
 
                             <c:set var="paginationUrl" value="${pageContext.servletContext.contextPath}/admin/orders" />
