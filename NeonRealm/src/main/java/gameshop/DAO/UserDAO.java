@@ -21,6 +21,15 @@ import java.util.logging.Logger;
  */
 public class UserDAO extends DBContext {
 
+    /**
+     * Saves the "Remember Me" token for a user in the database. This method
+     * updates the `remember_me_token` column for the specified user ID.
+     *
+     * @param userId The ID of the user for whom the token is being saved.
+     * @param token The "Remember Me" token to be saved for the user.
+     * @return The number of rows affected by the update. Typically, this should
+     * be 1 if the update is successful, or 0 if no rows were updated.
+     */
     public int saveRememberMeToken(int userId, String token) {
         try {
             String query = "UPDATE Users SET remember_me_token = ? WHERE user_id = ?";
@@ -32,6 +41,15 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
+    /**
+     * Retrieves a user from the database based on the "Remember Me" token. This
+     * method fetches the user details by matching the given token with the
+     * `remember_me_token` column.
+     *
+     * @param token The "Remember Me" token used to find the user.
+     * @return A `User` object if a user with the provided token is found, or
+     * `null` if no user is found.
+     */
     public User getUserByRememberMeToken(String token) {
         try {
             String query = "SELECT * FROM users WHERE remember_me_token = ?";

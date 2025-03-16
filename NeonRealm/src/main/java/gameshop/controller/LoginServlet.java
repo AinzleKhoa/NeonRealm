@@ -135,7 +135,13 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    // Helper function to generate a secure random token
+    /**
+     * Generates a secure random token using `SecureRandom`. The token is
+     * generated as a byte array of 24 bytes (192 bits) and then encoded as a
+     * Base64 string.
+     *
+     * @return A Base64 encoded string representing the secure random token.
+     */
     private String generateSecureToken() {
         SecureRandom secureRandom = new SecureRandom();
         byte[] token = new byte[24]; // 24 bytes for the token (192 bits)
