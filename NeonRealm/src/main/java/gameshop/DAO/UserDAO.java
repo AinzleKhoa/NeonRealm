@@ -17,14 +17,16 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Ainzle
+ * @author CE190449 - Le Anh Khoa
  */
 public class UserDAO extends DBContext {
 
     /**
+     * Retrieves a user by their GitHub ID.
      *
-     * @param githubId
-     * @return
+     * @param githubId the GitHub ID of the user.
+     * @return the User object corresponding to the given GitHub ID, or null if
+     * not found.
      */
     public User findByGitHubId(String githubId) {
         try {
@@ -52,6 +54,13 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param id the user ID.
+     * @return the User object corresponding to the given ID, or null if not
+     * found.
+     */
     public User findById(int id) {
         try {
             String query = "SELECT * FROM Users WHERE user_id = ?;";
@@ -79,9 +88,10 @@ public class UserDAO extends DBContext {
     }
 
     /**
+     * Checks if a username already exists in the database.
      *
-     * @param username
-     * @return
+     * @param username the username to check.
+     * @return true if the username exists, false otherwise.
      */
     public boolean isUsernameExists(String username) {
         String query = "SELECT COUNT(user_id) FROM Users WHERE username = ?;";
@@ -94,9 +104,10 @@ public class UserDAO extends DBContext {
     }
 
     /**
+     * Checks if an email already exists in the database.
      *
-     * @param email
-     * @return
+     * @param email the email to check.
+     * @return true if the email exists, false otherwise.
      */
     public boolean isEmailExists(String email) {
         String query = "SELECT COUNT(user_id) FROM Users WHERE email = ?;";
@@ -109,10 +120,11 @@ public class UserDAO extends DBContext {
     }
 
     /**
+     * Updates the status of a user based on their email.
      *
-     * @param status
-     * @param email
-     * @return
+     * @param status the new status to set.
+     * @param email the email of the user to update.
+     * @return the number of rows affected by the update.
      */
     public int setStatus(String status, String email) {
         try {
@@ -131,9 +143,10 @@ public class UserDAO extends DBContext {
     }
 
     /**
+     * Signs up a new user by inserting their details into the database.
      *
-     * @param user
-     * @return
+     * @param user the User object containing the user's details.
+     * @return the number of rows affected by the insert.
      */
     public int signup(User user) {
         try {
@@ -157,29 +170,16 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
-    /*
-    public int profileUpdate(String username, String email, String newHashedPassword) {
-        try {
-            String query = "select user_id\n"
-                    + "FROM Users u\n"
-                    + "WHERE u.email = ?;";
-            Object[] params = {email};
-            ResultSet rs = execSelectQuery(query, params);
-            if (rs.next()) {
-                int userId = rs.getInt("user_id");
-                String queryUpdate = "UPDATE Users\n"
-                        + "SET username = ?, email = ?, password_hash = ? "
-                        + "WHERE user_id = ?";
-                Object[] paramss = {username, email, newHashedPassword, userId};
-                return execQuery(queryUpdate, paramss);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-    }
-     */
     // With new password
+    /**
+     * Updates a user's profile with a new username, email, and password.
+     *
+     * @param id the user ID.
+     * @param username the new username.
+     * @param email the new email.
+     * @param newHashedPassword the new hashed password.
+     * @return the number of rows affected by the update.
+     */
     public int profileUpdate(int id, String username, String email, String newHashedPassword) {
         try {
             String query = "UPDATE Users\n"
@@ -199,7 +199,15 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
-    // Without new password
+    /**
+     * Updates a user's profile with a new username and email without changing
+     * the password.
+     *
+     * @param id the user ID.
+     * @param username the new username.
+     * @param email the new email.
+     * @return the number of rows affected by the update.
+     */
     public int profileUpdate(int id, String username, String email) {
         try {
             String query = "UPDATE Users\n"
@@ -218,6 +226,13 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
+    /**
+     * Updates a user's authentication by verifying their old password.
+     *
+     * @param id the user ID.
+     * @param oldPass the old password.
+     * @return an integer indicating the result of the authentication update.
+     */
     public int profileUpdateAuth(int id, String oldPass) {
         try {
             String query = "select *\n"
@@ -258,11 +273,11 @@ public class UserDAO extends DBContext {
     }
 
     /**
-     * For traditional login only (Not using any other provider than local)
+     * Logs in a user by verifying their email and password.
      *
-     * @param email
-     * @param password
-     * @return
+     * @param email the user's email.
+     * @param password the user's password.
+     * @return a User object representing the logged-in user or an error code.
      */
     public User login(String email, String password) {
         try {

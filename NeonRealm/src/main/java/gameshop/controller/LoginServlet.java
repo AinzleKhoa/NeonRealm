@@ -17,16 +17,17 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 public class LoginServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP GET method for displaying the login page. This method
+     * forwards the request to the login.jsp page.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -38,10 +39,13 @@ public class LoginServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method for processing login requests. This method
+     * validates the user's email and password, manages session creation, and
+     * handles different login error scenarios (e.g., invalid email, invalid
+     * password, locked account).
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

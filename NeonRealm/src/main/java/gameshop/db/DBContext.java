@@ -13,16 +13,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Utility class for handling database connections and queries. This class
+ * provides methods for establishing a connection to the database and executing
+ * common SQL queries such as INSERT, UPDATE, DELETE, and SELECT.
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 public class DBContext {
 
+    /**
+     * Represents the database connection.
+     */
     public Connection conn;
     private final String DB_URL = "jdbc:sqlserver://localhost\\NeonRealmDatabase:1433;databaseName=NeonRealm;encrypt=true;trustServerCertificate=true";
     private final String DB_USER = "sa";
     private final String DB_PWD = "123";
 
+    /**
+     * Constructor that initializes the database connection. This constructor
+     * loads the SQL Server JDBC driver and establishes a connection to the
+     * database using the specified connection details.
+     */
     public DBContext() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -32,11 +43,23 @@ public class DBContext {
         }
     }
 
+    /**
+     * Gets the current database connection.
+     *
+     * @return the current database connection
+     */
     public Connection getConnection() {
         return conn;
     }
 
-    // Phuong thuc cac lenh INSERT, UPDATE, DELETE
+    /**
+     * Executes an INSERT, UPDATE, or DELETE query.
+     *
+     * @param query the SQL query to be executed
+     * @param params the parameters to be set in the query
+     * @return the number of rows affected by the query
+     * @throws SQLException if an SQL error occurs
+     */
     public int execQuery(String query, Object[] params) throws SQLException {
         PreparedStatement pStatement = conn.prepareStatement(query);
         if (params != null) {
@@ -47,6 +70,14 @@ public class DBContext {
         return pStatement.executeUpdate();
     }
 
+    /**
+     * Executes a SELECT query and returns the result set.
+     *
+     * @param query the SQL query to be executed
+     * @param params the parameters to be set in the query
+     * @return the result set of the query
+     * @throws SQLException if an SQL error occurs
+     */
     public ResultSet execSelectQuery(String query, Object[] params) throws SQLException {
         PreparedStatement pStatement = conn.prepareStatement(query);
         if (params != null) {
@@ -56,8 +87,15 @@ public class DBContext {
         }
         return pStatement.executeQuery();
     }
-    
+
+    /**
+     * Executes a SELECT query without parameters and returns the result set.
+     *
+     * @param query the SQL query to be executed
+     * @return the result set of the query
+     * @throws SQLException if an SQL error occurs
+     */
     public ResultSet execSelectQuery(String query) throws SQLException {
-        return this.execSelectQuery(query,null);
+        return this.execSelectQuery(query, null);
     }
 }

@@ -13,30 +13,31 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Ainzle
+ * @author CE190449 - Le Anh Khoa
  */
 public class Error404Servlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP GET method for displaying the 404 error page.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+            throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/pages/404.jsp").forward(request, response);
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method for the 404 error page. This method is
+     * currently not implemented.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

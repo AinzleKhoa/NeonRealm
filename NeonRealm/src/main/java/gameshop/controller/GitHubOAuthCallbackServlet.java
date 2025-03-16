@@ -22,16 +22,19 @@ import org.json.JSONObject;
 
 /**
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 public class GitHubOAuthCallbackServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP GET method for GitHub OAuth callback. This method
+     * processes the authorization code from GitHub, retrieves the access token,
+     * fetches user info from GitHub, and either logs the user in or creates a
+     * new account.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -89,7 +92,8 @@ public class GitHubOAuthCallbackServlet extends HttpServlet {
 
     /**
      * Method to handle profile update when the user is authenticated through
-     * GitHub.
+     * GitHub. Validates the new email and username, updates the profile, and
+     * returns success or error messages.
      *
      * @param request the HttpServletRequest
      * @param response the HttpServletResponse
@@ -146,10 +150,11 @@ public class GitHubOAuthCallbackServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method for the GitHub OAuth callback. This method
+     * is currently not implemented.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

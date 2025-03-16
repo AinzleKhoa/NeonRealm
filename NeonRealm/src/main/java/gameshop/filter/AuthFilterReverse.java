@@ -15,8 +15,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Filter to ensure that logged-in users are redirected to the home page if they
+ * attempt to access certain resources. This filter checks if the user is logged
+ * in. If the user is logged in, they are redirected to the home page. If the
+ * user is not logged in, they are allowed to proceed to the requested resource.
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 //@WebFilter(filterName = "auth", urlPatterns = {"/artist", "/album"})
 public class AuthFilterReverse implements Filter {

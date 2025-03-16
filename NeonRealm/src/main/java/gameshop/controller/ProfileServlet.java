@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 public class ProfileServlet extends HttpServlet {
 

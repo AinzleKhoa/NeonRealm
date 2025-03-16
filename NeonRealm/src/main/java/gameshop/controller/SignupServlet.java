@@ -19,16 +19,18 @@ import java.util.List;
 
 /**
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 public class SignupServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP GET method for displaying the signup page. This method
+     * forwards the request to the signup.jsp page where the user can input
+     * their details to sign up.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -40,10 +42,13 @@ public class SignupServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method for processing the signup form submission.
+     * This method validates the user's input, checks for errors (e.g., matching
+     * passwords, valid email, etc.), hashes the password, and attempts to
+     * create a new user account.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

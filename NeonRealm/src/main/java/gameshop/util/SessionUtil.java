@@ -9,13 +9,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * Utility class for managing session-related operations in the game shop system.
- * @author Ainzle
+ * Utility class for managing session-related operations in the game shop
+ * system.
+ *
+ * @author Le Anh Khoa - CE190449
  */
 public class SessionUtil {
 
     /**
-     * Checks if a user is logged in by verifying the presence of a session and a "currentUser" attribute.
+     * Checks if a user is logged in by verifying the presence of a session and
+     * a "currentUser" attribute.
+     *
      * @param request The HTTP servlet request containing the session
      * @return True if the user is logged in, false otherwise
      */
@@ -26,8 +30,10 @@ public class SessionUtil {
 
     /**
      * Retrieves the username of the logged-in user from the session.
+     *
      * @param request The HTTP servlet request containing the session
-     * @return The username if available, null if no session or username is found
+     * @return The username if available, null if no session or username is
+     * found
      */
     public static String getLoggedInUsername(HttpServletRequest request) {
         HttpSession session = request.getSession(false); // Get session without creating a new one
@@ -39,6 +45,7 @@ public class SessionUtil {
 
     /**
      * Checks if the logged-in user has admin privileges.
+     *
      * @param request The HTTP servlet request containing the session
      * @return True if the user is an admin, false otherwise
      */

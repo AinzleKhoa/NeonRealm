@@ -18,10 +18,15 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Ainzle
+ * @author CE190449 - Le Anh Khoa
  */
 public class GameDAO extends DBContext {
 
+    /**
+     * Retrieves the list of platform names from the database.
+     *
+     * @return a List of platform names.
+     */
     public List<String> getPlatformName() {
         List<String> list = new ArrayList<>();
         try {
@@ -38,6 +43,11 @@ public class GameDAO extends DBContext {
         return list;
     }
 
+    /**
+     * Retrieves the list of genre names from the database.
+     *
+     * @return a List of genre names.
+     */
     public List<String> getGenreName() {
         List<String> list = new ArrayList<>();
         try {
@@ -54,6 +64,12 @@ public class GameDAO extends DBContext {
         return list;
     }
 
+    /**
+     * Retrieves a game by its ID from the database.
+     *
+     * @param id the game ID.
+     * @return the Game object corresponding to the given ID.
+     */
     public Game getGameById(int id) {
         Game game = null;
         String query = "SELECT \n"
@@ -187,6 +203,11 @@ public class GameDAO extends DBContext {
         return game;
     }
 
+    /**
+     * Retrieves a list of all games from the database.
+     *
+     * @return a List of Game objects.
+     */
     public List<Game> getGameList() {
         List<Game> games = new ArrayList<>();
         String query = "SELECT \n"
@@ -280,6 +301,13 @@ public class GameDAO extends DBContext {
         return games;
     }
 
+    /**
+     * Retrieves a paginated list of games from the database.
+     *
+     * @param currentPage the current page number.
+     * @param totalGamesPerPage the number of games per page.
+     * @return a List of Game objects for the current page.
+     */
     public List<Game> getPagination(int currentPage, int totalGamesPerPage) {
         List<Game> games = new ArrayList<>();
         try {
@@ -393,6 +421,11 @@ public class GameDAO extends DBContext {
         return games;
     }
 
+    /**
+     * Counts the total number of games in the database.
+     *
+     * @return the total number of games.
+     */
     public int countGames() {
         try {
             String query = "SELECT COUNT(g.game_id)\n"
@@ -407,6 +440,17 @@ public class GameDAO extends DBContext {
         return 0;
     }
 
+    /**
+     * Retrieves a filtered and paginated list of games based on the selected
+     * platforms, genres, and keyword.
+     *
+     * @param currentPage the current page number.
+     * @param totalGamesPerPage the number of games per page.
+     * @param selectedPlatforms the platforms selected by the user.
+     * @param selectedGenres the genres selected by the user.
+     * @param keyword the search keyword.
+     * @return a List of filtered and paginated Game objects.
+     */
     public List<Game> getFilteredPagination(int currentPage, int totalGamesPerPage, String[] selectedPlatforms, String[] selectedGenres, String keyword) {
         List<Game> games = new ArrayList<>();
         try {
@@ -585,6 +629,15 @@ public class GameDAO extends DBContext {
         return games;
     }
 
+    /**
+     * Counts the total number of games that match the selected filters
+     * (platforms, genres, and keyword).
+     *
+     * @param selectedPlatforms the platforms selected by the user.
+     * @param selectedGenres the genres selected by the user.
+     * @param keyword the search keyword.
+     * @return the total number of filtered games.
+     */
     public int countFilteredGames(String[] selectedPlatforms, String[] selectedGenres, String keyword) {
         try {
             StringBuilder query = new StringBuilder("SELECT COUNT(g.game_id) FROM Games g");
@@ -627,6 +680,12 @@ public class GameDAO extends DBContext {
         return 0;
     }
 
+    /**
+     * Builds the SQL IN clause for filtering games based on an array of values.
+     *
+     * @param values an array of values to be used in the IN clause.
+     * @return a string representing the SQL IN clause.
+     */
     public String buildSQLInClause(String[] values) {
         if (values == null || values.length == 0) {
             return "('')"; // Avoid SQL syntax error

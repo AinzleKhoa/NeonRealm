@@ -14,16 +14,18 @@ import java.net.URLEncoder;
 
 /**
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 public class GitHubOAuthServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP GET method for redirecting the user to GitHub's OAuth
+     * authorization page. This method constructs the authorization URL and
+     * redirects the user to GitHub for login and authorization.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -41,10 +43,11 @@ public class GitHubOAuthServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method for the GitHub OAuth servlet. This method is
+     * currently not implemented.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request the servlet request
+     * @param response the servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

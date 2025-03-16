@@ -8,36 +8,79 @@ import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
+/**
+ * Custom JSP tag handler for generating a pagination component. This tag
+ * dynamically generates pagination links based on the current page and total
+ * pages.
+ *
+ * @author Le Anh Khoa - CE190449
+ */
 public class PaginationHandler extends TagSupport {
 
-    private String url;
-    private int currentPage;
-    private int totalPages;
+    private String url;  // URL for pagination links
+    private int currentPage;  // Current page number
+    private int totalPages;  // Total number of pages
 
+    /**
+     * Gets the URL for pagination links.
+     *
+     * @return the URL
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * Sets the URL for pagination links.
+     *
+     * @param url the URL
+     */
     public void setUrl(String url) {
         this.url = (url == null) ? "" : url; // Prevent NullPointerException
     }
 
+    /**
+     * Gets the current page number.
+     *
+     * @return the current page number
+     */
     public int getCurrentPage() {
         return currentPage;
     }
 
+    /**
+     * Sets the current page number.
+     *
+     * @param currentPage the current page number
+     */
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
 
+    /**
+     * Gets the total number of pages.
+     *
+     * @return the total number of pages
+     */
     public int getTotalPages() {
         return totalPages;
     }
 
+    /**
+     * Sets the total number of pages.
+     *
+     * @param totalPages the total number of pages
+     */
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
 
+    /**
+     * Generates the pagination HTML and writes it to the page.
+     *
+     * @return SKIP_BODY to skip the body of the tag
+     * @throws JspException if an error occurs during the tag processing
+     */
     @Override
     public int doStartTag() throws JspException {
         StringBuilder pagination = new StringBuilder();

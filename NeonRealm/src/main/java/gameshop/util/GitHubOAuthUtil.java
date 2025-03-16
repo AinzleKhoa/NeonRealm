@@ -12,8 +12,13 @@ import java.util.Scanner;
 import org.json.JSONObject;
 
 /**
+ * Utility class for handling GitHub OAuth authentication and user information
+ * retrieval.
  *
- * @author Ainzle
+ * This class provides methods to exchange an authorization code for an access
+ * token and to fetch user information from GitHub using the access token.
+ *
+ * @author Le Anh Khoa - CE190449
  */
 public class GitHubOAuthUtil {
 
@@ -27,6 +32,7 @@ public class GitHubOAuthUtil {
      *
      * @param code Authorization code received from GitHub
      * @return Access token or null if failed
+     * @throws java.io.IOException
      */
     public static String getAccessToken(String code) throws IOException {
         URL url = new URL(TOKEN_URL);
@@ -56,6 +62,7 @@ public class GitHubOAuthUtil {
      *
      * @param accessToken GitHub OAuth access token
      * @return JSONObject containing user details
+     * @throws java.io.IOException
      */
     public static JSONObject getUserInfo(String accessToken) throws IOException {
         URL url = new URL(USER_URL);

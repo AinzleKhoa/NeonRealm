@@ -18,10 +18,17 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Ainzle
+ * @author CE190449 - Le Anh Khoa
  */
 public class OrderDAO extends DBContext {
 
+    /**
+     * Retrieves the order history for a specific user.
+     *
+     * @param userId the user ID.
+     * @return a List of OrderDetails objects containing the order history for
+     * the specified user.
+     */
     public List<OrderDetails> getOrderHistory(int userId) {
         List<OrderDetails> orderDetailsList = new ArrayList<>();
         try {
@@ -46,7 +53,7 @@ public class OrderDAO extends DBContext {
                 LocalDateTime createdAt = (rs.getTimestamp("created_at") != null)
                         ? rs.getTimestamp("created_at").toLocalDateTime()
                         : null;
-                
+
                 OrderDetails orderDetail = new OrderDetails(
                         rs.getInt("order_detail_id"), // OrderDetail ID
                         new Order(

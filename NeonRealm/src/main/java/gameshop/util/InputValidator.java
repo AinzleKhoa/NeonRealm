@@ -5,11 +5,22 @@
 package gameshop.util;
 
 /**
+ * Utility class for validating user inputs such as username, email, and
+ * password. This class provides methods to check the validity of these inputs
+ * based on specific rules.
  *
- * @author Ainzle
+ * @author Le Anh Khoa - CE190449
  */
 public class InputValidator {
 
+    /**
+     * Validates the username according to specific criteria. The username must
+     * be between 3 and 20 characters long and only allow letters, numbers, and
+     * underscores.
+     *
+     * @param username the username to be validated
+     * @return true if the username is valid, false otherwise
+     */
     public static boolean isUsernameValid(String username) {
         return username.matches("^[a-zA-Z0-9_]{3,20}$");
         /*
@@ -18,6 +29,14 @@ public class InputValidator {
          */
     }
 
+    /**
+     * Validates the email address according to standard email format. The email
+     * must contain only allowed characters and follow the pattern of username @
+     * domain TLD
+     *
+     * @param email the email address to be validated
+     * @return true if the email is valid, false otherwise
+     */
     public static boolean isEmailValid(String email) {
         return email.matches("^[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z]{2,})+$");
         /*
@@ -31,6 +50,15 @@ public class InputValidator {
          */
     }
 
+    /**
+     * Validates the password based on length and the inclusion of both letters
+     * and digits. The password must be at least 8 characters long and contain
+     * at least one letter and one digit.
+     *
+     * @param username the password to be validated (though the parameter name
+     * might be misleading, it represents a password)
+     * @return true if the password is valid, false otherwise
+     */
     public static boolean isPasswordValid(String username) {
         return username.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
         /*
