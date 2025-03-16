@@ -21,6 +21,19 @@ import java.util.logging.Logger;
  */
 public class UserDAO extends DBContext {
 
+    public int updateProfileImage(int userId, String imagePath) {
+        try {
+            String query = "UPDATE Users\n"
+                    + "SET avatar_url = ?\n"
+                    + "WHERE user_id = ?;";
+            Object[] params = {imagePath, userId};
+            return execQuery(query, params);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     /**
      * Retrieves a user by their GitHub ID.
      *

@@ -44,7 +44,7 @@
                 <div class="profile">
                     <div class="profile__user">
                         <div class="profile__avatar">
-                            <img src="${pageContext.servletContext.contextPath}/assets/img/user.svg" alt="">
+                            <img src="${pageContext.servletContext.contextPath}/assets/img/${user.avatarUrl != null ? user.avatarUrl : 'user.svg'}" alt="User Avatar">
                         </div>
                         <div class="profile__meta">
                             <h3>${fn:toUpperCase(user.username)}</h3>
@@ -224,6 +224,18 @@
                                         <button class="form__btn" type="submit">Save</button>
                                     </div>
 
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <form action="${pageContext.servletContext.contextPath}/profile" method="POST" enctype="multipart/form-data">
+                                <input name="avatarUpload" value="upload" hidden/>
+                                <div class="col-12">
+                                    <input type="file" name="profileImage" accept="image/*" />
+                                </div>
+                                <div class="col-12">
+                                    <button class="form__btn" type="submit">Upload Image</button>
                                 </div>
                             </form>
                         </div>
