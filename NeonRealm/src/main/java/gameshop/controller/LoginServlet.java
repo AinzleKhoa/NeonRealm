@@ -10,10 +10,13 @@ import gameshop.util.PasswordUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 /**
  *
@@ -34,6 +37,34 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // Check if the "rememberMeToken" cookie is present
+        Cookie[] cookies = request.getCookies();
+        String rememberMeToken = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("rememberMeToken".equals(cookie.getName())) {
+                    rememberMeToken = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (rememberMeToken != null) {
+            // Validate token (retrieve user by token from the database)
+            UserDAO uDAO = new UserDAO();
+            User user = uDAO.getUserByRememberMeToken(rememberMeToken);
+
+            if (user != null) {
+                // Token is valid, log the user in
+                HttpSession session = request.getSession(true);
+                session.setAttribute("currentUser", user);
+                session.setAttribute("currentEmail", user.getEmail());
+                session.setMaxInactiveInterval(30 * 60); // 30 minutes session timeout
+                response.sendRedirect(request.getContextPath() + "/home");
+                return;
+            }
+        }
 
         request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
     }
@@ -61,6 +92,7 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String rememberMe = request.getParameter("remember");
 
         UserDAO uDAO = new UserDAO();
         User user = uDAO.login(email, password); // Pass raw password (comparison is done inside login method)
@@ -83,8 +115,32 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("currentEmail", user.getEmail());
             // Set session timeout - *prevent Session Hijacking
             session.setMaxInactiveInterval(30 * 60); // 30 minutes without interacting
+
+            // Handle "Remember Me" functionality
+            if ("on".equals(rememberMe)) {
+                System.out.println("TOKEN ON !");
+                // Generate a secure token (for simplicity, we use a random string here)
+                String token = generateSecureToken();
+                // Save the token in the database, linked to the user
+                uDAO.saveRememberMeToken(user.getUserId(), token);
+
+                // Create a cookie for the token
+                Cookie rememberMeCookie = new Cookie("rememberMeToken", token);
+                rememberMeCookie.setMaxAge(30 * 24 * 60 * 60); // Set cookie expiration to 30 days
+                rememberMeCookie.setPath("/"); // Make cookie available to all paths of the application
+                response.addCookie(rememberMeCookie);
+            }
+
             response.sendRedirect(request.getContextPath() + "/home");
         }
+    }
+
+    // Helper function to generate a secure random token
+    private String generateSecureToken() {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] token = new byte[24]; // 24 bytes for the token (192 bits)
+        secureRandom.nextBytes(token);
+        return Base64.getEncoder().encodeToString(token);
     }
 
     /**

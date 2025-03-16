@@ -21,6 +21,43 @@ import java.util.logging.Logger;
  */
 public class UserDAO extends DBContext {
 
+    public int saveRememberMeToken(int userId, String token) {
+        try {
+            String query = "UPDATE Users SET remember_me_token = ? WHERE user_id = ?";
+            Object[] params = {token, userId};
+            return execQuery(query, params);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public User getUserByRememberMeToken(String token) {
+        try {
+            String query = "SELECT * FROM users WHERE remember_me_token = ?";
+            Object[] params = {token};
+            ResultSet rs = execSelectQuery(query, params);
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("password_hash"),
+                        rs.getString("github_id"),
+                        rs.getString("auth_provider"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("remember_me_token"),
+                        rs.getTimestamp("last_login") != null ? rs.getTimestamp("last_login").toInstant() : null,
+                        rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toInstant() : null
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     /**
      * Retrieves a user by their GitHub ID.
      *
@@ -43,7 +80,7 @@ public class UserDAO extends DBContext {
                         rs.getString("auth_provider"),
                         rs.getString("role"),
                         rs.getString("status"),
-                        rs.getString("avatar_url"),
+                        rs.getString("remember_me_token"),
                         rs.getTimestamp("last_login") != null ? rs.getTimestamp("last_login").toInstant() : null,
                         rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toInstant() : null
                 );
@@ -76,7 +113,7 @@ public class UserDAO extends DBContext {
                         rs.getString("auth_provider"),
                         rs.getString("role"),
                         rs.getString("status"),
-                        rs.getString("avatar_url"),
+                        rs.getString("remember_me_token"),
                         rs.getTimestamp("last_login") != null ? rs.getTimestamp("last_login").toInstant() : null,
                         rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toInstant() : null
                 );
@@ -330,7 +367,7 @@ public class UserDAO extends DBContext {
                     rs.getString("auth_provider"),
                     rs.getString("role"),
                     rs.getString("status"),
-                    rs.getString("avatar_url"),
+                    rs.getString("remember_me_token"),
                     lastLogin,
                     createdAt
             );

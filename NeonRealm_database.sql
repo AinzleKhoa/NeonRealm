@@ -16,7 +16,7 @@ CREATE TABLE Users (
     auth_provider NVARCHAR(50) DEFAULT 'local', -- 'local', 'github'
     role NVARCHAR(50) DEFAULT 'user', -- 'user', 'admin'
     status NVARCHAR(50) DEFAULT 'active', -- 'active', 'locked', 'banned', 'deactivated'
-    avatar_url NVARCHAR(500) NULL, -- Profile picture from Google or user upload
+    remember_me_token NVARCHAR(250) NULL, -- Remember me token for cookies
 	failed_attempts INT DEFAULT 0, -- Track failed attempts
 	last_failed_attempt DATETIME NULL, -- Store last failed attempt time
 	locked_until DATETIME NULL, -- Temporarily lock the account

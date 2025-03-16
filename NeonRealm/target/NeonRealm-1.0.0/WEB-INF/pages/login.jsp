@@ -26,12 +26,10 @@
                             <div class="sign__group">
                                 <input type="password" name="password" class="sign__input" placeholder="Password" required>
                             </div>
-                            <%--
-                        <div class="sign__group sign__group--checkbox">
-                            <input id="remember" name="remember" type="checkbox" checked="checked">
-                                <label for="remember">Remember Me</label>
-                        </div>
-                            --%>
+                            <div class="sign__group sign__group--checkbox">
+                                <input id="remember" name="remember" type="checkbox">
+                                    <label for="remember">Remember Me</label>
+                            </div>
                             <button class="sign__btn" type="submit">Sign in</button>
                             <span class="sign__delimiter">or</span>
 
@@ -47,7 +45,9 @@
 
                             <span class="sign__text">Don't have an account? <a href="${pageContext.servletContext.contextPath}/signup">Sign up!</a></span>
 
+                            <%--
                             <span class="sign__text"><a href="${pageContext.servletContext.contextPath}/pages/forgot.jsp">Forgot password?</a></span>
+                            --%>                        
                         </form>
                         <!-- end authorization form -->
                     </div>

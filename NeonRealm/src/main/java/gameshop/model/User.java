@@ -23,7 +23,7 @@ public class User {
     private String authProvider; // "local" or "github"
     private String role = "user";
     private String status = "active";
-    private String avatarUrl;
+    private String rememberMeToken;
     private Instant lastLogin;
     private Instant createdAt = Instant.now();
 
@@ -84,11 +84,11 @@ public class User {
      * @param authProvider the authentication provider
      * @param role the role of the user
      * @param status the status of the user
-     * @param avatarUrl the avatar URL of the user
+     * @param rememberMeToken the avatar URL of the user
      * @param lastLogin the last login timestamp
      * @param createdAt the account creation timestamp
      */
-    public User(int userId, String username, String email, String hashedPassword, String githubId, String authProvider, String role, String status, String avatarUrl, Instant lastLogin, Instant createdAt) {
+    public User(int userId, String username, String email, String hashedPassword, String githubId, String authProvider, String role, String status, String rememberMeToken, Instant lastLogin, Instant createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -97,7 +97,7 @@ public class User {
         this.authProvider = authProvider;
         this.role = role;
         this.status = status;
-        this.avatarUrl = avatarUrl;
+        this.rememberMeToken = rememberMeToken;
         this.lastLogin = lastLogin;
         this.createdAt = createdAt;
     }
@@ -247,21 +247,21 @@ public class User {
     }
 
     /**
-     * Gets the avatar URL.
+     * Gets the rememberMeToken.
      *
      * @return the avatar URL
      */
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getRememberMeToken() {
+        return rememberMeToken;
     }
 
     /**
-     * Sets the avatar URL.
+     * Sets the rememberMeToken.
      *
-     * @param avatarUrl the avatar URL to set
+     * @param rememberMeToken the avatar URL to set
      */
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setRememberMeToken(String rememberMeToken) {
+        this.rememberMeToken = rememberMeToken;
     }
 
     /**

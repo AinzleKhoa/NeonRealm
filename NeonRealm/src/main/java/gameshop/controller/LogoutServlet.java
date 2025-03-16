@@ -7,6 +7,7 @@ package gameshop.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,6 +36,20 @@ public class LogoutServlet extends HttpServlet {
 
         if (session != null) {
             session.invalidate();
+        }
+
+        // Clear the "rememberMeToken" cookie if it exists
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("rememberMeToken".equals(cookie.getName())) {
+                    // Set the cookie's max age to 0 to delete it
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/"); // Ensure the path matches the cookie's original path
+                    response.addCookie(cookie); // Add the cleared cookie to the response
+                    break;
+                }
+            }
         }
 
         response.sendRedirect(request.getContextPath() + "/login");
