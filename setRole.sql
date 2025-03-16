@@ -1,7 +1,3 @@
--- Use the Database
-USE NeonRealm;
-GO
-
 SELECT *
 FROM Users;
 
