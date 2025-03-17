@@ -8,6 +8,8 @@ import gameshop.db.DBContext;
 import gameshop.model.Game;
 import gameshop.model.Order;
 import gameshop.model.OrderDetails;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -86,5 +88,32 @@ public class OrderDAO extends DBContext {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return orderDetailsList;
+    }
+
+    public int addOrder(Order order) {
+        int orderId = -1; // Giá trị mặc định nếu không thêm được
+        String query = "INSERT INTO Orders (user_id, total_price, discount_code, created_at) VALUES (?, ?, ?, ?)";
+
+        try ( Connection connection = getConnection();  PreparedStatement ps = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            ps.setInt(1, order.getUserId());
+            ps.setBigDecimal(2, order.getTotalPrice());
+            ps.setString(3, order.getDiscountCode());
+            ps.setObject(4, order.getCreatedAt()); // LocalDateTime
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    orderId = rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, "Error inserting order", ex);
+        }
+
+        return orderId;
     }
 }

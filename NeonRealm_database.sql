@@ -9,10 +9,10 @@ GO
 -- Create Users Table
 CREATE TABLE Users (
     user_id INT IDENTITY(1,1) PRIMARY KEY,
-    username NVARCHAR(255) UNIQUE NULL, -- Some users may only use Google login
-    email NVARCHAR(255) UNIQUE NULL, -- Google users may not use email login
+    username NVARCHAR(255) NOT NULL, -- Some users may only use Google login
+    email NVARCHAR(255) UNIQUE NOT NULL, -- Google users may not use email login
     password_hash VARCHAR(255) NULL, -- NULL for users who log in with Google
-    github_id NVARCHAR(255) UNIQUE NULL, -- Store OAuth ID
+    github_id NVARCHAR(255) NULL, -- Store OAuth ID
     auth_provider NVARCHAR(50) DEFAULT 'local', -- 'local', 'github'
     role NVARCHAR(50) DEFAULT 'user', -- 'user', 'admin'
     status NVARCHAR(50) DEFAULT 'active', -- 'active', 'locked', 'banned', 'deactivated'
@@ -166,3 +166,7 @@ CREATE TABLE Cart (
     FOREIGN KEY (game_id) REFERENCES Games(game_id)
 );
 GO
+
+CREATE UNIQUE INDEX UQ_GithubId
+ON Users(github_id)
+WHERE github_id IS NOT NULL;

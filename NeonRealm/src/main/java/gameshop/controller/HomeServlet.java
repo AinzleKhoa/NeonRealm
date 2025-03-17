@@ -4,7 +4,9 @@
  */
 package gameshop.controller;
 
+import gameshop.DAO.CartDAO;
 import gameshop.DAO.GameDAO;
+import gameshop.model.Cart;
 import gameshop.model.Game;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,12 +41,32 @@ public class HomeServlet extends HttpServlet {
         GameDAO gDAO = new GameDAO();
         List<Game> gameList = gDAO.getGameList();
 
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
         if (gameList == null || gameList.isEmpty()) {
             response.sendRedirect("/error?error=Couldn't retrieve game list from home database");
             return;
         } else {
             request.setAttribute("gameList", gameList);
         }
+
+        //Import totalPrice and Count items         
+        if (userId != null) {
+            CartDAO cartDAO = new CartDAO();
+            List<Cart> cartList = cartDAO.getCartByUserId(userId);
+            double totalPrice = cartDAO.getTotalCartPrice(userId);
+            session.setAttribute("cartList", cartList);
+            session.setAttribute("cartCount", cartList.size());
+            //session.setAttribute("cartCount", cartCount);
+            session.setAttribute("totalPrice", totalPrice);
+        } else {
+            session.setAttribute("cartList", 0);
+            session.setAttribute("cartCount", 0);
+            session.setAttribute("totalPrice", 0.00);
+
+        }
+
         request.getRequestDispatcher("/WEB-INF/pages/home.jsp")
                 .forward(request, response);
     }

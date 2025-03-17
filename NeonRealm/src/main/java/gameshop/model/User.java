@@ -102,6 +102,12 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public User(String email, String username, String authProvider) {
+        this.email = email;
+        this.username = username;
+        this.authProvider = authProvider;
+    }
+
     /**
      * Gets the user ID.
      *

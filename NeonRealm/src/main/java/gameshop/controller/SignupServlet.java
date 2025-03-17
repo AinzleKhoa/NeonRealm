@@ -9,11 +9,14 @@ import gameshop.model.User;
 import gameshop.util.InputValidator;
 import gameshop.util.PasswordUtils;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +84,11 @@ public class SignupServlet extends HttpServlet {
             errorMessages.add("Password must be at least 8 characters with 1 letter & 1 number.");
         }
 
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        if (gRecaptchaResponse == null || !verifyRecaptcha(gRecaptchaResponse)) {
+            errorMessages.add("Captcha verification failed. Please try again.");
+        }
+
         // If there are errors, return
         if (!errorMessages.isEmpty()) {
             request.setAttribute("errors", errorMessages);
@@ -95,6 +103,27 @@ public class SignupServlet extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath() + "/signup");
         }
+    }
+
+    private boolean verifyRecaptcha(String gRecaptchaResponse) throws IOException {
+        String secretKey = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"; // secret key
+        String url = "https://www.google.com/recaptcha/api/siteverify";
+        String params = "secret=" + secretKey + "&response=" + gRecaptchaResponse;
+
+        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(params.getBytes());
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        return response.toString().contains("\"success\": true");
     }
 
     /**

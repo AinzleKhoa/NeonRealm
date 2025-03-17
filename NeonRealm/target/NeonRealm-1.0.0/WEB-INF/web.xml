@@ -60,6 +60,22 @@
         <servlet-name>AdminGamesServlet</servlet-name>
         <servlet-class>gameshop.controller.AdminGamesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuyNowServlet</servlet-name>
+        <servlet-class>gameshop.controller.BuyNowServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>gameshop.controller.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>gameshop.controller.AddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PayServlet</servlet-name>
+        <servlet-class>gameshop.controller.PayServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -119,6 +135,22 @@
     <servlet-mapping>
         <servlet-name>AdminGamesServlet</servlet-name>
         <url-pattern>/admin/games</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyNowServlet</servlet-name>
+        <url-pattern>/BuyNowServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/CheckoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PayServlet</servlet-name>
+        <url-pattern>/PayServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

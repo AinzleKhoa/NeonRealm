@@ -124,9 +124,9 @@
                             </div>
 
                             <div class="card__actions">
-                                <button class="card__buy" type="button">Buy now</button>
+                                <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy now</button>
 
-                                <button class="card__favorite" type="button">
+                                <button class="card__favorite"  game-id="${g.gameId}" type="button">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                 </button>
                             </div>
@@ -237,9 +237,9 @@
                             </div>
 
                             <div class="card__actions">
-                                <button class="card__buy" type="button">Buy now</button>
+                                <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy now</button>
 
-                                <button class="card__favorite" type="button">
+                                <button class="card__favorite"  game-id="${g.gameId}" type="button">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                 </button>
                             </div>
@@ -350,9 +350,9 @@
                             </div>
 
                             <div class="card__actions">
-                                <button class="card__buy" type="button">Buy now</button>
+                                <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy now</button>
 
-                                <button class="card__favorite" type="button">
+                                <button class="card__favorite"  game-id="${g.gameId}" type="button">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                 </button>
                             </div>
@@ -463,9 +463,9 @@
                             </div>
 
                             <div class="card__actions">
-                                <button class="card__buy" type="button">Buy now</button>
+                                <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy now</button>
 
-                                <button class="card__favorite" type="button">
+                                <button class="card__favorite"  game-id="${g.gameId}" type="button">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                 </button>
                             </div>
@@ -576,9 +576,9 @@
                             </div>
 
                             <div class="card__actions">
-                                <button class="card__buy" type="button">Buy now</button>
+                                <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy now</button>
 
-                                <button class="card__favorite" type="button">
+                                <button class="card__favorite"  game-id="${g.gameId}" type="button">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                 </button>
                             </div>
@@ -689,9 +689,9 @@
                             </div>
 
                             <div class="card__actions">
-                                <button class="card__buy" type="button">Buy now</button>
+                                <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy now</button>
 
-                                <button class="card__favorite" type="button">
+                                <button class="card__favorite"  game-id="${g.gameId}" type="button">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                 </button>
                             </div>
@@ -802,9 +802,9 @@
                             </div>
 
                             <div class="card__actions">
-                                <button class="card__buy" type="button">Buy now</button>
+                                <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy now</button>
 
-                                <button class="card__favorite" type="button">
+                                <button class="card__favorite"  game-id="${g.gameId}" type="button">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                 </button>
                             </div>
@@ -820,4 +820,16 @@
 <!-- end Single-Player Favorites -->
 
 <%@include file="/WEB-INF/include/footer1.jsp" %>
-<%@include file="/WEB-INF/include/footer2.jsp" %>
+<script src="${pageContext.servletContext.contextPath}/assets/js/cdn.bootstrap.bundle.min"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/jquery-3.5.1.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/owl.carousel.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/wNumb.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/nouislider.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.mousewheel.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.mCustomScrollbar.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/main.js"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/cart_addToCart.js?v=<%= System.currentTimeMillis() %>"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/buy_now.js?v=<%= System.currentTimeMillis() %>"></script>
+

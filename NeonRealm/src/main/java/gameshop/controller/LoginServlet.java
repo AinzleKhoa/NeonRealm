@@ -113,6 +113,9 @@ public class LoginServlet extends HttpServlet {
             session = request.getSession(true); // Create a new secure session
             session.setAttribute("currentUser", user); // Current user
             session.setAttribute("currentEmail", user.getEmail());
+            // For buy now
+            session.setAttribute("userId", user.getUserId());
+            session.setAttribute("userName", user.getUsername());
             // Set session timeout - *prevent Session Hijacking
             session.setMaxInactiveInterval(30 * 60); // 30 minutes without interacting
 

@@ -56,7 +56,7 @@
                                         <label class="filter__label">Keyword:</label>
                                         <input type="text" class="filter__input" name="keyword" placeholder="Keyword">
                                     </div>
-                                    
+
                                     <div class="filter__group">
                                         <label class="filter__label">Platforms:</label>
                                         <ul class="filter__checkboxes">
@@ -182,9 +182,9 @@
                                         </div>
 
                                         <div class="card__actions">
-                                            <button class="card__buy" type="button">Buy</button>
+                                            <button class="card__buy" game-buy-now-id="${g.gameId}" type="button">Buy</button>
 
-                                            <button class="card__favorite" type="button">
+                                            <button class="card__favorite" game-id="${g.gameId}" type="button">
                                                 <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><circle cx='176' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='400' cy='416' r='16' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><polyline points='48 80 112 80 160 352 416 352' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M160,288H409.44a8,8,0,0,0,7.85-6.43l28.8-144a8,8,0,0,0-7.85-9.57H128' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
                                             </button>
                                         </div>
@@ -246,6 +246,8 @@
     </div>
 </section>
 <!-- end section -->
+<script src="${pageContext.servletContext.contextPath}/assets/js/cart_addToCart.js?v=<%= System.currentTimeMillis()%>"></script>
+<script src="${pageContext.servletContext.contextPath}/assets/js/buy_now.js?v=<%= System.currentTimeMillis()%>"></script>
 
 <%@include file="/WEB-INF/include/footer1.jsp" %>
 <%@include file="/WEB-INF/include/footer2.jsp" %>

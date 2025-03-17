@@ -395,4 +395,91 @@ public class UserDAO extends DBContext {
 
         return null;
     }
+
+    // Nam làm
+    public User getUserByEmail(String email) {
+        try {
+            String query = "SELECT * FROM Users WHERE email = ?;";
+            Object[] params = {email};
+            ResultSet rs = execSelectQuery(query, params);
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("password_hash"),
+                        rs.getString("google_id"),
+                        rs.getString("auth_provider"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("remember_me_token"),
+                        rs.getTimestamp("last_login") != null ? rs.getTimestamp("last_login").toInstant() : null,
+                        rs.getTimestamp("created_at") != null ? rs.getTimestamp("created_at").toInstant() : null
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void insertUser(User newUser) {
+        try {
+            String query = "INSERT INTO Users (email, username, auth_provider, role, status, created_at) VALUES (?, ?, ?, ?, ?, ?);";
+            Object[] params = {
+                newUser.getEmail(),
+                newUser.getUsername(),
+                newUser.getAuthProvider(),
+                "user", // Mặc định là user
+                "active", // Trạng thái mặc định
+                Timestamp.from(Instant.now())
+            };
+            execQuery(query, params);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void savePasswordResetToken(String email, String token) {
+        String query = "UPDATE Users SET reset_token = ?, token_expiry = NOW() + INTERVAL 30 MINUTE WHERE email = ?";
+        try {
+            int rowsUpdated = execQuery(query, new Object[]{token, email});
+            if (rowsUpdated == 0) {
+                System.out.println("Không cập nhật được reset_token, email có tồn tại không?");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Lỗi khi lưu token: " + e.getMessage());
+        }
+    }
+
+    public String getEmailByToken(String token) {
+        String query = "SELECT email FROM Users WHERE reset_token = ? AND token_expiry > NOW()";
+        try ( ResultSet rs = execSelectQuery(query, new Object[]{token})) {
+            if (rs.next()) {
+                System.out.println("Token hợp lệ, email: " + rs.getString("email"));
+                return rs.getString("email");
+            } else {
+                System.out.println("Không tìm thấy email với token này hoặc token đã hết hạn.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public void updatePassword(String email, String newPassword) {
+        String query = "UPDATE Users SET password_hash = ?, reset_token = NULL WHERE email = ?";
+        try {
+            int rowsUpdated = execQuery(query, new Object[]{newPassword, email});
+            if (rowsUpdated == 0) {
+                System.out.println("Cannot update password, email exists?");
+            } else {
+                System.out.println("Password updated successfully for email: " + email);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error while updating password: " + e.getMessage());
+        }
+    }
 }
