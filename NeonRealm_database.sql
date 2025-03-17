@@ -6,24 +6,24 @@ GO
 USE NeonRealm;
 GO
 
--- Create Users Table
 CREATE TABLE Users (
     user_id INT IDENTITY(1,1) PRIMARY KEY,
-    username NVARCHAR(255) NOT NULL, -- Some users may only use Google login
-    email NVARCHAR(255) UNIQUE NOT NULL, -- Google users may not use email login
-    password_hash VARCHAR(255) NULL, -- NULL for users who log in with Google
-    github_id NVARCHAR(255) NULL, -- Store OAuth ID
-    auth_provider NVARCHAR(50) DEFAULT 'local', -- 'local', 'github'
-    role NVARCHAR(50) DEFAULT 'user', -- 'user', 'admin'
-    status NVARCHAR(50) DEFAULT 'active', -- 'active', 'locked', 'banned', 'deactivated'
-    remember_me_token NVARCHAR(250) NULL, -- Remember me token for cookies
-	failed_attempts INT DEFAULT 0, -- Track failed attempts
-	last_failed_attempt DATETIME NULL, -- Store last failed attempt time
-	locked_until DATETIME NULL, -- Temporarily lock the account
-    last_login DATETIME NULL, -- Track last login
-    created_at DATETIME DEFAULT GETDATE()
+    username NVARCHAR(255) NOT NULL,
+    email NVARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NULL,
+    github_id NVARCHAR(255) NULL,
+    auth_provider NVARCHAR(50) DEFAULT 'local',
+    role NVARCHAR(50) DEFAULT 'user',
+    status NVARCHAR(50) DEFAULT 'active',
+    remember_me_token NVARCHAR(250) NULL,
+    failed_attempts INT DEFAULT 0,
+    last_failed_attempt DATETIME NULL,
+    locked_until DATETIME NULL,
+    last_login DATETIME NULL,
+    created_at DATETIME DEFAULT GETDATE(),
+    reset_token NVARCHAR(255) NULL,
+    token_expiry DATETIME NULL
 );
-GO
 
 -- Create Developers Table
 CREATE TABLE Developers (

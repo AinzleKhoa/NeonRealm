@@ -15,7 +15,7 @@
                             <input type="email" name="email" class="sign__input" placeholder="Enter your email" required>
                         </div>
                         <button class="sign__btn" type="submit">Send</button>
-                        <span class="sign__text">A new password will be sent to your email</span>
+                        <span class="sign__text">A new password will be sent to your email!</span>
                     </form>
                 </div>
             </div>

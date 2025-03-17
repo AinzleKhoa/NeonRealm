@@ -44,9 +44,9 @@ public class ForgotPasswordServlet extends HttpServlet {
 
         // Gửi mật khẩu mới qua email
         String emailContent = "Your New Password: " + newPassword;
-        EmailUtils.sendEmail(email, "Yêu cầu đặt lại mật khẩu", emailContent);
+        EmailUtils.sendEmail(email, "Password reset request", emailContent);
 
-        request.setAttribute("message", "Mật khẩu mới đã được gửi tới email của bạn.");
+        request.setAttribute("message", "A new password has been sent to your email.");
         request.getRequestDispatcher("/WEB-INF/pages/forgot-password.jsp").forward(request, response);
     }
 
