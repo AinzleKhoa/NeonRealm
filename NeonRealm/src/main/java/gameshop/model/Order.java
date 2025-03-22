@@ -27,10 +27,11 @@ public class Order {
         this.createdAt = createdAt;
     }
 
-    public Order(int userId, BigDecimal totalPrice, String discountCode) {
+    public Order(int userId, BigDecimal totalPrice, String discountCode, LocalDateTime createdAt) {
         this.userId = userId;
         this.totalPrice = totalPrice;
         this.discountCode = discountCode;
+        this.createdAt = createdAt;
     }
 
     public int getOrderId() {

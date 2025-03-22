@@ -15,24 +15,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * AdminCouponsDAO - Handles operations related to the Coupons table.
- * Provides methods for retrieving, adding, updating, and deleting discount coupons.
- * 
+ * AdminCouponsDAO - Handles operations related to the Coupons table. Provides
+ * methods for retrieving, adding, updating, and deleting discount coupons.
+ *
  * Author: Pham Van Hoai - CE181744
  */
 public class AdminCouponsDAO extends DBContext {
 
-    // Retrieve all discount coupons
     /**
      * Retrieves a list of all coupons from the database.
-     * 
+     *
      * @return List of AdminCoupons objects.
      */
     public List<AdminCoupons> getAllCoupons() {
         List<AdminCoupons> coupons = new ArrayList<>();
         String query = "SELECT coupon_id, code, discount_percentage, expiration_date, usage_limit, created_at FROM Coupons";
-        
-        try (ResultSet rs = execSelectQuery(query)) {
+
+        try ( ResultSet rs = execSelectQuery(query)) {
             while (rs.next()) {
                 coupons.add(new AdminCoupons(
                         rs.getInt("coupon_id"),
@@ -49,17 +48,16 @@ public class AdminCouponsDAO extends DBContext {
         return coupons;
     }
 
-    // Add a new discount coupon
     /**
      * Adds a new coupon to the database.
-     * 
+     *
      * @param coupon The AdminCoupons object containing coupon details.
      * @return true if the coupon was successfully added, otherwise false.
      */
     public boolean addCoupon(AdminCoupons coupon) {
         String query = "INSERT INTO Coupons (code, discount_percentage, expiration_date, usage_limit) VALUES (?, ?, ?, ?)";
-        
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             ps.setString(1, coupon.getCode());
             ps.setInt(2, coupon.getDiscountPercentage());
             ps.setDate(3, new java.sql.Date(coupon.getExpirationDate().getTime()));
@@ -71,17 +69,16 @@ public class AdminCouponsDAO extends DBContext {
         }
     }
 
-    // Delete a discount coupon by ID
     /**
      * Deletes a coupon from the database based on its ID.
-     * 
+     *
      * @param couponId The ID of the coupon to be deleted.
      * @return true if the deletion was successful, otherwise false.
      */
     public boolean deleteCoupon(int couponId) {
         String query = "DELETE FROM Coupons WHERE coupon_id = ?";
-        
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             ps.setInt(1, couponId);
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -90,17 +87,16 @@ public class AdminCouponsDAO extends DBContext {
         }
     }
 
-    // Update coupon details
     /**
      * Updates an existing coupon's details in the database.
-     * 
+     *
      * @param coupon The AdminCoupons object containing updated coupon details.
      * @return true if the update was successful, otherwise false.
      */
     public boolean updateCoupon(AdminCoupons coupon) {
         String query = "UPDATE Coupons SET code = ?, discount_percentage = ?, expiration_date = ?, usage_limit = ? WHERE coupon_id = ?";
-        
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             ps.setString(1, coupon.getCode());
             ps.setInt(2, coupon.getDiscountPercentage());
             ps.setDate(3, new java.sql.Date(coupon.getExpirationDate().getTime()));
@@ -113,17 +109,16 @@ public class AdminCouponsDAO extends DBContext {
         }
     }
 
-    // Retrieve a coupon by ID
     /**
      * Retrieves a coupon from the database based on its ID.
-     * 
+     *
      * @param couponId The ID of the coupon to retrieve.
      * @return An AdminCoupons object if found, otherwise null.
      */
     public AdminCoupons getCouponById(int couponId) {
         String query = "SELECT * FROM Coupons WHERE coupon_id = ?";
-        
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             ps.setInt(1, couponId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

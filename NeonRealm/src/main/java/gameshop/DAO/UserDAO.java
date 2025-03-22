@@ -396,7 +396,13 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-    // Nam làm
+    /**
+     * Retrieves a user from the database by email.
+     *
+     * @param email the email of the user to retrieve
+     * @return a User object if the user is found, or null if no user with the
+     * given email exists
+     */
     public User getUserByEmail(String email) {
         try {
             String query = "SELECT * FROM Users WHERE email = ?;";
@@ -423,6 +429,11 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    /**
+     * Inserts a new user into the database.
+     *
+     * @param newUser the User object containing the new user's information
+     */
     public void insertUser(User newUser) {
         try {
             String query = "INSERT INTO Users (email, username, auth_provider, role, status, created_at) VALUES (?, ?, ?, ?, ?, ?);";
@@ -440,6 +451,12 @@ public class UserDAO extends DBContext {
         }
     }
 
+    /**
+     * Saves the password reset token for a user in the database.
+     *
+     * @param email the email of the user whose reset token is being saved
+     * @param token the reset token to be saved
+     */
     public void savePasswordResetToken(String email, String token) {
         String query = "UPDATE Users SET reset_token = ?, token_expiry = NOW() + INTERVAL 30 MINUTE WHERE email = ?";
         try {
@@ -453,6 +470,13 @@ public class UserDAO extends DBContext {
         }
     }
 
+    /**
+     * Retrieves the email associated with a given reset token.
+     *
+     * @param token the reset token for which the email is being retrieved
+     * @return the email associated with the reset token, or null if the token
+     * is invalid or expired
+     */
     public String getEmailByToken(String token) {
         String query = "SELECT email FROM Users WHERE reset_token = ? AND token_expiry > NOW()";
         try ( ResultSet rs = execSelectQuery(query, new Object[]{token})) {
@@ -468,6 +492,12 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    /**
+     * Updates the password for a user with the given email.
+     *
+     * @param email the email of the user whose password is to be updated
+     * @param newPassword the new password to set
+     */
     public void updatePassword(String email, String newPassword) {
         String query = "UPDATE Users SET password_hash = ?, reset_token = NULL WHERE email = ?";
         try {

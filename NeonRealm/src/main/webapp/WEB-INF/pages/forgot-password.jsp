@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/include/header1.jsp" %>
 <%@include file="/WEB-INF/include/header2.jsp" %>
 
-<div class="sign section--full-bg" data-bg="<%= getServletContext().getContextPath()%>/assets/img/bg2.jpg">
+<div class="sign section--full-bg" data-bg="<%= getServletContext().getContextPath()%>/assets/img/banner/city.jpg">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -16,6 +16,8 @@
                         </div>
                         <button class="sign__btn" type="submit">Send</button>
                         <span class="sign__text">A new password will be sent to your email!</span>
+                        <span class="sign__text" style="text-align: center;">Now login with your new password sent in your email!</span>
+                        <a href="${pageContext.servletContext.contextPath}/login" class="page-404__btn" style="margin-top: 40px;">go back</a>
                     </form>
                 </div>
             </div>

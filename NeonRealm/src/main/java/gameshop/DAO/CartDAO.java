@@ -9,23 +9,24 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * CartDAO class is responsible for handling database operations related to the
+ * shopping cart. It provides methods to retrieve, add, remove, and clear items
+ * in the cart.
+ *
+ * @author CE180035 - Nguyen Huynh Nhat Thien
+ */
 public class CartDAO extends DBContext {
 
-    public static void main(String[] a) {
-        CartDAO cDAO = new CartDAO();
-        double total = cDAO.getTotalCartPrice(3);
-        System.out.println(total);
-        cDAO.addToCart(3, 6);
-        List<Game> gameInCarts = cDAO.getGamesInCartByUserId(1);
-        for (Game g : gameInCarts) {
-            System.out.println(g.getTitle());
-        }
-    }
-    
-     public boolean clearCart(int userId) {
+    /**
+     * Clears all items from the cart of the specified user.
+     *
+     * @param userId the ID of the user whose cart should be cleared
+     * @return true if at least one row was deleted, false otherwise
+     */
+    public boolean clearCart(int userId) {
         String query = "DELETE FROM Cart WHERE user_id = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
+        try ( Connection connection = getConnection();  PreparedStatement stmt = connection.prepareStatement(query)) {
 
             stmt.setInt(1, userId);
             return stmt.executeUpdate() > 0; // Trả về true nếu có ít nhất một hàng bị xóa
@@ -36,6 +37,11 @@ public class CartDAO extends DBContext {
         }
     }
 
+    /**
+     * Retrieves the total price of all items in the cart across all users.
+     *
+     * @return the total price of all items in the cart
+     */
     public double getAllTotalCartPrice() {
         double totalPrice = 0.0;
         String sql = "SELECT SUM(g.price) AS total FROM Cart c JOIN Games g ON c.game_id = g.game_id";
@@ -51,6 +57,12 @@ public class CartDAO extends DBContext {
         return totalPrice;
     }
 
+    /**
+     * Retrieves the total price of items in the cart for a specific user.
+     *
+     * @param userId the ID of the user whose cart price is to be retrieved
+     * @return the total price of items in the user's cart
+     */
     public double getTotalCartPrice(int userId) {
         double totalPrice = 0;
         String sql = "SELECT SUM(g.price) AS total FROM Cart c JOIN Games g ON c.game_id = g.game_id WHERE c.user_id = ?";
@@ -67,7 +79,11 @@ public class CartDAO extends DBContext {
         return totalPrice;
     }
 
-    // Lấy tất cả sản phẩm trong giỏ hàng
+    /**
+     * Retrieves all carts from the database.
+     *
+     * @return a list of Cart objects representing all carts in the database
+     */
     public ArrayList<Cart> getAllCarts() {
         try {
             ArrayList<Cart> cartList = new ArrayList<>();
@@ -89,6 +105,12 @@ public class CartDAO extends DBContext {
         return null;
     }
 
+    /**
+     * Retrieves all games in the cart for a specific user.
+     *
+     * @param userId the ID of the user whose cart games are to be retrieved
+     * @return a list of Game objects in the user's cart
+     */
     public List<Game> getGamesInCartByUserId(int userId) {
         List<Game> games = new ArrayList<>();
         String sql = "SELECT g.* FROM Cart c JOIN Games g ON c.game_id = g.game_id WHERE c.user_id = ?";
@@ -117,6 +139,12 @@ public class CartDAO extends DBContext {
         return games;
     }
 
+    /**
+     * Retrieves the list of platforms for a specific game.
+     *
+     * @param gameId the ID of the game whose platforms are to be retrieved
+     * @return a list of platform names for the specified game
+     */
     private List<String> getPlatformsByGameId(int gameId) {
         List<String> platforms = new ArrayList<>();
         String sql = "SELECT p.name FROM Game_Platforms gp JOIN Platforms p ON gp.platform_id = p.platform_id WHERE gp.game_id = ?";
@@ -134,7 +162,12 @@ public class CartDAO extends DBContext {
         return platforms;
     }
 
-    // Lấy giỏ hàng theo user_id
+    /**
+     * Retrieves all items in the cart for a specific user.
+     *
+     * @param userId the ID of the user whose cart items are to be retrieved
+     * @return a list of Cart objects representing the user's cart
+     */
     public List<Cart> getCartByUserId(int userId) {
         List<Cart> cartList = new ArrayList<>();
         String sql = "SELECT * FROM Cart WHERE user_id = ?";
@@ -156,6 +189,13 @@ public class CartDAO extends DBContext {
         return cartList;
     }
 
+    /**
+     * Checks if a specific game is already in the user's cart.
+     *
+     * @param userId the ID of the user
+     * @param gameId the ID of the game
+     * @return true if the game is already in the cart, false otherwise
+     */
     public boolean isGameInCart(int userId, int gameId) {
         String sql = "SELECT COUNT(*) FROM Cart WHERE user_id = ? AND game_id = ?";
         try ( PreparedStatement ps = this.getConnection().prepareStatement(sql)) {
@@ -171,7 +211,14 @@ public class CartDAO extends DBContext {
         return false;
     }
 
-    // Thêm sản phẩm vào giỏ hàng
+    /**
+     * Adds a game to the user's cart.
+     *
+     * @param userId the ID of the user
+     * @param gameId the ID of the game to be added
+     * @return true if the game was successfully added to the cart, false
+     * otherwise
+     */
     public boolean addToCart(int userId, int gameId) {
         String insertSql = "INSERT INTO Cart (user_id, game_id, created_at) VALUES (?, ?, GETDATE())";
         try ( PreparedStatement insertStmt = this.getConnection().prepareStatement(insertSql)) {
@@ -185,7 +232,14 @@ public class CartDAO extends DBContext {
         }
     }
 
-    // Xóa sản phẩm khỏi giỏ hàng
+    /**
+     * Removes a specific game from the user's cart.
+     *
+     * @param userId the ID of the user
+     * @param gameId the ID of the game to be removed
+     * @return true if the game was successfully removed from the cart, false
+     * otherwise
+     */
     public boolean removeFromCart(int userId, int gameId) {
         String sql = "DELETE FROM Cart WHERE user_id = ? AND game_id = ?";
         try ( PreparedStatement ps = this.getConnection().prepareStatement(sql)) {
@@ -199,7 +253,11 @@ public class CartDAO extends DBContext {
         }
     }
 
-    // Xóa toàn bộ giỏ hàng của một user (nếu cần)
+    /**
+     * Clears all items from the cart of the specified user.
+     *
+     * @param userId the ID of the user whose cart should be cleared
+     */
     public void clearCartByUserId(int userId) {
         String sql = "DELETE FROM Cart WHERE user_id = ?";
         try ( PreparedStatement ps = this.getConnection().prepareStatement(sql)) {

@@ -16,13 +16,16 @@ import java.util.logging.Level;
 
 /**
  * Data Access Object (DAO) class for managing user-related database operations.
+ *
  * @author Pham Van Hoai - CE181744
  */
 public class AdminUserDAO extends DBContext {
 
     /**
      * Retrieves a paginated list of users with optional search by username.
-     * @param searchQuery The search term to filter users by username (nullable).
+     *
+     * @param searchQuery The search term to filter users by username
+     * (nullable).
      * @param offset The starting point for pagination.
      * @param limit The number of users to retrieve per page.
      * @return A list of AdminUser objects matching the search criteria.
@@ -31,7 +34,7 @@ public class AdminUserDAO extends DBContext {
         List<AdminUser> users = new ArrayList<>();
         // Base SQL query to fetch user details
         StringBuilder query = new StringBuilder(
-            "SELECT user_id, username, email, role, status, last_login, created_at FROM Users WHERE 1=1"
+                "SELECT user_id, username, email, role, status, last_login, created_at FROM Users WHERE 1=1"
         );
 
         // Add search condition if a search query is provided
@@ -42,7 +45,7 @@ public class AdminUserDAO extends DBContext {
         // Add pagination and sorting by user_id
         query.append(" ORDER BY user_id ASC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
             int paramIndex = 1;
 
             // Set the search parameter if applicable
@@ -58,13 +61,13 @@ public class AdminUserDAO extends DBContext {
             while (rs.next()) {
                 // Create AdminUser object from result set and add to list
                 users.add(new AdminUser(
-                    rs.getInt("user_id"),
-                    rs.getString("username"),
-                    rs.getString("email"),
-                    rs.getString("role"),
-                    rs.getString("status"),
-                    rs.getTimestamp("last_login"),
-                    rs.getTimestamp("created_at")
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getTimestamp("last_login"),
+                        rs.getTimestamp("created_at")
                 ));
             }
         } catch (SQLException ex) {
@@ -75,7 +78,9 @@ public class AdminUserDAO extends DBContext {
 
     /**
      * Counts the total number of users matching the search query.
-     * @param searchQuery The search term to filter users by username (nullable).
+     *
+     * @param searchQuery The search term to filter users by username
+     * (nullable).
      * @return The total count of users, or 0 if an error occurs.
      */
     public int countUsersByFilter(String searchQuery) {
@@ -87,7 +92,7 @@ public class AdminUserDAO extends DBContext {
             query.append(" AND username LIKE ?");
         }
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
             // Set the search parameter if applicable
             if (searchQuery != null && !searchQuery.trim().isEmpty()) {
                 ps.setString(1, "%" + searchQuery.trim() + "%");
@@ -105,6 +110,7 @@ public class AdminUserDAO extends DBContext {
 
     /**
      * Deletes a user from the database by their ID.
+     *
      * @param userId The ID of the user to delete.
      * @return True if the user is successfully deleted, false otherwise.
      */
@@ -112,7 +118,7 @@ public class AdminUserDAO extends DBContext {
         // SQL query to delete a user by ID
         String query = "DELETE FROM Users WHERE user_id = ?";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             ps.setInt(1, userId);
             return ps.executeUpdate() > 0; // Return true if at least one row is affected
         } catch (SQLException ex) {

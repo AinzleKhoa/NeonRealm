@@ -15,14 +15,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Data Access Object (DAO) class for managing order-related database operations.
+ * Data Access Object (DAO) class for managing order-related database
+ * operations.
+ *
  * @author Pham Van Hoai - CE181744
  */
 public class AdminOrdersDAO extends DBContext {
 
     /**
      * Retrieves a paginated list of all orders with optional sorting by price.
-     * @param sortPrice The sorting order for price ("asc" for ascending, "desc" for descending, null for default).
+     *
+     * @param sortPrice The sorting order for price ("asc" for ascending, "desc"
+     * for descending, null for default).
      * @param offset The starting point for pagination.
      * @param pageSize The number of orders to retrieve per page.
      * @return A list of AdminOrders objects containing order details.
@@ -40,7 +44,7 @@ public class AdminOrdersDAO extends DBContext {
                     + "    o.created_at,\n"
                     + "    g.game_id,\n"
                     + "    g.title,\n"
-                    + "    od.price\n"  // Fetch price from Order_Details
+                    + "    od.price\n" // Fetch price from Order_Details
                     + "FROM Order_Details od\n"
                     + "JOIN Orders o ON od.order_id = o.order_id\n"
                     + "JOIN Users u ON o.user_id = u.user_id\n"
@@ -58,7 +62,7 @@ public class AdminOrdersDAO extends DBContext {
             // Add pagination to limit the result set
             query += "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;";
 
-            try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+            try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
                 // Set pagination parameters
                 ps.setInt(1, offset);
                 ps.setInt(2, pageSize);
@@ -88,12 +92,13 @@ public class AdminOrdersDAO extends DBContext {
 
     /**
      * Counts the total number of order details in the database.
+     *
      * @return The total count of order details, or 0 if an error occurs.
      */
     public int countTotalOrders() {
         // SQL query to count the total number of rows in Order_Details
         String query = "SELECT COUNT(*) FROM Order_Details";
-        try (PreparedStatement ps = getConnection().prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query);  ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
                 return rs.getInt(1); // Return the total count
             }

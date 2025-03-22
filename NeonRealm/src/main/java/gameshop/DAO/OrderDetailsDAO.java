@@ -14,17 +14,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * OrderDetailsDAO class is responsible for handling database operations related
+ * to order details. It provides methods to add order details to the database.
  *
- * @author ALIENWARE
+ * @author CE180035 - Nguyen Huynh Nhat Thien
  */
 public class OrderDetailsDAO extends DBContext {
 
-    public static void main(String[] a) {
-        OrderDetailsDAO oDAO = new OrderDetailsDAO();
-        BigDecimal db = new BigDecimal(99);
-        oDAO.addOrderDetails(21, 2, db);
-    }
-
+    /**
+     * Adds the details of an order to the database, including the order ID,
+     * game ID, and price.
+     *
+     * @param orderId the ID of the order
+     * @param gameId the ID of the game in the order
+     * @param price the price of the game in the order
+     * @return true if the order details were successfully added, false
+     * otherwise
+     */
     public boolean addOrderDetails(int orderId, int gameId, BigDecimal price) {
         String query = "INSERT INTO Order_Details (order_id, game_id, price) VALUES (?, ?, ?)";
         try ( Connection conn = this.getConnection();  PreparedStatement stmt = conn.prepareStatement(query)) {

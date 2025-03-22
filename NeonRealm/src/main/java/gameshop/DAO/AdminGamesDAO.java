@@ -18,12 +18,15 @@ import java.util.logging.Logger;
 
 /**
  * Data Access Object (DAO) class for managing game-related database operations.
+ *
  * @author Pham Van Hoai - CE181744
  */
 public class AdminGamesDAO extends DBContext {
 
     /**
-     * Retrieves a list of games filtered by search query and genre with pagination.
+     * Retrieves a list of games filtered by search query and genre with
+     * pagination.
+     *
      * @param searchQuery The search term to filter game titles (nullable).
      * @param selectedGenre The genre to filter games by (nullable).
      * @param offset The starting point for pagination.
@@ -81,13 +84,13 @@ public class AdminGamesDAO extends DBContext {
         parameters.add(offset);
         parameters.add(totalGamesPerPage);
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
             // Set query parameters dynamically
             for (int i = 0; i < parameters.size(); i++) {
                 ps.setObject(i + 1, parameters.get(i));
             }
 
-            try (ResultSet rs = ps.executeQuery()) {
+            try ( ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     games.add(new AdminGames(
                             rs.getInt("id"),
@@ -112,9 +115,12 @@ public class AdminGamesDAO extends DBContext {
     }
 
     /**
-     * Utility method to safely convert a comma-separated string into a list of strings.
+     * Utility method to safely convert a comma-separated string into a list of
+     * strings.
+     *
      * @param input The string to split (nullable).
-     * @return A list of trimmed strings, or an empty list if input is null/empty.
+     * @return A list of trimmed strings, or an empty list if input is
+     * null/empty.
      */
     private List<String> splitStringToList(String input) {
         if (input == null || input.trim().isEmpty()) {
@@ -128,14 +134,16 @@ public class AdminGamesDAO extends DBContext {
     }
 
     /**
-     * Adds a new game to the database, including its related entities (genres, developers, etc.).
+     * Adds a new game to the database, including its related entities (genres,
+     * developers, etc.).
+     *
      * @param game The AdminGames object containing game details.
      * @return True if the game is successfully added, false otherwise.
      */
     public boolean addGame(AdminGames game) {
         String insertGameQuery = "INSERT INTO Games (title, description, image_url, price, release_date) VALUES (?, ?, ?, ?, ?)";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(insertGameQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(insertGameQuery, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, game.getTitle());
             ps.setString(2, game.getDescription());
             ps.setString(3, game.getImageUrl());
@@ -168,12 +176,15 @@ public class AdminGamesDAO extends DBContext {
     }
 
     /**
-     * Inserts data into many-to-many relationship tables (e.g., Game_Genres, Game_Developers).
+     * Inserts data into many-to-many relationship tables (e.g., Game_Genres,
+     * Game_Developers).
+     *
      * @param tableName The name of the relationship table.
      * @param gameColumn The column name for the game ID.
      * @param relatedColumn The column name for the related entity ID.
      * @param gameId The ID of the game.
-     * @param values The list of values (e.g., genre names) to associate with the game.
+     * @param values The list of values (e.g., genre names) to associate with
+     * the game.
      * @throws SQLException If a database error occurs.
      */
     private void insertManyToMany(String tableName, String gameColumn, String relatedColumn, int gameId, List<String> values) throws SQLException {
@@ -185,7 +196,7 @@ public class AdminGamesDAO extends DBContext {
                 + "SELECT ?, " + relatedColumn + " FROM " + tableName.replace("Game_", "")
                 + " WHERE name = ?";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             for (String value : values) {
                 ps.setInt(1, gameId);
                 ps.setString(2, value);
@@ -195,9 +206,12 @@ public class AdminGamesDAO extends DBContext {
     }
 
     /**
-     * Retrieves a game by its ID, including all related entities (developers, genres, etc.).
+     * Retrieves a game by its ID, including all related entities (developers,
+     * genres, etc.).
+     *
      * @param gameId The ID of the game to retrieve.
-     * @return An AdminGames object with the game's details, or null if not found.
+     * @return An AdminGames object with the game's details, or null if not
+     * found.
      */
     public AdminGames getGameById(int gameId) {
         String query = "SELECT \n"
@@ -236,7 +250,7 @@ public class AdminGamesDAO extends DBContext {
                 + "FROM Games g \n"
                 + "WHERE g.game_id = ?;";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             ps.setInt(1, gameId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -263,13 +277,14 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Deletes a game from the database by its ID.
+     *
      * @param gameId The ID of the game to delete.
      * @return True if the game is successfully deleted, false otherwise.
      */
     public boolean deleteGame(int gameId) {
         String query = "DELETE FROM Games WHERE game_id = ?";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query)) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query)) {
             ps.setInt(1, gameId);
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -280,6 +295,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Retrieves all genres from the database.
+     *
      * @return A list of genre names.
      */
     public List<String> getAllGenres() {
@@ -288,6 +304,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Retrieves all categories from the database.
+     *
      * @return A list of category names.
      */
     public List<String> getAllCategories() {
@@ -296,6 +313,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Retrieves all developers from the database.
+     *
      * @return A list of developer names.
      */
     public List<String> getAllDevelopers() {
@@ -304,6 +322,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Retrieves all publishers from the database.
+     *
      * @return A list of publisher names.
      */
     public List<String> getAllPublishers() {
@@ -312,6 +331,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Retrieves all platforms from the database.
+     *
      * @return A list of platform names.
      */
     public List<String> getAllPlatforms() {
@@ -319,13 +339,15 @@ public class AdminGamesDAO extends DBContext {
     }
 
     /**
-     * Generic method to retrieve a list of strings from the database based on a query.
+     * Generic method to retrieve a list of strings from the database based on a
+     * query.
+     *
      * @param query The SQL query to execute.
      * @return A list of strings retrieved from the database.
      */
     private List<String> getListFromDB(String query) {
         List<String> list = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+        try ( PreparedStatement ps = conn.prepareStatement(query);  ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 list.add(rs.getString(1));
             }
@@ -336,14 +358,16 @@ public class AdminGamesDAO extends DBContext {
     }
 
     /**
-     * Updates an existing game in the database, including its attributes and relationships.
+     * Updates an existing game in the database, including its attributes and
+     * relationships.
+     *
      * @param game The AdminGames object with updated game details.
      * @return True if the update is successful, false otherwise.
      */
     public boolean updateGame(AdminGames game) {
         String query = "UPDATE games SET title = ?, description = ?, image_url = ?, price = ?, release_date = ? WHERE game_id = ?";
 
-        try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
+        try ( PreparedStatement stmt = getConnection().prepareStatement(query)) {
             stmt.setString(1, game.getTitle());
             stmt.setString(2, game.getDescription());
             stmt.setString(3, game.getImageUrl()); // Can keep the old image if unchanged
@@ -364,7 +388,9 @@ public class AdminGamesDAO extends DBContext {
     }
 
     /**
-     * Updates the many-to-many relationships for a game by deleting old ones and inserting new ones.
+     * Updates the many-to-many relationships for a game by deleting old ones
+     * and inserting new ones.
+     *
      * @param conn The database connection.
      * @param game The AdminGames object containing updated relationships.
      * @throws SQLException If a database error occurs.
@@ -380,6 +406,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Deletes all existing many-to-many relationships for a game.
+     *
      * @param conn The database connection.
      * @param gameId The ID of the game whose relationships are to be deleted.
      * @throws SQLException If a database error occurs.
@@ -389,7 +416,7 @@ public class AdminGamesDAO extends DBContext {
 
         for (String table : tables) {
             String sql = "DELETE FROM " + table + " WHERE game_id = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try ( PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, gameId);
                 stmt.executeUpdate();
             }
@@ -398,6 +425,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Inserts new many-to-many relationships for a game.
+     *
      * @param conn The database connection.
      * @param gameId The ID of the game.
      * @param tableName The name of the relationship table.
@@ -415,7 +443,7 @@ public class AdminGamesDAO extends DBContext {
         String query = "INSERT INTO " + tableName + " (game_id, " + idColumn + ") "
                 + "SELECT ?, " + idColumn + " FROM " + refTable + " WHERE " + nameColumn + " = ?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        try ( PreparedStatement stmt = conn.prepareStatement(query)) {
             for (String value : values) {
                 stmt.setInt(1, gameId);
                 stmt.setString(2, value);
@@ -426,6 +454,7 @@ public class AdminGamesDAO extends DBContext {
 
     /**
      * Counts the total number of games matching the filter criteria.
+     *
      * @param searchQuerys The search term to filter game titles (nullable).
      * @param selectedGenre The genre to filter games by (nullable).
      * @return The total number of games matching the filters.
@@ -443,7 +472,7 @@ public class AdminGamesDAO extends DBContext {
             query.append(" AND gs.name = ? ");
         }
 
-        try (PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
+        try ( PreparedStatement ps = getConnection().prepareStatement(query.toString())) {
             int paramIndex = 1;
 
             if (searchQuery != null && !searchQuery.isEmpty()) {
