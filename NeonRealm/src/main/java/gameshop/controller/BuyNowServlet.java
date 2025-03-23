@@ -15,11 +15,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
+ * BuyNowServlet handles the process of purchasing a game. It checks if the user
+ * is logged in, retrieves game information from the database, and forwards the
+ * game details to the checkout page.
  *
- * @author ALIENWARE
+ * @author CE180035 - Nguyen Huynh Nhat Thien
  */
 public class BuyNowServlet extends HttpServlet {
 
+    /**
+     * Handles the POST request for buying a game. It verifies the user's login
+     * status, retrieves game information from the database, and forwards the
+     * details to the checkout page.
+     *
+     * @param request the HttpServletRequest containing the user's request data
+     * @param response the HttpServletResponse used to send the response
+     * @throws ServletException if an error occurs during request processing
+     * @throws IOException if an input/output error occurs during response
+     * sending
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();

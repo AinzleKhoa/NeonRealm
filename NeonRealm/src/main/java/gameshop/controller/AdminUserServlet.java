@@ -16,7 +16,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Servlet for managing admin user operations, such as listing users with pagination and search, and deleting users.
+ * Servlet for managing admin user operations, such as listing users with
+ * pagination and search, and deleting users.
+ *
  * @author Pham Van Hoai - CE181744
  */
 @WebServlet(name = "AdminUserServlet", urlPatterns = {"/admin/users"})
@@ -24,7 +26,8 @@ public class AdminUserServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method to display a paginated list of users with optional search filtering.
+     * Handles the HTTP <code>GET</code> method to display a paginated list of
+     * users with optional search filtering.
      *
      * @param request servlet request
      * @param response servlet response
@@ -78,7 +81,8 @@ public class AdminUserServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method to process actions such as deleting a user.
+     * Handles the HTTP <code>POST</code> method to process actions such as
+     * deleting a user.
      *
      * @param request servlet request
      * @param response servlet response

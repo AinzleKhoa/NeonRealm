@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * CatalogServlet handles the request for displaying the game catalog. It
+ * retrieves game data from the database based on filters and pagination, and
+ * forwards the result to the catalog page.
  *
  * @author CE190449 - Le Anh Khoa
  */
 public class CatalogServlet extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP GET method for displaying the catalog page with game
      * filters and pagination.

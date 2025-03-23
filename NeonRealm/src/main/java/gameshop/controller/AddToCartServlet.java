@@ -13,11 +13,24 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
+ * AddToCartServlet handles the request to add a game to the user's cart. It
+ * checks the validity of the request and updates the cart in the database.
  *
- * @author ALIENWARE
+ * @author CE180035 - Nguyen Huynh Nhat Thien
  */
 public class AddToCartServlet extends HttpServlet {
 
+    /**
+     * Handles the POST request to add a game to the user's cart. It validates
+     * the user, checks if the game is already in the cart, and then adds the
+     * game to the cart if not already present.
+     *
+     * @param request the HttpServletRequest containing the user's request data
+     * @param response the HttpServletResponse used to send the response
+     * @throws ServletException if an error occurs during request processing
+     * @throws IOException if an input/output error occurs during response
+     * sending
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Request received!");

@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author PC
+ * @author CE171450 - Nguyen Hai Nam
  */
 @WebServlet("/google-callback")
 public class GoogleCallbackServlet extends HttpServlet {

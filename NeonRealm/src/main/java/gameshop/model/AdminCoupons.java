@@ -8,10 +8,13 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
- * Model class representing a coupon entity for admin operations in the game shop system.
+ * Model class representing a coupon entity for admin operations in the game
+ * shop system.
+ *
  * @author Pham Van Hoai - CE181744
  */
 public class AdminCoupons {
+
     private int couponId;            // Unique identifier for the coupon
     private String code;             // Coupon code (e.g., "SAVE10")
     private int discountPercentage;  // Discount percentage offered by the coupon (1-100)
@@ -20,13 +23,16 @@ public class AdminCoupons {
     private Timestamp createdAt;     // Timestamp of when the coupon was created
 
     /**
-     * Default no-argument constructor for creating an empty AdminCoupons object.
+     * Default no-argument constructor for creating an empty AdminCoupons
+     * object.
      */
     public AdminCoupons() {
     }
 
     /**
-     * Parameterized constructor to initialize an AdminCoupons object with all fields.
+     * Parameterized constructor to initialize an AdminCoupons object with all
+     * fields.
+     *
      * @param couponId The unique ID of the coupon
      * @param code The coupon code
      * @param discountPercentage The discount percentage (1-100)
@@ -45,6 +51,7 @@ public class AdminCoupons {
 
     /**
      * Gets the coupon ID.
+     *
      * @return The unique identifier of the coupon
      */
     public int getCouponId() {
@@ -53,6 +60,7 @@ public class AdminCoupons {
 
     /**
      * Sets the coupon ID.
+     *
      * @param couponId The unique identifier to set
      */
     public void setCouponId(int couponId) {
@@ -61,6 +69,7 @@ public class AdminCoupons {
 
     /**
      * Gets the coupon code.
+     *
      * @return The coupon code string
      */
     public String getCode() {
@@ -69,6 +78,7 @@ public class AdminCoupons {
 
     /**
      * Sets the coupon code.
+     *
      * @param code The coupon code to set
      */
     public void setCode(String code) {
@@ -77,6 +87,7 @@ public class AdminCoupons {
 
     /**
      * Gets the discount percentage.
+     *
      * @return The discount percentage (1-100)
      */
     public int getDiscountPercentage() {
@@ -85,6 +96,7 @@ public class AdminCoupons {
 
     /**
      * Sets the discount percentage.
+     *
      * @param discountPercentage The discount percentage to set (1-100)
      */
     public void setDiscountPercentage(int discountPercentage) {
@@ -93,6 +105,7 @@ public class AdminCoupons {
 
     /**
      * Gets the expiration date of the coupon.
+     *
      * @return The expiration date
      */
     public Date getExpirationDate() {
@@ -101,6 +114,7 @@ public class AdminCoupons {
 
     /**
      * Sets the expiration date of the coupon.
+     *
      * @param expirationDate The expiration date to set
      */
     public void setExpirationDate(Date expirationDate) {
@@ -109,6 +123,7 @@ public class AdminCoupons {
 
     /**
      * Gets the usage limit of the coupon.
+     *
      * @return The maximum number of times the coupon can be used
      */
     public int getUsageLimit() {
@@ -117,6 +132,7 @@ public class AdminCoupons {
 
     /**
      * Sets the usage limit of the coupon.
+     *
      * @param usageLimit The maximum number of uses to set
      */
     public void setUsageLimit(int usageLimit) {
@@ -125,6 +141,7 @@ public class AdminCoupons {
 
     /**
      * Gets the creation timestamp of the coupon.
+     *
      * @return The timestamp when the coupon was created
      */
     public Timestamp getCreatedAt() {
@@ -133,6 +150,7 @@ public class AdminCoupons {
 
     /**
      * Sets the creation timestamp of the coupon.
+     *
      * @param createdAt The timestamp to set for creation
      */
     public void setCreatedAt(Timestamp createdAt) {

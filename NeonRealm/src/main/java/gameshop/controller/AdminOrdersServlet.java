@@ -16,7 +16,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Servlet for managing admin order operations, such as listing and paginating orders.
+ * Servlet for managing admin order operations, such as listing and paginating
+ * orders.
+ *
  * @author Pham Van Hoai - CE181744
  */
 @WebServlet(name = "AdminOrdersServlet", urlPatterns = {"/admin/orders"})
@@ -24,7 +26,8 @@ public class AdminOrdersServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method to display a paginated list of orders with optional sorting.
+     * Handles the HTTP <code>GET</code> method to display a paginated list of
+     * orders with optional sorting.
      *
      * @param request servlet request
      * @param response servlet response

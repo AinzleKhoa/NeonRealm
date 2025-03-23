@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  *
- * @author ALIENWARE
+ * @author CE180035 - Nguyen Huynh Nhat Thien
  */
 public class PayServlet extends HttpServlet {
 

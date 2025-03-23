@@ -7,7 +7,9 @@ package gameshop.model;
 import java.sql.Timestamp;
 
 /**
- * Model class representing a user entity for admin operations in the game shop system.
+ * Model class representing a user entity for admin operations in the game shop
+ * system.
+ *
  * @author Pham Van Hoai - CE181744
  */
 public class AdminUser {
@@ -24,7 +26,9 @@ public class AdminUser {
     private Timestamp created_at;  // Timestamp of when the user account was created
 
     /**
-     * Constructor to initialize an AdminUser object with essential fields including role and status.
+     * Constructor to initialize an AdminUser object with essential fields
+     * including role and status.
+     *
      * @param user_id The unique ID of the user
      * @param username The username of the user
      * @param email The email address of the user
@@ -45,6 +49,7 @@ public class AdminUser {
 
     /**
      * Constructor to initialize an AdminUser object with minimal fields.
+     *
      * @param user_id The unique ID of the user
      * @param username The username of the user
      * @param email The email address of the user
@@ -58,7 +63,9 @@ public class AdminUser {
     }
 
     /**
-     * Constructor to initialize an AdminUser object with GitHub authentication details.
+     * Constructor to initialize an AdminUser object with GitHub authentication
+     * details.
+     *
      * @param user_id The unique ID of the user
      * @param username The username of the user
      * @param email The email address of the user
@@ -87,6 +94,7 @@ public class AdminUser {
 
     /**
      * Gets the user ID.
+     *
      * @return The unique identifier of the user
      */
     public int getUser_id() {
@@ -95,6 +103,7 @@ public class AdminUser {
 
     /**
      * Sets the user ID.
+     *
      * @param user_id The unique identifier to set
      */
     public void setUser_id(int user_id) {
@@ -103,6 +112,7 @@ public class AdminUser {
 
     /**
      * Gets the username.
+     *
      * @return The username of the user
      */
     public String getUsername() {
@@ -111,6 +121,7 @@ public class AdminUser {
 
     /**
      * Sets the username.
+     *
      * @param username The username to set
      */
     public void setUsername(String username) {
@@ -119,6 +130,7 @@ public class AdminUser {
 
     /**
      * Gets the email address.
+     *
      * @return The email address of the user
      */
     public String getEmail() {
@@ -127,6 +139,7 @@ public class AdminUser {
 
     /**
      * Sets the email address.
+     *
      * @param email The email address to set
      */
     public void setEmail(String email) {
@@ -135,6 +148,7 @@ public class AdminUser {
 
     /**
      * Gets the GitHub ID.
+     *
      * @return The GitHub ID of the user (if applicable)
      */
     public String getGithubId() {
@@ -143,6 +157,7 @@ public class AdminUser {
 
     /**
      * Sets the GitHub ID.
+     *
      * @param githubId The GitHub ID to set
      */
     public void setGithubId(String githubId) {
@@ -151,6 +166,7 @@ public class AdminUser {
 
     /**
      * Gets the authentication provider.
+     *
      * @return The authentication provider ("local" or "github")
      */
     public String getAuth_provider() {
@@ -159,7 +175,9 @@ public class AdminUser {
 
     /**
      * Sets the authentication provider.
-     * @param auth_provider The authentication provider to set ("local" or "github")
+     *
+     * @param auth_provider The authentication provider to set ("local" or
+     * "github")
      */
     public void setAuth_provider(String auth_provider) {
         this.auth_provider = auth_provider;
@@ -167,6 +185,7 @@ public class AdminUser {
 
     /**
      * Gets the user role.
+     *
      * @return The role of the user (e.g., "admin", "user")
      */
     public String getRole() {
@@ -175,6 +194,7 @@ public class AdminUser {
 
     /**
      * Sets the user role.
+     *
      * @param role The role to set
      */
     public void setRole(String role) {
@@ -183,6 +203,7 @@ public class AdminUser {
 
     /**
      * Gets the user status.
+     *
      * @return The status of the user account (e.g., "active", "inactive")
      */
     public String getStatus() {
@@ -191,6 +212,7 @@ public class AdminUser {
 
     /**
      * Sets the user status.
+     *
      * @param status The status to set
      */
     public void setStatus(String status) {
@@ -199,6 +221,7 @@ public class AdminUser {
 
     /**
      * Gets the avatar URL.
+     *
      * @return The URL of the user's avatar image (if applicable)
      */
     public String getAvatarUrl() {
@@ -207,6 +230,7 @@ public class AdminUser {
 
     /**
      * Sets the avatar URL.
+     *
      * @param avatarUrl The URL of the avatar to set
      */
     public void setAvatarUrl(String avatarUrl) {
@@ -215,6 +239,7 @@ public class AdminUser {
 
     /**
      * Gets the last login timestamp.
+     *
      * @return The timestamp of the user's last login
      */
     public Timestamp getLast_login() {
@@ -223,6 +248,7 @@ public class AdminUser {
 
     /**
      * Sets the last login timestamp.
+     *
      * @param last_login The timestamp of the last login to set
      */
     public void setLast_login(Timestamp last_login) {
@@ -231,6 +257,7 @@ public class AdminUser {
 
     /**
      * Gets the creation timestamp.
+     *
      * @return The timestamp when the user account was created
      */
     public Timestamp getCreated_at() {
@@ -239,6 +266,7 @@ public class AdminUser {
 
     /**
      * Sets the creation timestamp.
+     *
      * @param created_at The timestamp of account creation to set
      */
     public void setCreated_at(Timestamp created_at) {

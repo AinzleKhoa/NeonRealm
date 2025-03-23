@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Servlet for managing admin coupon operations such as listing, adding, editing, and deleting coupons.
+ * Servlet for managing admin coupon operations such as listing, adding,
+ * editing, and deleting coupons.
+ *
  * @author Pham Van Hoai - CE181744
  */
 @WebServlet(name = "AdminCouponsServlet", urlPatterns = {"/admin/coupons"})
@@ -27,7 +29,8 @@ public class AdminCouponsServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method to display the coupon list, add coupon form, or edit coupon form.
+     * Handles the HTTP <code>GET</code> method to display the coupon list, add
+     * coupon form, or edit coupon form.
      *
      * @param request servlet request
      * @param response servlet response
@@ -83,7 +86,8 @@ public class AdminCouponsServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method to process actions like adding, editing, or deleting coupons.
+     * Handles the HTTP <code>POST</code> method to process actions like adding,
+     * editing, or deleting coupons.
      *
      * @param request servlet request
      * @param response servlet response

@@ -10,11 +10,13 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Model class representing a game entity for admin operations in the game shop system.
+ * Model class representing a game entity for admin operations in the game shop
+ * system.
+ *
  * @author Pham Van Hoai - CE181744
  */
 public class AdminGames {
-    
+
     private int gameId;              // Unique identifier for the game
     private String title;            // Title of the game
     private String description;      // Description of the game
@@ -35,7 +37,9 @@ public class AdminGames {
     }
 
     /**
-     * Constructor to initialize an AdminGames object with all fields, including creation timestamp.
+     * Constructor to initialize an AdminGames object with all fields, including
+     * creation timestamp.
+     *
      * @param gameId The unique ID of the game
      * @param title The title of the game
      * @param description The description of the game
@@ -63,9 +67,11 @@ public class AdminGames {
         this.platforms = platforms;
         this.categories = categories;
     }
-    
+
     /**
-     * Constructor to initialize an AdminGames object without creation timestamp.
+     * Constructor to initialize an AdminGames object without creation
+     * timestamp.
+     *
      * @param gameId The unique ID of the game
      * @param title The title of the game
      * @param description The description of the game
@@ -94,6 +100,7 @@ public class AdminGames {
 
     /**
      * Constructor to initialize an AdminGames object with basic fields only.
+     *
      * @param gameId The unique ID of the game
      * @param title The title of the game
      * @param description The description of the game
@@ -111,7 +118,9 @@ public class AdminGames {
     }
 
     /**
-     * Constructor to initialize an AdminGames object with genres and publishers only.
+     * Constructor to initialize an AdminGames object with genres and publishers
+     * only.
+     *
      * @param gameId The unique ID of the game
      * @param title The title of the game
      * @param description The description of the game
@@ -136,6 +145,7 @@ public class AdminGames {
 
     /**
      * Gets the game ID.
+     *
      * @return The unique identifier of the game
      */
     public int getGameId() {
@@ -144,6 +154,7 @@ public class AdminGames {
 
     /**
      * Sets the game ID.
+     *
      * @param gameId The unique identifier to set
      */
     public void setGameId(int gameId) {
@@ -152,6 +163,7 @@ public class AdminGames {
 
     /**
      * Gets the game title.
+     *
      * @return The title of the game
      */
     public String getTitle() {
@@ -160,6 +172,7 @@ public class AdminGames {
 
     /**
      * Sets the game title.
+     *
      * @param title The title to set
      */
     public void setTitle(String title) {
@@ -168,6 +181,7 @@ public class AdminGames {
 
     /**
      * Gets the game description.
+     *
      * @return The description of the game
      */
     public String getDescription() {
@@ -176,6 +190,7 @@ public class AdminGames {
 
     /**
      * Sets the game description.
+     *
      * @param description The description to set
      */
     public void setDescription(String description) {
@@ -184,6 +199,7 @@ public class AdminGames {
 
     /**
      * Gets the image URL of the game.
+     *
      * @return The URL or filename of the game's image
      */
     public String getImageUrl() {
@@ -192,6 +208,7 @@ public class AdminGames {
 
     /**
      * Sets the image URL of the game.
+     *
      * @param imageUrl The URL or filename to set
      */
     public void setImageUrl(String imageUrl) {
@@ -200,6 +217,7 @@ public class AdminGames {
 
     /**
      * Gets the price of the game.
+     *
      * @return The price of the game
      */
     public BigDecimal getPrice() {
@@ -208,6 +226,7 @@ public class AdminGames {
 
     /**
      * Sets the price of the game.
+     *
      * @param price The price to set
      */
     public void setPrice(BigDecimal price) {
@@ -216,6 +235,7 @@ public class AdminGames {
 
     /**
      * Gets the release date of the game.
+     *
      * @return The release date
      */
     public Date getReleaseDate() {
@@ -224,6 +244,7 @@ public class AdminGames {
 
     /**
      * Sets the release date of the game.
+     *
      * @param releaseDate The release date to set
      */
     public void setReleaseDate(Date releaseDate) {
@@ -232,6 +253,7 @@ public class AdminGames {
 
     /**
      * Gets the creation timestamp of the game.
+     *
      * @return The timestamp when the game was created
      */
     public Timestamp getCreatedAt() {
@@ -240,6 +262,7 @@ public class AdminGames {
 
     /**
      * Sets the creation timestamp of the game.
+     *
      * @param createdAt The timestamp to set for creation
      */
     public void setCreatedAt(Timestamp createdAt) {
@@ -248,6 +271,7 @@ public class AdminGames {
 
     /**
      * Gets the list of developers.
+     *
      * @return The list of developers associated with the game
      */
     public List<String> getDevelopers() {
@@ -256,6 +280,7 @@ public class AdminGames {
 
     /**
      * Sets the list of developers.
+     *
      * @param developers The list of developers to set
      */
     public void setDevelopers(List<String> developers) {
@@ -264,6 +289,7 @@ public class AdminGames {
 
     /**
      * Gets the list of publishers.
+     *
      * @return The list of publishers associated with the game
      */
     public List<String> getPublishers() {
@@ -272,6 +298,7 @@ public class AdminGames {
 
     /**
      * Sets the list of publishers.
+     *
      * @param publishers The list of publishers to set
      */
     public void setPublishers(List<String> publishers) {
@@ -280,6 +307,7 @@ public class AdminGames {
 
     /**
      * Gets the list of genres.
+     *
      * @return The list of genres the game belongs to
      */
     public List<String> getGenres() {
@@ -288,6 +316,7 @@ public class AdminGames {
 
     /**
      * Sets the list of genres.
+     *
      * @param genres The list of genres to set
      */
     public void setGenres(List<String> genres) {
@@ -296,6 +325,7 @@ public class AdminGames {
 
     /**
      * Gets the list of platforms.
+     *
      * @return The list of platforms the game supports
      */
     public List<String> getPlatforms() {
@@ -304,6 +334,7 @@ public class AdminGames {
 
     /**
      * Sets the list of platforms.
+     *
      * @param platforms The list of platforms to set
      */
     public void setPlatforms(List<String> platforms) {
@@ -312,6 +343,7 @@ public class AdminGames {
 
     /**
      * Gets the list of categories.
+     *
      * @return The list of categories the game fits into
      */
     public List<String> getCategories() {
@@ -320,6 +352,7 @@ public class AdminGames {
 
     /**
      * Sets the list of categories.
+     *
      * @param categories The list of categories to set
      */
     public void setCategories(List<String> categories) {

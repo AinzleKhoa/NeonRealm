@@ -16,6 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * UserDAO class is responsible for handling database operations related to
+ * users. It provides methods to save tokens, retrieve users, and update user
+ * information based on various attributes such as email, username, and GitHub
+ * ID.
  *
  * @author CE190449 - Le Anh Khoa
  */

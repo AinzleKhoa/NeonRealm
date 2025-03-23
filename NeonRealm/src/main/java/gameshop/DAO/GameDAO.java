@@ -17,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * GameDAO class is responsible for handling database operations related to
+ * game
  *
  * @author CE190449 - Le Anh Khoa
  */

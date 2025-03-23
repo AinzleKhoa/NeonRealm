@@ -14,44 +14,67 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
+/**
+ * GoogleOAuthService handles the OAuth 2.0 authentication process for Google
+ * accounts. It includes methods to retrieve access tokens and user information
+ * based on the authorization code and ID token from Google.
+ *
+ * @author CE171450 - Nguyen Hai Nam
+ */
 public class GoogleOAuthService {
+
     private static final String CLIENT_ID = "809722736314-p12thbcom86al3s29ob4gulekvb283mr.apps.googleusercontent.com";
     private static final String CLIENT_SECRET = "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";
     private static final String REDIRECT_URI = "http://localhost:8080/NeonRealm/google-callback";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    // Lấy access token từ Authorization Code
+    /**
+     * Gets the access token from the authorization code provided by Google
+     * OAuth.
+     *
+     * @param code the authorization code received from Google OAuth
+     * @return the GoogleTokenResponse containing the access token
+     * @throws IOException if an error occurs during the token request
+     */
     public GoogleTokenResponse getTokens(String code) throws IOException {
-    return new GoogleAuthorizationCodeTokenRequest(
-            new NetHttpTransport(),
-            JSON_FACTORY,
-            "https://oauth2.googleapis.com/token",
-            CLIENT_ID,
-            CLIENT_SECRET,
-            code,
-            REDIRECT_URI)
-            .execute();
-}
-
-
-    // Lấy thông tin user từ token
-    public GoogleUser getUserInfo(String idTokenString) throws IOException, GeneralSecurityException {
-    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
-            new NetHttpTransport(), JSON_FACTORY)
-            .setAudience(Collections.singletonList(CLIENT_ID))
-            .build();
-    
-    GoogleIdToken idToken = verifier.verify(idTokenString);
-    if (idToken == null) {
-        throw new IllegalArgumentException("Invalid ID token.");
+        return new GoogleAuthorizationCodeTokenRequest(
+                new NetHttpTransport(),
+                JSON_FACTORY,
+                "https://oauth2.googleapis.com/token",
+                CLIENT_ID,
+                CLIENT_SECRET,
+                code,
+                REDIRECT_URI)
+                .execute();
     }
 
-    GoogleIdToken.Payload payload = idToken.getPayload();
-    return new GoogleUser(
-            payload.getEmail(),
-            (String) payload.get("name"),
-            (String) payload.get("picture")
-    );
-}
+    /**
+     * Retrieves user information from the provided ID token.
+     *
+     * @param idTokenString the ID token received from Google OAuth
+     * @return a GoogleUser object containing the user's email, name, and avatar
+     * URL
+     * @throws IOException if an error occurs during the verification process
+     * @throws GeneralSecurityException if an error occurs with the ID token
+     * verification
+     */
+    public GoogleUser getUserInfo(String idTokenString) throws IOException, GeneralSecurityException {
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+                new NetHttpTransport(), JSON_FACTORY)
+                .setAudience(Collections.singletonList(CLIENT_ID))
+                .build();
+
+        GoogleIdToken idToken = verifier.verify(idTokenString);
+        if (idToken == null) {
+            throw new IllegalArgumentException("Invalid ID token.");
+        }
+
+        GoogleIdToken.Payload payload = idToken.getPayload();
+        return new GoogleUser(
+                payload.getEmail(),
+                (String) payload.get("name"),
+                (String) payload.get("picture")
+        );
+    }
 
 }

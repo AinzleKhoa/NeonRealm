@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author ALIENWARE
+ * @author CE171450 - Nguyen Hai Nam
  */
 public class CheckoutServlet extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

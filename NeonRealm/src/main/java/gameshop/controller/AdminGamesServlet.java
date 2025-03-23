@@ -24,15 +24,17 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Servlet for managing admin game operations such as listing, adding, editing, and deleting games.
- * Supports file uploads for game images with specified size limits.
+ * Servlet for managing admin game operations such as listing, adding, editing,
+ * and deleting games. Supports file uploads for game images with specified size
+ * limits.
+ *
  * @author Pham Van Hoai - CE181744
  */
 @WebServlet(name = "AdminGamesServlet", urlPatterns = {"/admin/games"})
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB - Memory threshold before writing to disk
-        maxFileSize = 1024 * 1024 * 10,      // 10MB - Maximum size for a single file
-        maxRequestSize = 1024 * 1024 * 50    // 50MB - Maximum size for the entire request
+        maxFileSize = 1024 * 1024 * 10, // 10MB - Maximum size for a single file
+        maxRequestSize = 1024 * 1024 * 50 // 50MB - Maximum size for the entire request
 )
 public class AdminGamesServlet extends HttpServlet {
 
@@ -43,7 +45,8 @@ public class AdminGamesServlet extends HttpServlet {
     private static final String UPLOAD_DIR = "/assets/img/cards/";
 
     /**
-     * Handles the HTTP <code>GET</code> method to display the game list, add game form, or edit game form.
+     * Handles the HTTP <code>GET</code> method to display the game list, add
+     * game form, or edit game form.
      *
      * @param request servlet request
      * @param response servlet response
@@ -133,6 +136,7 @@ public class AdminGamesServlet extends HttpServlet {
 
     /**
      * Loads data for dropdowns or selections in add/edit game forms.
+     *
      * @param request The servlet request to set attributes
      * @param adminGamesDAO The DAO instance to fetch data
      */
@@ -145,7 +149,8 @@ public class AdminGamesServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method to process actions like adding, editing, or deleting games.
+     * Handles the HTTP <code>POST</code> method to process actions like adding,
+     * editing, or deleting games.
      *
      * @param request servlet request
      * @param response servlet response
@@ -206,7 +211,9 @@ public class AdminGamesServlet extends HttpServlet {
     }
 
     /**
-     * Handles file upload for game images. Reuses the existing image if no new file is uploaded.
+     * Handles file upload for game images. Reuses the existing image if no new
+     * file is uploaded.
+     *
      * @param request The servlet request containing the file part
      * @param gameId The ID of the game (0 for new games)
      * @param adminGamesDAO The DAO instance to fetch existing game data
@@ -241,7 +248,9 @@ public class AdminGamesServlet extends HttpServlet {
     }
 
     /**
-     * Safely converts an array of values into a list, returning an empty list if null.
+     * Safely converts an array of values into a list, returning an empty list
+     * if null.
+     *
      * @param values The array of values from the request
      * @return A list of strings, or an empty list if values is null
      */

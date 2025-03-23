@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Represents a game in the system.
- * This class contains all the details related to a game, including its title, description, price, release date, and associated developers, publishers, genres, platforms, and categories.
- * 
+ * Represents a game in the system. This class contains all the details related
+ * to a game, including its title, description, price, release date, and
+ * associated developers, publishers, genres, platforms, and categories.
+ *
  * @author Le Anh Khoa - CE190449
  */
 public class Game {
@@ -28,10 +29,12 @@ public class Game {
     /**
      * Default constructor.
      */
-    public Game() { }
+    public Game() {
+    }
 
     /**
      * Constructor for OrderDetails.
+     *
      * @param gameId the unique ID of the game
      * @param title the title of the game
      * @param description the description of the game
@@ -45,9 +48,9 @@ public class Game {
      * @param platforms the list of platforms for the game
      * @param categories the list of categories the game belongs to
      */
-    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, 
-                LocalDateTime releaseDate, LocalDateTime createdAt, List<String> developers, 
-                List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price,
+            LocalDateTime releaseDate, LocalDateTime createdAt, List<String> developers,
+            List<String> publishers, List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.description = description;
@@ -64,6 +67,7 @@ public class Game {
 
     /**
      * Constructor for retrieving all the game data for the catalog.
+     *
      * @param gameId the unique ID of the game
      * @param title the title of the game
      * @param imageUrl the image URL of the game
@@ -75,9 +79,9 @@ public class Game {
      * @param platforms the list of platforms for the game
      * @param categories the list of categories the game belongs to
      */
-    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDateTime releaseDate, 
-                List<String> developers, List<String> publishers, List<String> genres, 
-                List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDateTime releaseDate,
+            List<String> developers, List<String> publishers, List<String> genres,
+            List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.imageUrl = imageUrl;
@@ -92,6 +96,7 @@ public class Game {
 
     /**
      * Constructor for retrieving the game data for the home page.
+     *
      * @param gameId the unique ID of the game
      * @param title the title of the game
      * @param imageUrl the image URL of the game
@@ -101,8 +106,8 @@ public class Game {
      * @param platforms the list of platforms for the game
      * @param categories the list of categories the game belongs to
      */
-    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDateTime releaseDate, 
-                List<String> genres, List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String imageUrl, BigDecimal price, LocalDateTime releaseDate,
+            List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.imageUrl = imageUrl;
@@ -115,6 +120,7 @@ public class Game {
 
     /**
      * Constructor for retrieving the game data for the game details page.
+     *
      * @param gameId the unique ID of the game
      * @param title the title of the game
      * @param description the description of the game
@@ -127,9 +133,9 @@ public class Game {
      * @param platforms the list of platforms for the game
      * @param categories the list of categories the game belongs to
      */
-    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price, 
-                LocalDateTime releaseDate, List<String> developers, List<String> publishers, 
-                List<String> genres, List<String> platforms, List<String> categories) {
+    public Game(int gameId, String title, String description, String imageUrl, BigDecimal price,
+            LocalDateTime releaseDate, List<String> developers, List<String> publishers,
+            List<String> genres, List<String> platforms, List<String> categories) {
         this.gameId = gameId;
         this.title = title;
         this.description = description;
@@ -145,6 +151,7 @@ public class Game {
 
     /**
      * Gets the unique ID of the game.
+     *
      * @return the game ID
      */
     public int getGameId() {
@@ -153,6 +160,7 @@ public class Game {
 
     /**
      * Sets the unique ID of the game.
+     *
      * @param gameId the game ID to set
      */
     public void setGameId(int gameId) {
@@ -161,6 +169,7 @@ public class Game {
 
     /**
      * Gets the title of the game.
+     *
      * @return the game title
      */
     public String getTitle() {
@@ -169,6 +178,7 @@ public class Game {
 
     /**
      * Sets the title of the game.
+     *
      * @param title the title to set
      */
     public void setTitle(String title) {
@@ -177,6 +187,7 @@ public class Game {
 
     /**
      * Gets the description of the game.
+     *
      * @return the game description
      */
     public String getDescription() {
@@ -185,6 +196,7 @@ public class Game {
 
     /**
      * Sets the description of the game.
+     *
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -193,6 +205,7 @@ public class Game {
 
     /**
      * Gets the image URL of the game.
+     *
      * @return the image URL
      */
     public String getImageUrl() {
@@ -201,6 +214,7 @@ public class Game {
 
     /**
      * Sets the image URL of the game.
+     *
      * @param imageUrl the image URL to set
      */
     public void setImageUrl(String imageUrl) {
@@ -209,6 +223,7 @@ public class Game {
 
     /**
      * Gets the price of the game.
+     *
      * @return the price of the game
      */
     public BigDecimal getPrice() {
@@ -217,6 +232,7 @@ public class Game {
 
     /**
      * Sets the price of the game.
+     *
      * @param price the price to set
      */
     public void setPrice(BigDecimal price) {
@@ -225,6 +241,7 @@ public class Game {
 
     /**
      * Gets the release date of the game.
+     *
      * @return the release date
      */
     public LocalDateTime getReleaseDate() {
@@ -233,6 +250,7 @@ public class Game {
 
     /**
      * Sets the release date of the game.
+     *
      * @param releaseDate the release date to set
      */
     public void setReleaseDate(LocalDateTime releaseDate) {
@@ -241,6 +259,7 @@ public class Game {
 
     /**
      * Gets the creation timestamp of the game record.
+     *
      * @return the creation timestamp
      */
     public LocalDateTime getCreatedAt() {
@@ -249,6 +268,7 @@ public class Game {
 
     /**
      * Sets the creation timestamp of the game record.
+     *
      * @param createdAt the creation timestamp to set
      */
     public void setCreatedAt(LocalDateTime createdAt) {
@@ -257,6 +277,7 @@ public class Game {
 
     /**
      * Gets the list of developers for the game.
+     *
      * @return the list of developers
      */
     public List<String> getDevelopers() {
@@ -265,6 +286,7 @@ public class Game {
 
     /**
      * Sets the list of developers for the game.
+     *
      * @param developers the developers to set
      */
     public void setDevelopers(List<String> developers) {
@@ -273,6 +295,7 @@ public class Game {
 
     /**
      * Gets the list of publishers for the game.
+     *
      * @return the list of publishers
      */
     public List<String> getPublishers() {
@@ -281,6 +304,7 @@ public class Game {
 
     /**
      * Sets the list of publishers for the game.
+     *
      * @param publishers the publishers to set
      */
     public void setPublishers(List<String> publishers) {
@@ -289,6 +313,7 @@ public class Game {
 
     /**
      * Gets the list of genres for the game.
+     *
      * @return the list of genres
      */
     public List<String> getGenres() {
@@ -297,6 +322,7 @@ public class Game {
 
     /**
      * Sets the list of genres for the game.
+     *
      * @param genres the genres to set
      */
     public void setGenres(List<String> genres) {
@@ -305,6 +331,7 @@ public class Game {
 
     /**
      * Gets the list of platforms for the game.
+     *
      * @return the list of platforms
      */
     public List<String> getPlatforms() {
@@ -313,6 +340,7 @@ public class Game {
 
     /**
      * Sets the list of platforms for the game.
+     *
      * @param platforms the platforms to set
      */
     public void setPlatforms(List<String> platforms) {
@@ -321,6 +349,7 @@ public class Game {
 
     /**
      * Gets the list of categories for the game.
+     *
      * @return the list of categories
      */
     public List<String> getCategories() {
@@ -329,6 +358,7 @@ public class Game {
 
     /**
      * Sets the list of categories for the game.
+     *
      * @param categories the categories to set
      */
     public void setCategories(List<String> categories) {
@@ -337,6 +367,7 @@ public class Game {
 
     /**
      * Gets the formatted list of developers as a comma-separated string.
+     *
      * @return the formatted string of developers
      */
     public String getFormattedDevelopers() {
@@ -345,6 +376,7 @@ public class Game {
 
     /**
      * Gets the formatted list of publishers as a comma-separated string.
+     *
      * @return the formatted string of publishers
      */
     public String getFormattedPublishers() {
@@ -353,6 +385,7 @@ public class Game {
 
     /**
      * Gets the formatted list of genres as a comma-separated string.
+     *
      * @return the formatted string of genres
      */
     public String getFormattedGenres() {
@@ -361,6 +394,7 @@ public class Game {
 
     /**
      * Gets the formatted list of platforms as a comma-separated string.
+     *
      * @return the formatted string of platforms
      */
     public String getFormattedPlatforms() {
@@ -369,6 +403,7 @@ public class Game {
 
     /**
      * Gets the formatted list of categories as a comma-separated string.
+     *
      * @return the formatted string of categories
      */
     public String getFormattedCategories() {

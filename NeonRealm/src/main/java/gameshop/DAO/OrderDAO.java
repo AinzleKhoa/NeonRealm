@@ -19,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * OrderDAO class is responsible for handling database operations related to
+ * orders
  *
  * @author CE190449 - Le Anh Khoa
  */
